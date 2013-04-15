@@ -7,6 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Window.Type;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.SwingConstants;
 
 public class Mainview extends JFrame {
 
@@ -38,8 +41,19 @@ public class Mainview extends JFrame {
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBounds(0, 0, 794, 21);
+		contentPane.add(menuBar);
+		
+		JMenuItem mntmFile = new JMenuItem("File");
+		mntmFile.setHorizontalAlignment(SwingConstants.TRAILING);
+		menuBar.add(mntmFile);
+		
+		JMenuItem mntmHelp = new JMenuItem("Help");
+		mntmHelp.setHorizontalAlignment(SwingConstants.TRAILING);
+		menuBar.add(mntmHelp);
 	}
-
 }
