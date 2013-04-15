@@ -25,10 +25,18 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.UIManager;
 import java.awt.Panel;
+import javax.swing.JSpinner;
+import javax.swing.JToggleButton;
+import javax.swing.JCheckBox;
+import java.awt.Font;
+import javax.swing.JTextArea;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 
 public class Mainview extends JFrame {
 
 	private JPanel contentPane;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -100,22 +108,19 @@ public class Mainview extends JFrame {
 		btnReset.setBounds(240, 5, 75, 25);
 		panel.add(btnReset);
 		
-		JTextPane txtpnSourcecode = new JTextPane();
-		txtpnSourcecode.setEditable(false);
-		txtpnSourcecode.setBounds(12, 86, 500, 475);
-		contentPane.add(txtpnSourcecode);
 		
 		JLabel lblSourceCode = new JLabel("Source Code");
 		lblSourceCode.setBounds(12, 64, 105, 15);
 		contentPane.add(lblSourceCode);
 		
 		JLabel lblSpezialfunktionsregister = new JLabel("Spezialfunktionsregister");
-		lblSpezialfunktionsregister.setBounds(524, 33, 189, 15);
+		lblSpezialfunktionsregister.setBounds(524, 23, 189, 15);
 		contentPane.add(lblSpezialfunktionsregister);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new LineBorder(UIManager.getColor("Button.disabledToolBarBorderBackground")));
 		panel_1.setBackground(UIManager.getColor("Button.disabledToolBarBorderBackground"));
-		panel_1.setBounds(524, 53, 458, 45);
+		panel_1.setBounds(524, 43, 458, 33);
 		contentPane.add(panel_1);
 		panel_1.setLayout(new GridLayout(2, 4, 1, 1));
 		
@@ -156,12 +161,13 @@ public class Mainview extends JFrame {
 		panel_1.add(textPanePCLreg);
 		
 		JLabel lblStatus = new JLabel("Statusregister");
-		lblStatus.setBounds(524, 103, 189, 15);
+		lblStatus.setBounds(524, 86, 189, 15);
 		contentPane.add(lblStatus);
 		
-		Panel panel_2 = new Panel();
+		JPanel panel_2 = new JPanel();
+		panel_2.setBorder(new LineBorder(UIManager.getColor("Button.disabledToolBarBorderBackground")));
 		panel_2.setBackground(UIManager.getColor("Button.disabledToolBarBorderBackground"));
-		panel_2.setBounds(524, 119, 458, 45);
+		panel_2.setBounds(524, 102, 458, 33);
 		contentPane.add(panel_2);
 		panel_2.setLayout(new GridLayout(2, 6, 1, 1));
 		
@@ -219,21 +225,197 @@ public class Mainview extends JFrame {
 		textPaneC.setEditable(false);
 		panel_2.add(textPaneC);
 		
-		JLabel lblPorts = new JLabel("Ports");
-		lblPorts.setBounds(524, 172, 70, 15);
-		contentPane.add(lblPorts);
-		
 		JLabel lblRa = new JLabel("RA");
-		lblRa.setBounds(530, 200, 70, 15);
+		lblRa.setBounds(528, 153, 43, 15);
 		contentPane.add(lblRa);
 		
+		JLabel lblTris = new JLabel("Tris");
+		lblTris.setBounds(552, 163, 33, 15);
+		contentPane.add(lblTris);
+		
 		JLabel lblRb = new JLabel("RB");
-		lblRb.setBounds(530, 253, 70, 15);
+		lblRb.setBounds(530, 196, 70, 15);
 		contentPane.add(lblRb);
 		
-		JLabel lblTris = new JLabel("Tris");
-		lblTris.setBounds(550, 215, 70, 15);
-		contentPane.add(lblTris);
+		JLabel lblTris_1 = new JLabel("Tris");
+		lblTris_1.setBounds(552, 206, 33, 15);
+		contentPane.add(lblTris_1);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBorder(new LineBorder(UIManager.getColor("Button.disabledToolBarBorderBackground")));
+		panel_3.setBackground(UIManager.getColor("Button.disabledToolBarBorderBackground"));
+		panel_3.setBounds(582, 143, 402, 33);
+		contentPane.add(panel_3);
+		panel_3.setLayout(new GridLayout(2, 8, 1, 1));
+		
+		JTextPane textPane_5 = new JTextPane();
+		textPane_5.setBackground(UIManager.getColor("Button.background"));
+		textPane_5.setEditable(false);
+		panel_3.add(textPane_5);
+		
+		JTextPane textPane_14 = new JTextPane();
+		textPane_14.setBackground(UIManager.getColor("Button.background"));
+		textPane_14.setEditable(false);
+		panel_3.add(textPane_14);
+		
+		JTextPane textPane_12 = new JTextPane();
+		textPane_12.setBackground(UIManager.getColor("Button.background"));
+		textPane_12.setEditable(false);
+		panel_3.add(textPane_12);
+		
+		JTextPane textPaneRA4 = new JTextPane();
+		panel_3.add(textPaneRA4);
+		
+		JTextPane textPaneRA3 = new JTextPane();
+		panel_3.add(textPaneRA3);
+		
+		JTextPane textPaneRA2 = new JTextPane();
+		panel_3.add(textPaneRA2);
+		
+		JTextPane textPaneRA1 = new JTextPane();
+		panel_3.add(textPaneRA1);
+		
+		JTextPane textPaneRA0 = new JTextPane();
+		panel_3.add(textPaneRA0);
+		
+		JTextPane txtpnI = new JTextPane();
+		txtpnI.setBackground(UIManager.getColor("Button.background"));
+		txtpnI.setEditable(false);
+		panel_3.add(txtpnI);
+		
+		JTextPane txtpnI_1 = new JTextPane();
+		txtpnI_1.setBackground(UIManager.getColor("Button.background"));
+		txtpnI_1.setEditable(false);
+		panel_3.add(txtpnI_1);
+		
+		JTextPane txtpnI_2 = new JTextPane();
+		txtpnI_2.setBackground(UIManager.getColor("Button.background"));
+		txtpnI_2.setEditable(false);
+		panel_3.add(txtpnI_2);
+		
+		JTextPane textPaneRAt4 = new JTextPane();
+		textPaneRAt4.setBackground(UIManager.getColor("Button.background"));
+		textPaneRAt4.setText("i");
+		textPaneRAt4.setEditable(false);
+		panel_3.add(textPaneRAt4);
+		
+		JTextPane textPaneRAt3 = new JTextPane();
+		textPaneRAt3.setBackground(UIManager.getColor("Button.background"));
+		textPaneRAt3.setText("i");
+		textPaneRAt3.setEditable(false);
+		panel_3.add(textPaneRAt3);
+		
+		JTextPane textPaneRAt2 = new JTextPane();
+		textPaneRAt2.setBackground(UIManager.getColor("Button.background"));
+		textPaneRAt2.setText("i");
+		textPaneRAt2.setEditable(false);
+		panel_3.add(textPaneRAt2);
+		
+		JTextPane textPaneRAt1 = new JTextPane();
+		textPaneRAt1.setBackground(UIManager.getColor("Button.background"));
+		textPaneRAt1.setText("i");
+		textPaneRAt1.setEditable(false);
+		panel_3.add(textPaneRAt1);
+		
+		JTextPane textPaneRAt0 = new JTextPane();
+		textPaneRAt0.setBackground(UIManager.getColor("Button.background"));
+		textPaneRAt0.setText("i");
+		textPaneRAt0.setEditable(false);
+		panel_3.add(textPaneRAt0);
+		
+		JPanel panel_4 = new JPanel();
+		panel_4.setBorder(new LineBorder(UIManager.getColor("Button.disabledToolBarBorderBackground")));
+		panel_4.setBackground(UIManager.getColor("Button.disabledToolBarBorderBackground"));
+		panel_4.setBounds(582, 190, 402, 33);
+		contentPane.add(panel_4);
+		panel_4.setLayout(new GridLayout(2, 8, 1, 1));
+		
+		JTextPane textPaneRB7 = new JTextPane();
+		panel_4.add(textPaneRB7);
+		
+		JTextPane textPaneRB6 = new JTextPane();
+		panel_4.add(textPaneRB6);
+		
+		JTextPane textPaneRB5 = new JTextPane();
+		panel_4.add(textPaneRB5);
+		
+		JTextPane textPaneRB4 = new JTextPane();
+		panel_4.add(textPaneRB4);
+		
+		JTextPane textPaneRB3 = new JTextPane();
+		panel_4.add(textPaneRB3);
+		
+		JTextPane textPaneRB2 = new JTextPane();
+		panel_4.add(textPaneRB2);
+		
+		JTextPane textPaneRB1 = new JTextPane();
+		panel_4.add(textPaneRB1);
+		
+		JTextPane textPaneRB0 = new JTextPane();
+		panel_4.add(textPaneRB0);
+		
+		JTextPane textPaneRBt7 = new JTextPane();
+		textPaneRBt7.setText("i");
+		textPaneRBt7.setEditable(false);
+		textPaneRBt7.setBackground(UIManager.getColor("Button.background"));
+		panel_4.add(textPaneRBt7);
+		
+		JTextPane textPaneRBt6 = new JTextPane();
+		textPaneRBt6.setText("i");
+		textPaneRBt6.setEditable(false);
+		textPaneRBt6.setBackground(UIManager.getColor("Button.background"));
+		panel_4.add(textPaneRBt6);
+		
+		JTextPane textPaneRBt5 = new JTextPane();
+		textPaneRBt5.setText("i");
+		textPaneRBt5.setEditable(false);
+		textPaneRBt5.setBackground(UIManager.getColor("Button.background"));
+		panel_4.add(textPaneRBt5);
+		
+		JTextPane textPaneRBt4 = new JTextPane();
+		textPaneRBt4.setText("i");
+		textPaneRBt4.setEditable(false);
+		textPaneRBt4.setBackground(UIManager.getColor("Button.background"));
+		panel_4.add(textPaneRBt4);
+		
+		JTextPane textPaneRBt3 = new JTextPane();
+		textPaneRBt3.setText("i");
+		textPaneRBt3.setEditable(false);
+		textPaneRBt3.setBackground(UIManager.getColor("Button.background"));
+		panel_4.add(textPaneRBt3);
+		
+		JTextPane textPaneRBt2 = new JTextPane();
+		textPaneRBt2.setText("i");
+		textPaneRBt2.setEditable(false);
+		textPaneRBt2.setBackground(UIManager.getColor("Button.background"));
+		panel_4.add(textPaneRBt2);
+		
+		JTextPane textPaneRBt1 = new JTextPane();
+		textPaneRBt1.setText("i");
+		textPaneRBt1.setEditable(false);
+		textPaneRBt1.setBackground(UIManager.getColor("Button.background"));
+		panel_4.add(textPaneRBt1);
+		
+		JTextPane textPaneRBt0 = new JTextPane();
+		textPaneRBt0.setText("i");
+		textPaneRBt0.setEditable(false);
+		textPaneRBt0.setBackground(UIManager.getColor("Button.background"));
+		panel_4.add(textPaneRBt0);
+		
+		JCheckBox chckbxHardwarecom = new JCheckBox("Hardware/COM");
+		chckbxHardwarecom.setFont(new Font("Dialog", Font.BOLD, 12));
+		chckbxHardwarecom.setBounds(836, 231, 146, 23);
+		contentPane.add(chckbxHardwarecom);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(12, 86, 500, 475);
+		contentPane.add(scrollPane);
+		
+		JTextArea textAreaSourceCode = new JTextArea();
+		scrollPane.setViewportView(textAreaSourceCode);
+		textAreaSourceCode.setLineWrap(true);
+		
+		
 		
 		}
 }
