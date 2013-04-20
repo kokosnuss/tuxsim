@@ -35,20 +35,61 @@ import javax.swing.JTextArea;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
-public class Mainview extends JFrame implements IMainview{
+public class Mainview extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
-
-	/**
-	 * Launch the application.
-	 */
-
-
-	/**
-	 * Create the frame.
-	 */
+	private JMenuBar menuBar = new JMenuBar();
+	private JMenu mnFile = new JMenu("File");
+	private JMenuItem mntmOpen = new JMenuItem("Open");
+	private JMenu mnAbout = new JMenu("About");
+	private JMenuItem mntmHelp = new JMenuItem("Help");
+	private JMenuItem mntmAboutTuxsim = new JMenuItem("About TuxSim");
+	private JButton btnStart = new JButton("Start");
+	private JButton btnStop = new JButton("Stop");
+	private JButton btnStep = new JButton("Step");
+	private JButton btnReset = new JButton("Reset");
+	public JTextArea textAreaSourceCode = new JTextArea();
+	private JTextPane textPaneWreg = new JTextPane();
+	private JTextPane textPaneFSRreg = new JTextPane();
+	private JTextPane textPaneTMR0 = new JTextPane();
+	private JTextPane textPanePCLreg = new JTextPane();
+	private JTextPane textPaneRP0 = new JTextPane();
+	private JTextPane textPaneTO = new JTextPane();
+	private JTextPane textPanePD = new JTextPane();
+	private JTextPane textPaneZ = new JTextPane();
+	private JTextPane textPaneDC = new JTextPane();
+	private JTextPane textPaneC = new JTextPane();
+	private JTextPane textPaneRA4 = new JTextPane();
+	private JTextPane textPaneRA3 = new JTextPane();
+	private JTextPane textPaneRA2 = new JTextPane();
+	private JTextPane textPaneRA1 = new JTextPane();
+	private JTextPane textPaneRA0 = new JTextPane();
+	private JTextPane textPaneRAt4 = new JTextPane();
+	private JTextPane textPaneRAt3 = new JTextPane();
+	private JTextPane textPaneRAt2 = new JTextPane();
+	private JTextPane textPaneRAt1 = new JTextPane();
+	private JTextPane textPaneRB7 = new JTextPane();
+	private JTextPane textPaneRB6 = new JTextPane();
+	private JTextPane textPaneRB5 = new JTextPane();
+	private JTextPane textPaneRB4 = new JTextPane();
+	private JTextPane textPaneRB3 = new JTextPane();
+	private JTextPane textPaneRB2 = new JTextPane();
+	private JTextPane textPaneRB1 = new JTextPane();
+	private JTextPane textPaneRB0 = new JTextPane();
+	private JTextPane textPaneRBt7 = new JTextPane();
+	private JTextPane textPaneRBt6 = new JTextPane();
+	private JTextPane textPaneRBt5 = new JTextPane();
+	private JTextPane textPaneRBt4 = new JTextPane();
+	private JTextPane textPaneRBt3 = new JTextPane();
+	private JTextPane textPaneRBt2 = new JTextPane();
+	private JTextPane textPaneRBt1 = new JTextPane();
+	private JTextPane textPaneRBt0 = new JTextPane();
+	private JCheckBox chckbxHardwarecom = new JCheckBox("Hardware/COM");
+	
+	
 	public Mainview() {
+
 		setResizable(false);
 		setTitle("TuxSim");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -57,53 +98,44 @@ public class Mainview extends JFrame implements IMainview{
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		JMenuBar menuBar = new JMenuBar();
+		//Menu Bar
 		menuBar.setBounds(0, 0, 994, 21);
 		contentPane.add(menuBar);
-		
-		JMenu mnFile = new JMenu("File");
 		menuBar.add(mnFile);
-		
-		JMenuItem mntmOpen = new JMenuItem("Open");
 		mnFile.add(mntmOpen);
-		
-		JMenu mnAbout = new JMenu("About");
 		menuBar.add(mnAbout);
-		
-		JMenuItem mntmHelp = new JMenuItem("Help");
 		mnAbout.add(mntmHelp);
-		
-		JMenuItem mntmAboutTuxsim = new JMenuItem("About TuxSim");
 		mnAbout.add(mntmAboutTuxsim);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(12, 23, 500, 40);
 		contentPane.add(panel);
 		panel.setLayout(null);
-		
-		JButton btnStart = new JButton("Start");
+		//Start,Stop,Step, Reset Buttons
 		btnStart.setBounds(0, 5, 70, 25);
 		btnStart.setHorizontalAlignment(SwingConstants.LEFT);
 		panel.add(btnStart);
-		
-		JButton btnStop = new JButton("Stop");
 		btnStop.setBounds(82, 5, 67, 25);
 		panel.add(btnStop);
-		
-		JButton btnStep = new JButton("Step");
 		btnStep.setBounds(161, 5, 67, 25);
 		panel.add(btnStep);
-		
-		JButton btnReset = new JButton("Reset");
 		btnReset.setBounds(240, 5, 75, 25);
 		panel.add(btnReset);
 		
-		
-		 JLabel lblSourceCode = new JLabel("Source Code");
+		//Source Code
+		JLabel lblSourceCode = new JLabel("Source Code");
 		lblSourceCode.setBounds(12, 64, 105, 15);
 		contentPane.add(lblSourceCode);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(12, 86, 500, 475);
+		contentPane.add(scrollPane);
+		
+		
+		scrollPane.setViewportView(textAreaSourceCode);
+		textAreaSourceCode.setLineWrap(true);
+		
+		//Spezialfunktionsregister
 		JLabel lblSpezialfunktionsregister = new JLabel("Spezialfunktionsregister");
 		lblSpezialfunktionsregister.setBounds(524, 23, 189, 15);
 		contentPane.add(lblSpezialfunktionsregister);
@@ -131,26 +163,27 @@ public class Mainview extends JFrame implements IMainview{
 		lblPcl.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_1.add(lblPcl);
 		
-		JTextPane textPaneWreg = new JTextPane();
+
 		textPaneWreg.setBackground(UIManager.getColor("Button.background"));
 		textPaneWreg.setEditable(false);
 		panel_1.add(textPaneWreg);
 		
-		JTextPane textPaneFSRreg = new JTextPane();
+
 		textPaneFSRreg.setBackground(UIManager.getColor("Button.background"));
 		textPaneFSRreg.setEditable(false);
 		panel_1.add(textPaneFSRreg);
 		
-		JTextPane textPaneTMR0 = new JTextPane();
+
 		textPaneTMR0.setBackground(UIManager.getColor("Button.background"));
 		textPaneTMR0.setEditable(false);
 		panel_1.add(textPaneTMR0);
 		
-		JTextPane textPanePCLreg = new JTextPane();
+
 		textPanePCLreg.setBackground(UIManager.getColor("Button.background"));
 		textPanePCLreg.setEditable(false);
 		panel_1.add(textPanePCLreg);
 		
+		//Statusregister
 		JLabel lblStatus = new JLabel("Statusregister");
 		lblStatus.setBounds(524, 86, 189, 15);
 		contentPane.add(lblStatus);
@@ -186,36 +219,37 @@ public class Mainview extends JFrame implements IMainview{
 		lblC.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_2.add(lblC);
 		
-		JTextPane textPaneRP0 = new JTextPane();
+
 		textPaneRP0.setBackground(UIManager.getColor("Button.background"));
 		textPaneRP0.setEditable(false);
 		panel_2.add(textPaneRP0);
 		
-		JTextPane textPaneTO = new JTextPane();
+
 		textPaneTO.setBackground(UIManager.getColor("Button.background"));
 		textPaneTO.setEditable(false);
 		panel_2.add(textPaneTO);
 		
-		JTextPane textPanePD = new JTextPane();
+
 		textPanePD.setBackground(UIManager.getColor("Button.background"));
 		textPanePD.setEditable(false);
 		panel_2.add(textPanePD);
 		
-		JTextPane textPaneZ = new JTextPane();
+
 		textPaneZ.setBackground(UIManager.getColor("Button.background"));
 		textPaneZ.setEditable(false);
 		panel_2.add(textPaneZ);
 		
-		JTextPane textPaneDC = new JTextPane();
+
 		textPaneDC.setBackground(UIManager.getColor("Button.background"));
 		textPaneDC.setEditable(false);
 		panel_2.add(textPaneDC);
 		
-		JTextPane textPaneC = new JTextPane();
+
 		textPaneC.setBackground(UIManager.getColor("Button.background"));
 		textPaneC.setEditable(false);
 		panel_2.add(textPaneC);
 		
+		//Ports RA & RB
 		JLabel lblRa = new JLabel("RA");
 		lblRa.setBounds(528, 153, 43, 15);
 		contentPane.add(lblRa);
@@ -254,19 +288,16 @@ public class Mainview extends JFrame implements IMainview{
 		textPane_12.setEditable(false);
 		panel_3.add(textPane_12);
 		
-		JTextPane textPaneRA4 = new JTextPane();
 		panel_3.add(textPaneRA4);
 		
-		JTextPane textPaneRA3 = new JTextPane();
 		panel_3.add(textPaneRA3);
 		
-		JTextPane textPaneRA2 = new JTextPane();
-		panel_3.add(textPaneRA2);
 		
-		JTextPane textPaneRA1 = new JTextPane();
+		panel_3.add(textPaneRA2);
+
 		panel_3.add(textPaneRA1);
 		
-		JTextPane textPaneRA0 = new JTextPane();
+
 		panel_3.add(textPaneRA0);
 		
 		JTextPane txtpnI = new JTextPane();
@@ -284,25 +315,24 @@ public class Mainview extends JFrame implements IMainview{
 		txtpnI_2.setEditable(false);
 		panel_3.add(txtpnI_2);
 		
-		JTextPane textPaneRAt4 = new JTextPane();
+
 		textPaneRAt4.setBackground(UIManager.getColor("Button.background"));
 		textPaneRAt4.setText("i");
 		textPaneRAt4.setEditable(false);
 		panel_3.add(textPaneRAt4);
-		
-		JTextPane textPaneRAt3 = new JTextPane();
+
 		textPaneRAt3.setBackground(UIManager.getColor("Button.background"));
 		textPaneRAt3.setText("i");
 		textPaneRAt3.setEditable(false);
 		panel_3.add(textPaneRAt3);
 		
-		JTextPane textPaneRAt2 = new JTextPane();
+		
 		textPaneRAt2.setBackground(UIManager.getColor("Button.background"));
 		textPaneRAt2.setText("i");
 		textPaneRAt2.setEditable(false);
 		panel_3.add(textPaneRAt2);
 		
-		JTextPane textPaneRAt1 = new JTextPane();
+
 		textPaneRAt1.setBackground(UIManager.getColor("Button.background"));
 		textPaneRAt1.setText("i");
 		textPaneRAt1.setEditable(false);
@@ -321,98 +351,73 @@ public class Mainview extends JFrame implements IMainview{
 		contentPane.add(panel_4);
 		panel_4.setLayout(new GridLayout(2, 8, 1, 1));
 		
-		JTextPane textPaneRB7 = new JTextPane();
 		panel_4.add(textPaneRB7);
-		
-		JTextPane textPaneRB6 = new JTextPane();
 		panel_4.add(textPaneRB6);
-		
-		JTextPane textPaneRB5 = new JTextPane();
 		panel_4.add(textPaneRB5);
-		
-		JTextPane textPaneRB4 = new JTextPane();
 		panel_4.add(textPaneRB4);
-		
-		JTextPane textPaneRB3 = new JTextPane();
 		panel_4.add(textPaneRB3);
-		
-		JTextPane textPaneRB2 = new JTextPane();
 		panel_4.add(textPaneRB2);
-		
-		JTextPane textPaneRB1 = new JTextPane();
 		panel_4.add(textPaneRB1);
-		
-		JTextPane textPaneRB0 = new JTextPane();
 		panel_4.add(textPaneRB0);
 		
-		JTextPane textPaneRBt7 = new JTextPane();
 		textPaneRBt7.setText("i");
 		textPaneRBt7.setEditable(false);
 		textPaneRBt7.setBackground(UIManager.getColor("Button.background"));
 		panel_4.add(textPaneRBt7);
 		
-		JTextPane textPaneRBt6 = new JTextPane();
+
+		
 		textPaneRBt6.setText("i");
 		textPaneRBt6.setEditable(false);
 		textPaneRBt6.setBackground(UIManager.getColor("Button.background"));
 		panel_4.add(textPaneRBt6);
 		
-		JTextPane textPaneRBt5 = new JTextPane();
+		
 		textPaneRBt5.setText("i");
 		textPaneRBt5.setEditable(false);
 		textPaneRBt5.setBackground(UIManager.getColor("Button.background"));
 		panel_4.add(textPaneRBt5);
 		
-		JTextPane textPaneRBt4 = new JTextPane();
+	
 		textPaneRBt4.setText("i");
 		textPaneRBt4.setEditable(false);
 		textPaneRBt4.setBackground(UIManager.getColor("Button.background"));
 		panel_4.add(textPaneRBt4);
 		
-		JTextPane textPaneRBt3 = new JTextPane();
+		
 		textPaneRBt3.setText("i");
 		textPaneRBt3.setEditable(false);
 		textPaneRBt3.setBackground(UIManager.getColor("Button.background"));
 		panel_4.add(textPaneRBt3);
 		
-		JTextPane textPaneRBt2 = new JTextPane();
+
 		textPaneRBt2.setText("i");
 		textPaneRBt2.setEditable(false);
 		textPaneRBt2.setBackground(UIManager.getColor("Button.background"));
 		panel_4.add(textPaneRBt2);
 		
-		JTextPane textPaneRBt1 = new JTextPane();
+
 		textPaneRBt1.setText("i");
 		textPaneRBt1.setEditable(false);
 		textPaneRBt1.setBackground(UIManager.getColor("Button.background"));
 		panel_4.add(textPaneRBt1);
 		
-		JTextPane textPaneRBt0 = new JTextPane();
+
 		textPaneRBt0.setText("i");
 		textPaneRBt0.setEditable(false);
 		textPaneRBt0.setBackground(UIManager.getColor("Button.background"));
 		panel_4.add(textPaneRBt0);
 		
-		JCheckBox chckbxHardwarecom = new JCheckBox("Hardware/COM");
+
 		chckbxHardwarecom.setFont(new Font("Dialog", Font.BOLD, 12));
 		chckbxHardwarecom.setBounds(836, 231, 146, 23);
 		contentPane.add(chckbxHardwarecom);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(12, 86, 500, 475);
-		contentPane.add(scrollPane);
-		
-		JTextArea textAreaSourceCode = new JTextArea();
-		scrollPane.setViewportView(textAreaSourceCode);
-		textAreaSourceCode.setLineWrap(true);
+
 		
 		
 		
 		}
 
-	@Override
-	public void sourceCodeSetText(String txt) {
-		
-		
-	}
+
 }
