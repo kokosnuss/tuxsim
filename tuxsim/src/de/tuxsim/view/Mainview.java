@@ -35,7 +35,7 @@ import javax.swing.JTextArea;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
-public class Mainview extends JFrame {
+public class Mainview extends JFrame implements IMainview{
 
 	private JPanel contentPane;
 	private JTextField textField;
@@ -43,18 +43,7 @@ public class Mainview extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Mainview frame = new Mainview();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 	/**
 	 * Create the frame.
@@ -111,7 +100,7 @@ public class Mainview extends JFrame {
 		panel.add(btnReset);
 		
 		
-		JLabel lblSourceCode = new JLabel("Source Code");
+		 JLabel lblSourceCode = new JLabel("Source Code");
 		lblSourceCode.setBounds(12, 64, 105, 15);
 		contentPane.add(lblSourceCode);
 		
@@ -420,4 +409,10 @@ public class Mainview extends JFrame {
 		
 		
 		}
+
+	@Override
+	public void sourceCodeSetText(String txt) {
+		
+		
+	}
 }
