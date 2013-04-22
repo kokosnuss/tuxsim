@@ -7,7 +7,7 @@ package de.tuxsim.controller;
 import de.tuxsim.view.Mainview;
 
 /**
- * Main class, generates the maincontroller
+ * Main class, generates the 
  * @author tuxpad
  *
  */
