@@ -34,7 +34,11 @@ import java.awt.Font;
 import javax.swing.JTextArea;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
-
+/**
+ * GUI-Class, separated from Controller & Model
+ * @author tuxpad
+ *
+ */
 public class Mainview extends JFrame {
 
 	private JPanel contentPane;

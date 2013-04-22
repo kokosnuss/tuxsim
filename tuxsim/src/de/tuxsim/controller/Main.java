@@ -6,6 +6,11 @@ package de.tuxsim.controller;
 
 import de.tuxsim.view.Mainview;
 
+/**
+ * Main class, generates the maincontroller
+ * @author tuxpad
+ *
+ */
 public class Main {
 
 	/**

@@ -24,12 +24,12 @@ public class MainController {
 	
 	public void initGui() {
 		gui.setVisible(true);
-		gui.textAreaSourceCode.setText("test");
 	}
 	
 	public void readLst() {
 		try {
 			decoder.readLst(gui);
+			decoder.parseInstructions();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

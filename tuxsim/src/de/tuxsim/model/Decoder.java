@@ -7,16 +7,22 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.nio.charset.Charset;
+import java.util.HashMap;
 
 import de.tuxsim.view.Mainview;
 
 
-//Class to decode the .lst-File and build the Data Structure 
+ 
 
-
+/**
+ * Decoder Class, decodes the .lst File, generates the HashMap with the Instructions
+ * and parses them
+ * @author tuxpad
+ *
+ */
 public class Decoder {
 	
-	
+	HashMap<Integer, Integer> instructionMap = new HashMap<Integer, Integer>();
 	
 	
 	public void readLst(Mainview frame) throws IOException{
@@ -31,14 +37,23 @@ public class Decoder {
 		frame.textAreaSourceCode.append(line+"\n");	
 		
 		if (Character.isDigit(line.charAt(0))) {
-			int lineNumber = Integer.parseInt(line.substring(0,4), 16);
+			int memoryAdress = Integer.parseInt(line.substring(0,4), 16);
 			int instruction = Integer.parseInt(line.substring(5,9), 16);
-			System.out.print(lineNumber+" ");
-			System.out.println(instruction);
+		
+			instructionMap.put(memoryAdress, instruction);
+			
+
 			}
 		}
-
+		//Close Buffered Reader
 		br.close();
-	}
 		
+	}
+	
+	public void parseInstructions() {
+		for (int i = 0; i < instructionMap.size(); i++) {
+			
+			
+			}
+		}
 }
