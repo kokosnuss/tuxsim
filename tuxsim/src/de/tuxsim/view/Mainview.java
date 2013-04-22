@@ -459,7 +459,16 @@ public class Mainview extends JFrame {
 		}
 		return this.textPaneRA5;
 		}
-
+ 
+	public JTextArea getSourceCodeTextArea() 
+	{
+		return this.textAreaSourceCode;
+	}
+	
+	public JCheckBox getCheckbox()
+	{
+		return this.chckbxHardwarecom;
+	}
 	}
 	
 
