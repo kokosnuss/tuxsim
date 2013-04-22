@@ -60,6 +60,7 @@ public class Mainview extends JFrame {
 	private JTextPane textPaneZ = new JTextPane();
 	private JTextPane textPaneDC = new JTextPane();
 	private JTextPane textPaneC = new JTextPane();
+	private JTextPane textPaneRA5 = new JTextPane();
 	private JTextPane textPaneRA4 = new JTextPane();
 	private JTextPane textPaneRA3 = new JTextPane();
 	private JTextPane textPaneRA2 = new JTextPane();
@@ -69,6 +70,7 @@ public class Mainview extends JFrame {
 	private JTextPane textPaneRAt3 = new JTextPane();
 	private JTextPane textPaneRAt2 = new JTextPane();
 	private JTextPane textPaneRAt1 = new JTextPane();
+	private JTextPane textPaneRAt0 = new JTextPane();
 	private JTextPane textPaneRB7 = new JTextPane();
 	private JTextPane textPaneRB6 = new JTextPane();
 	private JTextPane textPaneRB5 = new JTextPane();
@@ -337,7 +339,6 @@ public class Mainview extends JFrame {
 		textPaneRAt1.setEditable(false);
 		panel_3.add(textPaneRAt1);
 		
-		JTextPane textPaneRAt0 = new JTextPane();
 		textPaneRAt0.setBackground(UIManager.getColor("Button.background"));
 		textPaneRAt0.setText("i");
 		textPaneRAt0.setEditable(false);
@@ -414,7 +415,52 @@ public class Mainview extends JFrame {
 		
 
 		
+	}
+	public JTextPane getTextPane(String pane) {
+	
+		switch(pane)
+		{
+		case "Wreg": 	return this.textPaneWreg;
+		case "FSRreg": 	return this.textPaneFSRreg; 
+		case "TMR0": 	return this.textPaneTMR0; 	
+		case "PCLreg": 	return this.textPanePCLreg; 
+		case "RP0": 	return this.textPaneRP0; 	
+		case "TO": 		return this.textPaneTO; 	
+		case "PD": 		return this.textPanePD; 	
+		case "Z": 		return this.textPaneZ; 		
+		case "DC":		return this.textPaneDC;		
+		case "C":		return this.textPaneC; 		
+		case "RA4":		return this.textPaneRA4;	
+		case "RA3":		return this.textPaneRA3;	
+		case "RA2":		return this.textPaneRA2;	
+		case "RA1":		return this.textPaneRA1;	
+		case "RA0":		return this.textPaneRA0;	
+		case "RAt4":	return this.textPaneRAt4;	
+		case "RAt3":	return this.textPaneRAt3;	
+		case "RAt2":	return this.textPaneRAt2;	
+		case "RAt1":	return this.textPaneRAt1;	
+		case "RAt0":	return this.textPaneRAt0;	
+		case "RB7":		return this.textPaneRB7;	
+		case "RB6":		return this.textPaneRB6;	
+		case "RB5":		return this.textPaneRB5;	
+		case "RB4":		return this.textPaneRB4;	
+		case "RB3":		return this.textPaneRB3;	
+		case "RB2":		return this.textPaneRB2;	
+		case "RB1":		return this.textPaneRB1;	
+		case "RB0":		return this.textPaneRB0;	
+		case "RBt7":	return this.textPaneRBt7;	
+		case "RBt6":	return this.textPaneRBt6;	
+		case "RB5t":	return this.textPaneRBt5;	
+		case "RBt4":	return this.textPaneRBt4;	
+		case "RBt3":	return this.textPaneRBt3;	
+		case "RBt2":	return this.textPaneRBt2;	
+		case "RBt1":	return this.textPaneRBt1;	
+		case "RBt0":	return this.textPaneRBt0;	
+		}
+		return this.textPaneRA5;
 		}
 
+	}
+	
 
-}
+

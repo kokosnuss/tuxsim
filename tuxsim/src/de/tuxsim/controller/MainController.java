@@ -18,6 +18,7 @@ public class MainController {
 	public MainController() {
 		this.decoder = new Decoder();
 		this.gui = new Mainview();
+		gui.getTextPane("Wreg").setText("test");
 		
 	}
 	
