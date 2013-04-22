@@ -133,7 +133,6 @@ public class Mainview extends JFrame {
 		
 		
 		scrollPane.setViewportView(textAreaSourceCode);
-		textAreaSourceCode.setLineWrap(true);
 		
 		//Spezialfunktionsregister
 		JLabel lblSpezialfunktionsregister = new JLabel("Spezialfunktionsregister");
@@ -414,8 +413,6 @@ public class Mainview extends JFrame {
 		contentPane.add(chckbxHardwarecom);
 		
 
-		
-		
 		
 		}
 
