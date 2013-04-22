@@ -26,9 +26,9 @@ public class MainController {
 		gui.textAreaSourceCode.setText("test");
 	}
 	
-	public void einlesen() {
+	public void readLst() {
 		try {
-			decoder.einlesen(gui);
+			decoder.readLst(gui);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
