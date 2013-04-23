@@ -51,8 +51,13 @@ public class Decoder {
 	}
 	
 	public void parseInstructions() {
+		int k = 5;
+		
 		for (int i = 0; i < instructionMap.size(); i++) {
-			
+			if ((i ^ k) == 0 ) {System.out.println("k="+k+"i="+i);}
+//			int instruction = instructionMap.get(i);
+//			
+//			System.out.println(instruction);
 			
 			}
 		}
