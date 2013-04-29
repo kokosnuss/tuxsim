@@ -27,7 +27,7 @@ public class MainController {
 
 	
 	public void temp() {
-		//this.initGui();
+		this.initGui();
 		this.readLst();
 	}
 

@@ -16,6 +16,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JMenu;
 import java.awt.Component;
 import javax.swing.Box;
+import javax.swing.JFileChooser;
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
 import javax.swing.JTextPane;
@@ -36,6 +37,9 @@ import javax.swing.JTextArea;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import java.awt.ScrollPane;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.io.File;
 /**
  * GUI-Class, separated from Controller & Model
  * @author tuxpad
@@ -111,6 +115,17 @@ public class Mainview extends JFrame {
 		menuBar.setBounds(0, 0, 994, 21);
 		contentPane.add(menuBar);
 		menuBar.add(mnFile);
+		mntmOpen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//OpenFile of = new OpenFile();
+				//of.openFile();
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+				int result = fileChooser.showOpenDialog(getParent());
+				if (result == JFileChooser.APPROVE_OPTION) {
+				    File selectedFile = fileChooser.getSelectedFile();
+			}
+		}});
 		mnFile.add(mntmOpen);
 		menuBar.add(mnAbout);
 		mnAbout.add(mntmHelp);
