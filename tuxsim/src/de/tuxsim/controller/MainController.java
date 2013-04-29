@@ -57,9 +57,42 @@ public class MainController {
 		curInstruction = decoder.getInstruction(address);
 		curAddress = address;
 		String binInstruction = Integer.toBinaryString(curInstruction);
-		
+		if (binInstruction.matches("^000111.*")) { } //addwf
+		if (binInstruction.matches("^000101.*")) {} //andwf
+		if (binInstruction.matches("^0000011.*")) {} //clrf
+		if (binInstruction.matches("^0000010.*")) {} //clrw
+		if (binInstruction.matches("^001001.*")) {} //comf
+		if (binInstruction.matches("^000011.*")) {} //decf
+		if (binInstruction.matches("^001011.*")) {} //decfsz
+		if (binInstruction.matches("^001010.*")) {} //incf
+		if (binInstruction.matches("^001111.*")) {} //incfsz
+		if (binInstruction.matches("^000100.*")) {} //iorwf
+		if (binInstruction.matches("^001000.*")) {} //movf
+		if (binInstruction.matches("^0000001.*")) {} //movwf
+		if (binInstruction.matches("^0000000.*")) {} //nop
+		if (binInstruction.matches("^001101.*")) {} //rlf
+		if (binInstruction.matches("^001100.*")) {} //rrf
+		if (binInstruction.matches("^000010.*")) {} //subwf
+		if (binInstruction.matches("^001110.*")) {} //swapf
+		if (binInstruction.matches("^000110.*")) {} //xorwf
+		if (binInstruction.matches("^0100.*")) {} //bcf
+		if (binInstruction.matches("^0101.*")) {} //bsf
+		if (binInstruction.matches("^0110.*")) {} //btfsc
+		if (binInstruction.matches("^0111.*")) {} //btfss
+		if (binInstruction.matches("^11111.*")) {} //addlw
+		if (binInstruction.matches("^111001.*")) {} //andlw
+		if (binInstruction.matches("^100.*")) {} //call
+		if (binInstruction.matches("^101.*")) {instructions.iGoto(curInstruction);} //GOTO
+		if (binInstruction.matches("^111000.*")) {} //iorlw
+		if (binInstruction.matches("^1100.*")) {instructions.movlw(curInstruction);} //movlw
+		if (binInstruction.matches("^00000000001001.*")) {} //retfie
+		if (binInstruction.matches("^1101.*")) {} //retlw
+		if (binInstruction.matches("^00000000001000.*")) {} //return
+		if (binInstruction.matches("^11110.*")) {} //sublw
+		if (binInstruction.matches("^111010.*")) {} //xorlw
 		if (binInstruction.matches("^101.*")) {instructions.iGoto(curInstruction);}
 		if (binInstruction.matches("^1100.*")) {instructions.movlw(curInstruction);}
+		else {curAddress=decoder.getInstructionMap().size()+1;}
 		
 		
 	}

@@ -63,5 +63,12 @@ public class Decoder {
 			int instruction = instructionMap.get(address);
 			return instruction;
 			}
+	/**
+	 * @return the instructionMap
+	 */
+	public HashMap<Integer, Integer> getInstructionMap() {
+		return instructionMap;
+	}
+	
 }
 	
