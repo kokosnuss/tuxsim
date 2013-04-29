@@ -1,9 +1,10 @@
-//This is dev-branch
+
 
 package de.tuxsim.view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Scrollbar;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -34,6 +35,7 @@ import java.awt.Font;
 import javax.swing.JTextArea;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import java.awt.ScrollPane;
 /**
  * GUI-Class, separated from Controller & Model
  * @author tuxpad
@@ -92,6 +94,7 @@ public class Mainview extends JFrame {
 	private JTextPane textPaneRBt1 = new JTextPane();
 	private JTextPane textPaneRBt0 = new JTextPane();
 	private JCheckBox chckbxHardwarecom = new JCheckBox("Hardware/COM");
+	private JTable table;
 	
 	
 	public Mainview() {
@@ -418,7 +421,69 @@ public class Mainview extends JFrame {
 		chckbxHardwarecom.setBounds(836, 231, 146, 23);
 		contentPane.add(chckbxHardwarecom);
 		
-
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(522, 261, 454, 300);
+		contentPane.add(scrollPane_1);
+		
+		table = new JTable();
+		table.setColumnSelectionAllowed(true);
+		table.setBackground(UIManager.getColor("CheckBox.background"));
+		scrollPane_1.setViewportView(table);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+				{"00", null, null, null, null, null, null, null, null},
+				{"08", null, null, null, null, null, null, null, null},
+				{"10", null, null, null, null, null, null, null, null},
+				{"18", null, null, null, null, null, null, null, null},
+				{"20", null, null, null, null, null, null, null, null},
+				{"28", null, null, null, null, null, null, null, null},
+				{"30", null, null, null, null, null, null, null, null},
+				{"38", null, null, null, null, null, null, null, null},
+				{"40", null, null, null, null, null, null, null, null},
+				{"48", null, null, null, null, null, null, null, null},
+				{"50", null, null, null, null, null, null, null, null},
+				{"58", null, null, null, null, null, null, null, null},
+				{"60", null, null, null, null, null, null, null, null},
+				{"68", null, null, null, null, null, null, null, null},
+				{"70", null, null, null, null, null, null, null, null},
+				{"78", null, null, null, null, null, null, null, null},
+				{"80", null, null, null, null, null, null, null, null},
+				{"88", null, null, null, null, null, null, null, null},
+				{"90", null, null, null, null, null, null, null, null},
+				{"98", null, null, null, null, null, null, null, null},
+				{"A0", null, null, null, null, null, null, null, null},
+				{"A8", null, null, null, null, null, null, null, null},
+				{"B0", null, null, null, null, null, null, null, null},
+				{"B8", null, null, null, null, null, null, null, null},
+				{"C0", null, null, null, null, null, null, null, null},
+				{"C8", null, null, null, null, null, null, null, null},
+				{"D0", null, null, null, null, null, null, null, null},
+				{"D8", null, null, null, null, null, null, null, null},
+				{"E0", null, null, null, null, null, null, null, null},
+				{"E8", null, null, null, null, null, null, null, null},
+				{"F0", null, null, null, null, null, null, null, null},
+				{"F8", null, null, null, null, null, null, null, null},
+			},
+			new String[] {
+				"", "00", "01", "02", "03", "04", "05", "06", "07"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				true, false, true, false, false, false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		table.getColumnModel().getColumn(1).setResizable(false);
+		table.getColumnModel().getColumn(2).setResizable(false);
+		table.getColumnModel().getColumn(3).setResizable(false);
+		table.getColumnModel().getColumn(4).setResizable(false);
+		table.getColumnModel().getColumn(5).setResizable(false);
+		table.getColumnModel().getColumn(6).setResizable(false);
+		table.getColumnModel().getColumn(7).setResizable(false);
+		table.getColumnModel().getColumn(8).setResizable(false);
+		
 		
 	}
 	public JTextPane getTextPane(String pane) {
@@ -474,7 +539,6 @@ public class Mainview extends JFrame {
 	{
 		return this.chckbxHardwarecom;
 	}
-	}
-	
+}
 
 

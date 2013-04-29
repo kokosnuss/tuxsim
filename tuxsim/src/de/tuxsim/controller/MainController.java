@@ -24,12 +24,13 @@ public class MainController {
 		this.instructions = new Instructions(this);
 		this.interna = new Interna();
 	}
+
 	
 	public void temp() {
 		//this.initGui();
 		this.readLst();
-		for (int i=0; i<=decoder.)
 	}
+
 	/**
 	 * Enable Gui
 	 */
