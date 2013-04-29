@@ -20,9 +20,8 @@ public class Main {
 		
 		
 		MainController maincontroller = new MainController();
-		//this.initGui();
-		maincontroller.readLst();
-		maincontroller.execInstruction(0);
+		maincontroller.temp();
+	
 
 	}
 

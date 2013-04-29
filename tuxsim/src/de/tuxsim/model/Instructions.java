@@ -16,8 +16,8 @@ public class Instructions {
 	
 	public void movlw(int instruction) {
 		int literal = instruction & 1023;
-		mc.getInterna().setRegW(literal);
-		 
+		mc.getInterna().setRegW(literal); 
+		
 	}
 
 }
