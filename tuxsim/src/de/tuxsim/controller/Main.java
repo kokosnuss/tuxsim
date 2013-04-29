@@ -13,20 +13,16 @@ import de.tuxsim.view.Mainview;
  */
 public class Main {
 
-	/**
+	/**Main Class, init a maincontroller and starts gui
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		
 		
 		MainController maincontroller = new MainController();
-		//maincontroller.initGui();
+		//this.initGui();
 		maincontroller.readLst();
-		
-
-		
-		
-
+		maincontroller.execInstruction(0);
 
 	}
 

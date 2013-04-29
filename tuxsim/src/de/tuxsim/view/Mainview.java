@@ -412,6 +412,7 @@ public class Mainview extends JFrame {
 		textPaneRBt0.setBackground(UIManager.getColor("Button.background"));
 		panel_4.add(textPaneRBt0);
 		
+		
 
 		chckbxHardwarecom.setFont(new Font("Dialog", Font.BOLD, 12));
 		chckbxHardwarecom.setBounds(836, 231, 146, 23);

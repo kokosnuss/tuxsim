@@ -24,7 +24,12 @@ public class Decoder {
 	
 	HashMap<Integer, Integer> instructionMap = new HashMap<Integer, Integer>();
 	
-	
+	/**
+	 * Read Lst-File and build HashMap
+	 * @param frame
+	 * @throws IOException
+	 */
+	// TODO remove frame
 	public void readLst(Mainview frame) throws IOException{
 		//Liest Datei mit Sonderzeichen
 		File x = new File("BA_Test.LST");
@@ -49,16 +54,13 @@ public class Decoder {
 		br.close();
 		
 	}
-	
-	public void parseInstructions() {
-		int k = 5;
-		
-		for (int i = 0; i < instructionMap.size(); i++) {
-			if ((i ^ k) == 0 ) {System.out.println("k="+k+"i="+i);}
-//			int instruction = instructionMap.get(i);
-//			
-//			System.out.println(instruction);
-			
+	/**
+	 * Returns the instruction to the given adress of the Hashmap
+	 * @param address
+	 * @return
+	 */
+	public int getInstruction(int address) {
+			int instruction = instructionMap.get(address);
+			return instruction;
 			}
-		}
 }
