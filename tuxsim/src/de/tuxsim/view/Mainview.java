@@ -115,17 +115,8 @@ public class Mainview extends JFrame {
 		menuBar.setBounds(0, 0, 994, 21);
 		contentPane.add(menuBar);
 		menuBar.add(mnFile);
-		mntmOpen.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				//OpenFile of = new OpenFile();
-				//of.openFile();
-				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-				int result = fileChooser.showOpenDialog(getParent());
-				if (result == JFileChooser.APPROVE_OPTION) {
-				    File selectedFile = fileChooser.getSelectedFile();
-			}
-		}});
+		
+		
 		mnFile.add(mntmOpen);
 		menuBar.add(mnAbout);
 		mnAbout.add(mntmHelp);
@@ -501,6 +492,11 @@ public class Mainview extends JFrame {
 		
 		
 	}
+	
+	public void setOpenListener(ActionListener l) {
+		this.mntmOpen.addActionListener(l);
+	}
+	
 	public JTextPane getTextPane(String pane) {
 	
 		switch(pane)

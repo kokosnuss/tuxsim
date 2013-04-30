@@ -1,15 +1,20 @@
 package de.tuxsim.controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
 import de.tuxsim.model.Decoder;
 import de.tuxsim.model.Instructions;
 import de.tuxsim.model.Interna;
 import de.tuxsim.view.Mainview;
+import de.tuxsim.view.OpenFile;
 
 
 public class MainController {
 	private Decoder decoder;
 	private Mainview gui;
+	private OpenFile of;
 	private Instructions instructions;
 	private Interna interna;
 	
@@ -23,12 +28,13 @@ public class MainController {
 		this.gui = new Mainview();
 		this.instructions = new Instructions(this);
 		this.interna = new Interna();
+		this.of = new OpenFile();
 	}
 
 	
 	public void temp() {
 		this.initGui();
-		this.readLst();
+		this.addListener();
 	}
 
 	/**
@@ -38,16 +44,11 @@ public class MainController {
 		gui.setVisible(true);
 	}
 	
-	/**
-	 * Call decoder function readLst
-	 */
-	public void readLst() {
-		try {
-			decoder.readLst(gui);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public void addListener() {
+		this.gui.setOpenListener(new OpenListener());
 	}
+	
+	
 	
 	/**
 	 * Executes the Instruction to the given Adress
@@ -115,6 +116,23 @@ public class MainController {
 	 */
 	public Interna getInterna() {
 		return interna;
+	}
+	/**
+	 * Intern class for StartBtnListener
+	 * @author tuxpad
+	 *
+	 */
+	class OpenListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			File file = of.openFile(gui.getParent());
+			try {
+				decoder.readLst(gui,file);
+			} catch (IOException ioe) {
+				ioe.printStackTrace();
+			}
+			
+		}
+		
 	}
 }
 

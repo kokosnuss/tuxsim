@@ -30,10 +30,9 @@ public class Decoder {
 	 * @throws IOException
 	 */
 	// TODO remove frame
-	public void readLst(Mainview frame) throws IOException{
+	public void readLst(Mainview frame, File f) throws IOException{
 		//Liest Datei mit Sonderzeichen
-		File x = new File("BA_Test.LST");
-		FileInputStream fis = new FileInputStream(x);
+		FileInputStream fis = new FileInputStream(f);
 		InputStreamReader isr = new InputStreamReader(fis, Charset.forName("ISO-8859-1"));
 		BufferedReader br = new BufferedReader(isr);
 		String line = "";
