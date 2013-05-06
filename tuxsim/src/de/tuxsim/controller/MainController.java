@@ -47,7 +47,14 @@ public class MainController {
 	
 	public void addListener() {
 		this.gui.setOpenListener(new OpenListener());
+		this.gui.setHelpListener(new HelpListener());
+		this.gui.setAboutTuxSimListener(new AboutTuxSimListener());
+		this.gui.setStartListener(new StartListener());
+		this.gui.setStopListener(new StopListener());
+		this.gui.setStepListener(new StepListener());
+		this.gui.setResetListener(new ResetListener());
 	}
+	
 	
 	
 	
@@ -142,6 +149,54 @@ public class MainController {
 			
 		}
 		
+	}
+	
+	class HelpListener implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			
+		}
+	}
+	
+	class AboutTuxSimListener implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			
+		}
+	}
+	
+	class StartListener implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			
+		}
+	}
+	
+	class StopListener implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			
+		}
+	}
+	
+	class StepListener implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			
+		}
+	}
+	
+	class ResetListener implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			
+		}
 	}
 }
 
