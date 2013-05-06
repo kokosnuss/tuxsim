@@ -7,165 +7,170 @@ package de.tuxsim.model;
  *
  */
 public class Interna {
+	private short Register[];
 	private int regW;
-	private int regFSR;
-	private int regTMR0;
-	private int regPCL;
 	
-	private int regRP0;
-	private int regTO;
-	private int regPD;
-	private int regZ;
-	private int regDC;
-	private int regc;
+	public Interna() {
+		this.initRegister();
+	}
 	
 	/**
-	 * @return the portA
+	 * Init array of bytes for every single Register
 	 */
-	public int getPortA() {
-		return portA;
+	public void initRegister() {
+		Register = new short[0x100];
+		for (int i = 0; i < this.Register.length; i++) {
+			this.Register[i] = 0;
+		}
+		/**
+		 * Set Register to default values
+		 */
+		this.Register[0x3] = Short.parseShort("00011000", 2);
+		this.Register[0x83] = Short.parseShort("00011000", 2);
+		this.Register[0x81] = Short.parseShort("11111111", 2);
+		this.Register[0x85] = Short.parseShort("00011111", 2);
+		this.Register[0x86] = Short.parseShort("11111111", 2);
 	}
-	/**
-	 * @param portA the portA to set
-	 */
-	public void setPortA(int portA) {
-		this.portA = portA;
-	}
-	/**
-	 * @return the portB
-	 */
-	public int getPortB() {
-		return portB;
-	}
-	/**
-	 * @param portB the portB to set
-	 */
-	public void setPortB(int portB) {
-		this.portB = portB;
-	}
-	private int portA;
-	private int portB;
-	/**
-	 * @return the regW
-	 */
-	public int getRegW() {
-		return regW;
-	}
-	/**
-	 * @param regW the regW to set
-	 */
-	public void setRegW(int regW) {
-		this.regW = regW;
-	}
-	/**
-	 * @return the regFSR
-	 */
-	public int getRegFSR() {
-		return regFSR;
-	}
-	/**
-	 * @param regFSR the regFSR to set
-	 */
-	public void setRegFSR(int regFSR) {
-		this.regFSR = regFSR;
-	}
-	/**
-	 * @return the regTMR0
-	 */
-	public int getRegTMR0() {
-		return regTMR0;
-	}
-	/**
-	 * @param regTMR0 the regTMR0 to set
-	 */
-	public void setRegTMR0(int regTMR0) {
-		this.regTMR0 = regTMR0;
-	}
-	/**
-	 * @return the regPCL
-	 */
-	public int getRegPCL() {
-		return regPCL;
-	}
-	/**
-	 * @param regPCL the regPCL to set
-	 */
-	public void setRegPCL(int regPCL) {
-		this.regPCL = regPCL;
-	}
-	/**
-	 * @return the regRP0
-	 */
-	public int getRegRP0() {
-		return regRP0;
-	}
-	/**
-	 * @param regRP0 the regRP0 to set
-	 */
-	public void setRegRP0(int regRP0) {
-		this.regRP0 = regRP0;
-	}
-	/**
-	 * @return the regTO
-	 */
-	public int getRegTO() {
-		return regTO;
-	}
-	/**
-	 * @param regTO the regTO to set
-	 */
-	public void setRegTO(int regTO) {
-		this.regTO = regTO;
-	}
-	/**
-	 * @return the regPD
-	 */
-	public int getRegPD() {
-		return regPD;
-	}
-	/**
-	 * @param regPD the regPD to set
-	 */
-	public void setRegPD(int regPD) {
-		this.regPD = regPD;
-	}
-	/**
-	 * @return the regZ
-	 */
-	public int getRegZ() {
-		return regZ;
-	}
-	/**
-	 * @param regZ the regZ to set
-	 */
-	public void setRegZ(int regZ) {
-		this.regZ = regZ;
-	}
-	/**
-	 * @return the regDC
-	 */
-	public int getRegDC() {
-		return regDC;
-	}
-	/**
-	 * @param regDC the regDC to set
-	 */
-	public void setRegDC(int regDC) {
-		this.regDC = regDC;
-	}
-	/**
-	 * @return the regc
-	 */
-	public int getRegc() {
-		return regc;
-	}
-	/**
-	 * @param regc the regc to set
-	 */
-	public void setRegc(int regc) {
-		this.regc = regc;
+	
+	public void setBitAt(int index, int bit) {
+		short help = 1;
+		help = (short) (help << bit);
+		// Auf Bank überprüfen und ggf. Indexwert anpassen
+		switch (index) {
+		case 0x0:
+			this.Register[0x0] = (short) (this.Register[index] | help);
+			this.Register[0x80] = (short) (this.Register[index] | help);
+			break;
+		case 0x2:
+			this.Register[0x2] = (short) (this.Register[index] | help);
+			this.Register[0x82] = (short) (this.Register[index] | help);
+			break;
+		case 0x3:
+			this.Register[0x3] = (short) (this.Register[index] | help);
+			this.Register[0x83] = (short) (this.Register[index] | help);
+			break;
+		case 0x4:
+			this.Register[0x4] = (short) (this.Register[index] | help);
+			this.Register[0x84] = (short) (this.Register[index] | help);
+			break;
+		case 0xA:
+			this.Register[0xA] = (short) (this.Register[index] | help);
+			this.Register[0x8A] = (short) (this.Register[index] | help);
+			break;
+		case 0xB:
+			this.Register[0xB] = (short) (this.Register[index] | help);
+			this.Register[0x8B] = (short) (this.Register[index] | help);
+			break;
+		case 0x80:
+			this.Register[0x0] = (short) (this.Register[index] | help);
+			this.Register[0x80] = (short) (this.Register[index] | help);
+			break;
+		case 0x82:
+			this.Register[0x2] = (short) (this.Register[index] | help);
+			this.Register[0x82] = (short) (this.Register[index] | help);
+			break;
+		case 0x83:
+			this.Register[0x3] = (short) (this.Register[index] | help);
+			this.Register[0x83] = (short) (this.Register[index] | help);
+			break;
+		case 0x84:
+			this.Register[0x4] = (short) (this.Register[index] | help);
+			this.Register[0x84] = (short) (this.Register[index] | help);
+			break;
+		case 0x8A:
+			this.Register[0xA] = (short) (this.Register[index] | help);
+			this.Register[0x8A] = (short) (this.Register[index] | help);
+			break;
+		case 0x8B:
+			this.Register[0xB] = (short) (this.Register[index] | help);
+			this.Register[0x8B] = (short) (this.Register[index] | help);
+			break;
+		default:
+			if ((checkBank() == 1) && (index < 0x80))
+				index = index + 0x80;
+			break;
+		}
+		return;
 	}
 
+	public void clearBitAt(int index, int bit) {
+		short help = 1;
+		help = (short) (help << bit);
+		help = (short) ~help;
+		// Auf Bank überprüfen und ggf. Indexwert anpassen
+		switch (index) {
+		case 0x0:
+			this.Register[0x0] = (short) (this.Register[index] & help);
+			this.Register[0x80] = (short) (this.Register[index] & help);
+			break;
+		case 0x2:
+			this.Register[0x2] = (short) (this.Register[index] & help);
+			this.Register[0x82] = (short) (this.Register[index] & help);
+			break;
+		case 0x3:
+			this.Register[0x3] = (short) (this.Register[index] & help);
+			this.Register[0x83] = (short) (this.Register[index] & help);
+			break;
+		case 0x4:
+			this.Register[0x4] = (short) (this.Register[index] & help);
+			this.Register[0x84] = (short) (this.Register[index] & help);
+			break;
+		case 0xA:
+			this.Register[0xA] = (short) (this.Register[index] & help);
+			this.Register[0x8A] = (short) (this.Register[index] & help);
+			break;
+		case 0xB:
+			this.Register[0xB] = (short) (this.Register[index] & help);
+			this.Register[0x8B] = (short) (this.Register[index] & help);
+			break;
+		case 0x80:
+			this.Register[0x0] = (short) (this.Register[index] & help);
+			this.Register[0x80] = (short) (this.Register[index] & help);
+			break;
+		case 0x82:
+			this.Register[0x2] = (short) (this.Register[index] & help);
+			this.Register[0x82] = (short) (this.Register[index] & help);
+			break;
+		case 0x83:
+			this.Register[0x3] = (short) (this.Register[index] & help);
+			this.Register[0x83] = (short) (this.Register[index] & help);
+			break;
+		case 0x84:
+			this.Register[0x4] = (short) (this.Register[index] & help);
+			this.Register[0x84] = (short) (this.Register[index] & help);
+			break;
+		case 0x8A:
+			this.Register[0xA] = (short) (this.Register[index] & help);
+			this.Register[0x8A] = (short) (this.Register[index] & help);
+			break;
+		case 0x8B:
+			this.Register[0xB] = (short) (this.Register[index] & help);
+			this.Register[0x8B] = (short) (this.Register[index] & help);
+			break;
+		default:
+			if ((checkBank() == 1) && (index < 0x80))
+				index = index + 0x80;
+			this.Register[index] = (short) (this.Register[index] & help);
+			break;
+		}
+		return;
+	}
+	private int checkBank() {
+		int help = 1;
+		help = help << 5;
+		if ((this.Register[0x3] & help) == 0) {
+			return 0;
+		} else {
+			return 1; 
+		}
+	}
+
+	public int getRegW() {
+		return this.regW;
+	}
+	public void setRegW(int literal) {
+		this.regW = literal;
+	}
 	
 	
 	

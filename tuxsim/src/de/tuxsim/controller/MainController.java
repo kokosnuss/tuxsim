@@ -21,7 +21,7 @@ public class MainController {
 
 
 	private int curInstruction;
-	private int curAddress;
+	private int curAddress = 0;
 	
 	public MainController() {
 		this.decoder = new Decoder();
@@ -35,6 +35,7 @@ public class MainController {
 	public void temp() {
 		this.initGui();
 		this.addListener();
+		
 	}
 
 	/**
@@ -54,14 +55,17 @@ public class MainController {
 	 * Executes the Instruction to the given Adress
 	 * @param address
 	 */
-	public void execInstruction(int address) {
-		curInstruction = decoder.getInstruction(address);
-		curAddress = address;
-		String binInstruction = Integer.toBinaryString(curInstruction);
+	public void execInstruction() {
+		curInstruction = decoder.getInstruction(curAddress);
+        String binInstruction = Integer.toBinaryString(curInstruction);
+        while (binInstruction.length() < 14) binInstruction = "0" + binInstruction;
+        
+		//String binInstruction = Integer.toBinaryString(curInstruction);
+		
 		if (binInstruction.matches("^000111.*")) { } //addwf
 		if (binInstruction.matches("^000101.*")) {} //andwf
 		if (binInstruction.matches("^0000011.*")) {} //clrf
-		if (binInstruction.matches("^0000010.*")) {} //clrw
+		if (binInstruction.matches("^0000010.*")) {instructions.clrw(curInstruction);} //clrw
 		if (binInstruction.matches("^001001.*")) {} //comf
 		if (binInstruction.matches("^000011.*")) {} //decf
 		if (binInstruction.matches("^001011.*")) {} //decfsz
@@ -76,14 +80,14 @@ public class MainController {
 		if (binInstruction.matches("^000010.*")) {} //subwf
 		if (binInstruction.matches("^001110.*")) {} //swapf
 		if (binInstruction.matches("^000110.*")) {} //xorwf
-		if (binInstruction.matches("^0100.*")) {} //bcf
-		if (binInstruction.matches("^0101.*")) {} //bsf
+		if (binInstruction.matches("^0100.*")) {instructions.bcf(curInstruction);} //bcf
+		if (binInstruction.matches("^0101.*")) {instructions.bsf(curInstruction);} //bsf
 		if (binInstruction.matches("^0110.*")) {} //btfsc
 		if (binInstruction.matches("^0111.*")) {} //btfss
 		if (binInstruction.matches("^11111.*")) {} //addlw
 		if (binInstruction.matches("^111001.*")) {} //andlw
 		if (binInstruction.matches("^100.*")) {} //call
-		if (binInstruction.matches("^101.*")) {instructions.iGoto(curInstruction);} //GOTO
+		if (binInstruction.matches("^101.*")) {instructions.iGoto(curInstruction); } //GOTO
 		if (binInstruction.matches("^111000.*")) {} //iorlw
 		if (binInstruction.matches("^1100.*")) {instructions.movlw(curInstruction);} //movlw
 		if (binInstruction.matches("^00000000001001.*")) {} //retfie
@@ -91,11 +95,8 @@ public class MainController {
 		if (binInstruction.matches("^00000000001000.*")) {} //return
 		if (binInstruction.matches("^11110.*")) {} //sublw
 		if (binInstruction.matches("^111010.*")) {} //xorlw
-		if (binInstruction.matches("^101.*")) {instructions.iGoto(curInstruction);}
-		if (binInstruction.matches("^1100.*")) {instructions.movlw(curInstruction);}
-		else {curAddress=decoder.getInstructionMap().size()+1;}
-		
-		
+		//else {curAddress=decoder.getInstructionMap().size()+1;}
+		curAddress += 1;
 	}
 	/**
 	 * @return the curInstruction
@@ -109,6 +110,10 @@ public class MainController {
 	 */
 	public int getCurAdress() {
 		return curAddress;
+	}
+	
+	public void setCurAdress(int a) {
+		curAddress = a;
 	}
 	
 	/**
@@ -127,6 +132,10 @@ public class MainController {
 			File file = of.openFile(gui.getParent());
 			try {
 				decoder.readLst(gui,file);
+				for (int i=0; i<=3; i++) {
+					execInstruction();
+					
+				}
 			} catch (IOException ioe) {
 				ioe.printStackTrace();
 			}
