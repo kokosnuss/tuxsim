@@ -497,6 +497,36 @@ public class Mainview extends JFrame {
 		this.mntmOpen.addActionListener(l);
 	}
 	
+	public void setHelpListener(ActionListener l)
+	{
+		this.mntmHelp.addActionListener(l);
+	}
+	
+	public void setAboutTuxSimListener(ActionListener l)
+	{
+		this.mntmAboutTuxsim.addActionListener(l);
+	}
+	
+	public void setStartListener(ActionListener l) 
+	{
+		this.btnStart.addActionListener(l);
+	}
+	
+	public void setStopListener(ActionListener l)
+	{
+		this.btnStop.addActionListener(l);
+	}
+	
+	public void setStepListener(ActionListener l)
+	{
+		this.btnStep.addActionListener(l);
+	}
+	
+	public void setResetListener(ActionListener l)
+	{
+		this.btnReset.addActionListener(l);
+	}
+	
 	public JTextPane getTextPane(String pane) {
 	
 		switch(pane)
