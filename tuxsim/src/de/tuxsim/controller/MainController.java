@@ -17,8 +17,6 @@ public class MainController {
 	private OpenFile of;
 	private Instructions instructions;
 	private Interna interna;
-	
-
 
 	private int curInstruction;
 	private int curAddress = 0;
@@ -39,12 +37,26 @@ public class MainController {
 	}
 
 	/**
-	 * Enable Gui
+	 * Enable Gui & Reset View 
 	 */
 	public void initGui() {
 		gui.setVisible(true);
+		this.reset();
+	}
+	/**
+	 * Reset the Register(Model & View) to default, 
+	 */
+	public void reset() {
+		interna.initRegister();
+		gui.getTextPane("Wreg").setText(String.valueOf(interna.getRegW()));
+		gui.getTextPane("FSRreg").setText(String.valueOf(interna.getValueAt(0x4)));
+		gui.getTextPane("TMR0").setText(String.valueOf(interna.getValueAt(0x1)));
+		gui.getTextPane("PCLreg").setText(String.valueOf(interna.getValueAt(0x2)));
 	}
 	
+	/**
+	 * Initialize all Listener of gui
+	 */
 	public void addListener() {
 		this.gui.setOpenListener(new OpenListener());
 		this.gui.setHelpListener(new HelpListener());
@@ -59,8 +71,8 @@ public class MainController {
 	
 	
 	/**
-	 * Executes the Instruction to the given Adress
-	 * @param address
+	 * Executes the instruction of current Adress
+	 * 
 	 */
 	public void execInstruction() {
 		curInstruction = decoder.getInstruction(curAddress);
@@ -80,7 +92,7 @@ public class MainController {
 		if (binInstruction.matches("^001111.*")) {} //incfsz
 		if (binInstruction.matches("^000100.*")) {} //iorwf
 		if (binInstruction.matches("^001000.*")) {} //movf
-		if (binInstruction.matches("^0000001.*")) {} //movwf
+		if (binInstruction.matches("^0000001.*")) {instructions.movwf(curInstruction);} //movwf
 		if (binInstruction.matches("^0000000.*")) {} //nop
 		if (binInstruction.matches("^001101.*")) {} //rlf
 		if (binInstruction.matches("^001100.*")) {} //rrf
@@ -105,6 +117,7 @@ public class MainController {
 		//else {curAddress=decoder.getInstructionMap().size()+1;}
 		curAddress += 1;
 	}
+	
 	/**
 	 * @return the curInstruction
 	 */

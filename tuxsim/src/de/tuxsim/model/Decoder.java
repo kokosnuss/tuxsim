@@ -22,6 +22,9 @@ import de.tuxsim.view.Mainview;
  */
 public class Decoder {
 	
+	/**
+	 * Hashmap which contains adrees + instructions of LST-File
+	 */
 	HashMap<Integer, Integer> instructionMap = new HashMap<Integer, Integer>();
 	
 	/**
@@ -29,7 +32,6 @@ public class Decoder {
 	 * @param frame
 	 * @throws IOException
 	 */
-	// TODO remove frame
 	public void readLst(Mainview frame, File f) throws IOException{
 		//Liest Datei mit Sonderzeichen
 		FileInputStream fis = new FileInputStream(f);
@@ -45,24 +47,27 @@ public class Decoder {
 			int instruction = Integer.parseInt(line.substring(5,9), 16);
 		
 			instructionMap.put(memoryAdress, instruction);
-			
 
 			}
+			
+		
 		}
 		//Close Buffered Reader
 		br.close();
 		
 	}
+	
 	/**
 	 * Returns the instruction to the given adress of the Hashmap
 	 * @param address
-	 * @return
+	 * @return instruction
 	 */
 	public int getInstruction(int address) {
 			int instruction = instructionMap.get(address);
 			return instruction;
 			}
 	/**
+	 * Returns instructionMap
 	 * @return the instructionMap
 	 */
 	public HashMap<Integer, Integer> getInstructionMap() {
