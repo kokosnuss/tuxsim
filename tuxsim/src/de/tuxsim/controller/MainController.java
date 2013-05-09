@@ -41,17 +41,48 @@ public class MainController {
 	 */
 	public void initGui() {
 		gui.setVisible(true);
-		this.reset();
+		this.updateGui();
 	}
 	/**
-	 * Reset the Register(Model & View) to default, 
+	 * update/reset the Register(Model & View) to default, 
 	 */
-	public void reset() {
-		interna.initRegister();
+	public void updateGui() {
 		gui.getTextPane("Wreg").setText(String.valueOf(interna.getRegW()));
 		gui.getTextPane("FSRreg").setText(String.valueOf(interna.getValueAt(0x4)));
 		gui.getTextPane("TMR0").setText(String.valueOf(interna.getValueAt(0x1)));
 		gui.getTextPane("PCLreg").setText(String.valueOf(interna.getValueAt(0x2)));
+		
+		gui.getTextPane("RP0").setText(String.valueOf(interna.getBitAt(0x3, 5)));
+		gui.getTextPane("TO").setText(String.valueOf(interna.getBitAt(0x3,4)));
+		gui.getTextPane("PD").setText(String.valueOf(interna.getBitAt(0x3,3)));
+		gui.getTextPane("Z").setText(String.valueOf(interna.getBitAt(0x3,2)));
+		gui.getTextPane("DC").setText(String.valueOf(interna.getBitAt(0x3,1)));
+		gui.getTextPane("C").setText(String.valueOf(interna.getBitAt(0x3,0)));
+		
+		gui.getTextPane("RA4").setText(String.valueOf(interna.getBitAt(0x5,4)));
+		gui.getTextPane("RA3").setText(String.valueOf(interna.getBitAt(0x5,3)));
+		gui.getTextPane("RA2").setText(String.valueOf(interna.getBitAt(0x5,2)));
+		gui.getTextPane("RA1").setText(String.valueOf(interna.getBitAt(0x5,1)));
+		gui.getTextPane("RA0").setText(String.valueOf(interna.getBitAt(0x5,0)));
+		
+		
+		gui.getTextPane("RB7").setText(String.valueOf(interna.getBitAt(0x5,7)));
+		gui.getTextPane("RB6").setText(String.valueOf(interna.getBitAt(0x5,6)));
+		gui.getTextPane("RB5").setText(String.valueOf(interna.getBitAt(0x5,5)));
+		gui.getTextPane("RB4").setText(String.valueOf(interna.getBitAt(0x5,4)));
+		gui.getTextPane("RB3").setText(String.valueOf(interna.getBitAt(0x5,3)));
+		gui.getTextPane("RB2").setText(String.valueOf(interna.getBitAt(0x5,2)));
+		gui.getTextPane("RB1").setText(String.valueOf(interna.getBitAt(0x5,1)));
+		gui.getTextPane("RB0").setText(String.valueOf(interna.getBitAt(0x5,0)));
+		
+		
+		int rowReg=0x0;
+		for (int i=0;i<gui.getRegister().getRowCount();i++) {
+			for (int j=0;j<=7;j++) {
+				gui.getRegister().setValueAt(interna.getValueAt(rowReg+j), i, j+1);
+			}
+			rowReg +=0x8;
+		}
 	}
 	
 	/**
@@ -115,6 +146,7 @@ public class MainController {
 		if (binInstruction.matches("^11110.*")) {} //sublw
 		if (binInstruction.matches("^111010.*")) {} //xorlw
 		//else {curAddress=decoder.getInstructionMap().size()+1;}
+		this.updateGui();
 		curAddress += 1;
 	}
 	
@@ -152,10 +184,6 @@ public class MainController {
 			File file = of.openFile(gui.getParent());
 			try {
 				decoder.readLst(gui,file);
-				for (int i=0; i<=3; i++) {
-					execInstruction();
-					
-				}
 			} catch (IOException ioe) {
 				ioe.printStackTrace();
 			}
@@ -200,7 +228,7 @@ public class MainController {
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			
+			execInstruction();
 		}
 	}
 	
@@ -208,7 +236,11 @@ public class MainController {
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			
+			curAddress=0;
+			curInstruction=0;
+			interna.setRegW(0);
+			interna.initRegister();
+			updateGui();
 		}
 	}
 }

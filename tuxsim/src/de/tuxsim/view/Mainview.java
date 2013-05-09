@@ -22,6 +22,7 @@ import javax.swing.JButton;
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.GridLayout;
 import javax.swing.JTextField;
@@ -433,7 +434,8 @@ public class Mainview extends JFrame {
 		
 		table = new JTable();
 		table.setColumnSelectionAllowed(true);
-		table.setBackground(UIManager.getColor("CheckBox.background"));
+		table.setBackground(Color.WHITE);
+		
 		scrollPane_1.setViewportView(table);
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -475,7 +477,7 @@ public class Mainview extends JFrame {
 			}
 		) {
 			boolean[] columnEditables = new boolean[] {
-				true, false, true, false, false, false, false, false, false
+				false, false, true, false, false, false, false, false, false
 			};
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
@@ -489,6 +491,28 @@ public class Mainview extends JFrame {
 		table.getColumnModel().getColumn(6).setResizable(false);
 		table.getColumnModel().getColumn(7).setResizable(false);
 		table.getColumnModel().getColumn(8).setResizable(false);
+		
+		table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+			
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+            
+            int rowM = table.convertRowIndexToModel(row);
+            int columnM = table.convertColumnIndexToModel(column);
+            if (columnM == 0 ) {
+                c.setBackground(UIManager.getColor("Button.background"));
+                
+            }
+            else {
+            	c.setBackground(Color.white);
+            }
+            return c;
+        }
+        
+       
+				
+        }); 
 		
 		
 	}
@@ -579,6 +603,9 @@ public class Mainview extends JFrame {
 	public JCheckBox getCheckbox()
 	{
 		return this.chckbxHardwarecom;
+	}
+	public JTable getRegister() {
+		return table;
 	}
 }
 

@@ -8,6 +8,7 @@ package de.tuxsim.model;
  */
 public class Interna {
 	private short Register[];
+
 	private int regW;
 	
 	public Interna() {
@@ -162,6 +163,70 @@ public class Interna {
 		}
 		return;
 	}
+	public int getBitAt(int index, int bit) {
+		short help = 1;
+		help = (short) (help << bit);
+		int val = 0;
+		// Auf Bank �berpr�fen und ggf. Indexwert anpassen
+		switch (index) {
+		case 0x0:
+			val = this.Register[0x0];
+			val = this.Register[0x80];
+		case 0x2:
+			val = this.Register[0x2];
+			val = this.Register[0x82];
+			break;
+		case 0x3:
+			val = this.Register[0x3];
+			val = this.Register[0x83];
+			break;
+		case 0x4:
+			val = this.Register[0x4];
+			val = this.Register[0x84];
+			break;
+		case 0xA:
+			val = this.Register[0xA];
+			val = this.Register[0x8A];
+			break;
+		case 0xB:
+			val = this.Register[0xB];
+			val = this.Register[0x8B];
+			break;
+		case 0x80:
+			val = this.Register[0x0];
+			val = this.Register[0x80];
+		case 0x82:
+			val = this.Register[0x2];
+			val = this.Register[0x82];
+			break;
+		case 0x83:
+			val = this.Register[0x3];
+			val = this.Register[0x83];
+			break;
+		case 0x84:
+			val = this.Register[0x4];
+			val = this.Register[0x84];
+			break;
+		case 0x8A:
+			val = this.Register[0xA];
+			val = this.Register[0x8A];
+			break;
+		case 0x8B:
+			val = this.Register[0xB];
+			val = this.Register[0x8B];
+			break;
+		default:
+			if ((checkBank() == 1) && (index < 0x80))
+				index = index + 0x80;
+			val = this.Register[index];
+			break;
+		}
+		if ((short) (val & help) == 0) {
+			return 0;
+		} else {
+			return 1;
+		}
+	}
 	/**
 	 * Set value at Register with verify bank
 	 * @param val value to set
@@ -250,6 +315,12 @@ public class Interna {
 		} else {
 			return 1; 
 		}
+	}
+	/**
+	 * @return the register
+	 */
+	public short[] getRegister() {
+		return Register;
 	}
 	/**
 	 * Returns content von Register W
