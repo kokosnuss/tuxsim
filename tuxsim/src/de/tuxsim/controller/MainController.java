@@ -1,9 +1,18 @@
 package de.tuxsim.controller;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
+
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Highlighter;
+
 import de.tuxsim.model.Decoder;
 import de.tuxsim.model.Instructions;
 import de.tuxsim.model.Interna;
@@ -19,7 +28,7 @@ public class MainController {
 	private Interna interna;
 
 	private int curInstruction;
-	private int curAddress = 0;
+
 	
 	public MainController() {
 		this.decoder = new Decoder();
@@ -50,7 +59,7 @@ public class MainController {
 		gui.getTextPane("Wreg").setText(String.valueOf(interna.getRegW()));
 		gui.getTextPane("FSRreg").setText(String.valueOf(interna.getValueAt(0x4)));
 		gui.getTextPane("TMR0").setText(String.valueOf(interna.getValueAt(0x1)));
-		gui.getTextPane("PCLreg").setText(String.valueOf(interna.getValueAt(0x2)));
+		gui.getTextPane("PCLreg").setText(Integer.toHexString(interna.getValueAt(0x2)));
 		
 		gui.getTextPane("RP0").setText(String.valueOf(interna.getBitAt(0x3, 5)));
 		gui.getTextPane("TO").setText(String.valueOf(interna.getBitAt(0x3,4)));
@@ -64,16 +73,28 @@ public class MainController {
 		gui.getTextPane("RA2").setText(String.valueOf(interna.getBitAt(0x5,2)));
 		gui.getTextPane("RA1").setText(String.valueOf(interna.getBitAt(0x5,1)));
 		gui.getTextPane("RA0").setText(String.valueOf(interna.getBitAt(0x5,0)));
+		gui.getTextPane("RAt4").setText(interna.getTris(0x85, 4));
+		gui.getTextPane("RAt3").setText(interna.getTris(0x85, 3));
+		gui.getTextPane("RAt2").setText(interna.getTris(0x85, 2));
+		gui.getTextPane("RAt1").setText(interna.getTris(0x85, 1));
+		gui.getTextPane("RAt0").setText(interna.getTris(0x85, 0));
 		
-		
-		gui.getTextPane("RB7").setText(String.valueOf(interna.getBitAt(0x5,7)));
-		gui.getTextPane("RB6").setText(String.valueOf(interna.getBitAt(0x5,6)));
-		gui.getTextPane("RB5").setText(String.valueOf(interna.getBitAt(0x5,5)));
-		gui.getTextPane("RB4").setText(String.valueOf(interna.getBitAt(0x5,4)));
-		gui.getTextPane("RB3").setText(String.valueOf(interna.getBitAt(0x5,3)));
-		gui.getTextPane("RB2").setText(String.valueOf(interna.getBitAt(0x5,2)));
-		gui.getTextPane("RB1").setText(String.valueOf(interna.getBitAt(0x5,1)));
-		gui.getTextPane("RB0").setText(String.valueOf(interna.getBitAt(0x5,0)));
+		gui.getTextPane("RB7").setText(String.valueOf(interna.getBitAt(0x6,7)));
+		gui.getTextPane("RB6").setText(String.valueOf(interna.getBitAt(0x6,6)));
+		gui.getTextPane("RB5").setText(String.valueOf(interna.getBitAt(0x6,5)));
+		gui.getTextPane("RB4").setText(String.valueOf(interna.getBitAt(0x6,4)));
+		gui.getTextPane("RB3").setText(String.valueOf(interna.getBitAt(0x6,3)));
+		gui.getTextPane("RB2").setText(String.valueOf(interna.getBitAt(0x6,2)));
+		gui.getTextPane("RB1").setText(String.valueOf(interna.getBitAt(0x6,1)));
+		gui.getTextPane("RB0").setText(String.valueOf(interna.getBitAt(0x6,0)));
+		gui.getTextPane("RBt7").setText(interna.getTris(0x86, 7));
+		gui.getTextPane("RBt6").setText(interna.getTris(0x86, 6));
+		gui.getTextPane("RBt5").setText(interna.getTris(0x86, 5));
+		gui.getTextPane("RBt4").setText(interna.getTris(0x86, 4));
+		gui.getTextPane("RBt3").setText(interna.getTris(0x86, 3));
+		gui.getTextPane("RBt2").setText(interna.getTris(0x86, 2));
+		gui.getTextPane("RBt1").setText(interna.getTris(0x86, 1));
+		gui.getTextPane("RBt0").setText(interna.getTris(0x86, 0));
 		
 		
 		int rowReg=0x0;
@@ -86,16 +107,32 @@ public class MainController {
 	}
 	
 	/**
-	 * Initialize all Listener of gui
+	 * Initialize  Listener of gui - no programm
 	 */
 	public void addListener() {
 		this.gui.setOpenListener(new OpenListener());
 		this.gui.setHelpListener(new HelpListener());
 		this.gui.setAboutTuxSimListener(new AboutTuxSimListener());
+		this.gui.getTextPane("RB0").addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				int bit = interna.getBitAt(0x6, 0);
+				if (bit==0) {
+					interna.setBitAt(0x6, 0);
+				}else interna.clearBitAt(0x6, 0);
+				updateGui();
+			}
+		});
+	}
+	
+	/**
+	 * Initialize Listener when programm is loaded
+	 */
+	public void addProgrammListener() {
 		this.gui.setStartListener(new StartListener());
 		this.gui.setStopListener(new StopListener());
 		this.gui.setStepListener(new StepListener());
 		this.gui.setResetListener(new ResetListener());
+		
 	}
 	
 	
@@ -106,20 +143,20 @@ public class MainController {
 	 * 
 	 */
 	public void execInstruction() {
-		curInstruction = decoder.getInstruction(curAddress);
+		curInstruction = decoder.getInstruction(getPC());
         String binInstruction = Integer.toBinaryString(curInstruction);
         while (binInstruction.length() < 14) binInstruction = "0" + binInstruction;
         
 		//String binInstruction = Integer.toBinaryString(curInstruction);
 		
-		if (binInstruction.matches("^000111.*")) { } //addwf
+		if (binInstruction.matches("^000111.*")) {instructions.addwf(curInstruction); } //addwf
 		if (binInstruction.matches("^000101.*")) {} //andwf
 		if (binInstruction.matches("^0000011.*")) {} //clrf
 		if (binInstruction.matches("^0000010.*")) {instructions.clrw(curInstruction);} //clrw
-		if (binInstruction.matches("^001001.*")) {} //comf
-		if (binInstruction.matches("^000011.*")) {} //decf
-		if (binInstruction.matches("^001011.*")) {} //decfsz
-		if (binInstruction.matches("^001010.*")) {} //incf
+		if (binInstruction.matches("^001001.*")) {instructions.comf(curInstruction);} //comf
+		if (binInstruction.matches("^000011.*")) {instructions.decf(curInstruction);} //decf
+		if (binInstruction.matches("^001011.*")) {instructions.decfsz(curInstruction);} //decfsz
+		if (binInstruction.matches("^001010.*")) {instructions.incf(curInstruction);} //incf
 		if (binInstruction.matches("^001111.*")) {} //incfsz
 		if (binInstruction.matches("^000100.*")) {} //iorwf
 		if (binInstruction.matches("^001000.*")) {} //movf
@@ -127,27 +164,28 @@ public class MainController {
 		if (binInstruction.matches("^0000000.*")) {} //nop
 		if (binInstruction.matches("^001101.*")) {} //rlf
 		if (binInstruction.matches("^001100.*")) {} //rrf
-		if (binInstruction.matches("^000010.*")) {} //subwf
+		if (binInstruction.matches("^000010.*")) {instructions.subwf(curInstruction);} //subwf
 		if (binInstruction.matches("^001110.*")) {} //swapf
 		if (binInstruction.matches("^000110.*")) {} //xorwf
 		if (binInstruction.matches("^0100.*")) {instructions.bcf(curInstruction);} //bcf
 		if (binInstruction.matches("^0101.*")) {instructions.bsf(curInstruction);} //bsf
-		if (binInstruction.matches("^0110.*")) {} //btfsc
-		if (binInstruction.matches("^0111.*")) {} //btfss
-		if (binInstruction.matches("^11111.*")) {} //addlw
+		if (binInstruction.matches("^0110.*")) {instructions.btfsc(curInstruction);} //btfsc
+		if (binInstruction.matches("^0111.*")) {instructions.btfss(curInstruction);} //btfss
+		if (binInstruction.matches("^11111.*")) {instructions.addlw(curInstruction);} //addlw
 		if (binInstruction.matches("^111001.*")) {} //andlw
-		if (binInstruction.matches("^100.*")) {} //call
+		if (binInstruction.matches("^100.*")) {instructions.call(curInstruction);} //call
 		if (binInstruction.matches("^101.*")) {instructions.iGoto(curInstruction); } //GOTO
 		if (binInstruction.matches("^111000.*")) {} //iorlw
 		if (binInstruction.matches("^1100.*")) {instructions.movlw(curInstruction);} //movlw
 		if (binInstruction.matches("^00000000001001.*")) {} //retfie
-		if (binInstruction.matches("^1101.*")) {} //retlw
+		if (binInstruction.matches("^1101.*")) {instructions.retlw(curInstruction);} //retlw
 		if (binInstruction.matches("^00000000001000.*")) {} //return
 		if (binInstruction.matches("^11110.*")) {} //sublw
 		if (binInstruction.matches("^111010.*")) {} //xorlw
 		//else {curAddress=decoder.getInstructionMap().size()+1;}
+		
+		this.setPC(getPC()+1);
 		this.updateGui();
-		curAddress += 1;
 	}
 	
 	/**
@@ -160,12 +198,12 @@ public class MainController {
 	/**
 	 * @return the curAdress
 	 */
-	public int getCurAdress() {
-		return curAddress;
+	public int getPC() {
+		return interna.getValueAt(0x2);
 	}
 	
-	public void setCurAdress(int a) {
-		curAddress = a;
+	public void setPC(int a) {
+		interna.setValueAt(a, 0x2);
 	}
 	
 	/**
@@ -182,12 +220,15 @@ public class MainController {
 	class OpenListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			File file = of.openFile(gui.getParent());
-			try {
-				decoder.readLst(gui,file);
-			} catch (IOException ioe) {
-				ioe.printStackTrace();
+			if (file != null) {
+				try {
+					decoder.readLst(gui,file);
+				} catch (IOException ioe) {
+					ioe.printStackTrace();
+				}
+			addProgrammListener();
 			}
-			
+			else return;	
 		}
 		
 	}
@@ -226,8 +267,10 @@ public class MainController {
 	
 	class StepListener implements ActionListener
 	{
+		private Highlighter.HighlightPainter painter;
 		public void actionPerformed(ActionEvent e)
 		{
+	
 			execInstruction();
 		}
 	}
@@ -236,13 +279,18 @@ public class MainController {
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			curAddress=0;
+			setPC(0);
 			curInstruction=0;
 			interna.setRegW(0);
 			interna.initRegister();
+			interna.initStack();
 			updateGui();
 		}
 	}
+
+
+			
+		
 }
 
 

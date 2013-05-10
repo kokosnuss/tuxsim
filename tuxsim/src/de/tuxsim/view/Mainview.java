@@ -40,7 +40,10 @@ import javax.swing.JScrollPane;
 import java.awt.ScrollPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 /**
  * GUI-Class, separated from Controller & Model
  * @author tuxpad
@@ -372,6 +375,8 @@ public class Mainview extends JFrame {
 		panel_4.add(textPaneRB3);
 		panel_4.add(textPaneRB2);
 		panel_4.add(textPaneRB1);
+	
+		textPaneRB0.setEditable(false);
 		panel_4.add(textPaneRB0);
 		
 		textPaneRBt7.setText("i");
@@ -549,6 +554,11 @@ public class Mainview extends JFrame {
 	public void setResetListener(ActionListener l)
 	{
 		this.btnReset.addActionListener(l);
+	}
+	
+	public void setRB0Listener(MouseListener l)
+	{
+		this.textPaneRB0.addMouseListener(l);
 	}
 	
 	public JTextPane getTextPane(String pane) {

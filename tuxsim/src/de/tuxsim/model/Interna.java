@@ -1,5 +1,7 @@
 package de.tuxsim.model;
 
+import java.util.Stack;
+
 
 /**
  * This class represents the PIC interna with the registers, memory ...
@@ -10,9 +12,12 @@ public class Interna {
 	private short Register[];
 
 	private int regW;
+	private Stack<Integer> pcstack;
 	
+
 	public Interna() {
 		this.initRegister();
+		this.initStack();
 	}
 	
 	/**
@@ -29,6 +34,13 @@ public class Interna {
 		this.Register[0x81] = Short.parseShort("11111111", 2);
 		this.Register[0x85] = Short.parseShort("00011111", 2);
 		this.Register[0x86] = Short.parseShort("11111111", 2);
+	}
+	/**
+	 * Init the Stack for PCL
+	 */
+	public void initStack() {
+		pcstack = new Stack<Integer>();
+		pcstack.clear();
 	}
 	/**
 	 * Set bit at Register with verify bank
@@ -336,7 +348,19 @@ public class Interna {
 	public void setRegW(int literal) {
 		this.regW = literal;
 	}
+	/**
+	 * Returns the PCLStack
+	 * @return PCLStack
+	 */
+	public Stack<Integer> getPcstack() {
+		return pcstack;
+	}
 	
+	public String getTris(int index, int bit) {
+		int tris = getBitAt(index, bit);
+		if (tris==1) return "i";
+		else return "o";
+	}
 
 	
 	
