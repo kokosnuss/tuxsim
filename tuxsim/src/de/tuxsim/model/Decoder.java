@@ -26,6 +26,7 @@ public class Decoder {
 	 * Hashmap which contains adrees + instructions of LST-File
 	 */
 	HashMap<Integer, Integer> instructionMap = new HashMap<Integer, Integer>();
+	HashMap<Integer,Integer> address_linenumber = new HashMap<Integer,Integer>();
 	
 	/**
 	 * Read Lst-File and build HashMap
@@ -38,8 +39,9 @@ public class Decoder {
 		InputStreamReader isr = new InputStreamReader(fis, Charset.forName("ISO-8859-1"));
 		BufferedReader br = new BufferedReader(isr);
 		String line = "";
-
+		int lineNr = 1;
 		while ( (line = br.readLine()) != null ) {
+
 		frame.textAreaSourceCode.append(line+"\n");	
 		
 		if (Character.isDigit(line.charAt(0))) {
@@ -47,9 +49,9 @@ public class Decoder {
 			int instruction = Integer.parseInt(line.substring(5,9), 16);
 		
 			instructionMap.put(memoryAdress, instruction);
-
+			address_linenumber.put(memoryAdress,lineNr);
 			}
-			
+		lineNr++;	
 		
 		}
 		//Close Buffered Reader
@@ -63,7 +65,7 @@ public class Decoder {
 	 * @return instruction
 	 */
 	public int getInstruction(int address) {
-			int instruction = instructionMap.get(address);
+			int instruction = this.instructionMap.get(address);
 			return instruction;
 			}
 	/**
@@ -71,7 +73,11 @@ public class Decoder {
 	 * @return the instructionMap
 	 */
 	public HashMap<Integer, Integer> getInstructionMap() {
-		return instructionMap;
+		return this.instructionMap;
+	}
+	
+	public int getLineNrToAddress(int address) {
+		return this.address_linenumber.get(address);
 	}
 	
 }

@@ -267,10 +267,9 @@ public class MainController {
 	
 	class StepListener implements ActionListener
 	{
-		private Highlighter.HighlightPainter painter;
 		public void actionPerformed(ActionEvent e)
 		{
-	
+			System.out.println(decoder.getLineNrToAddress(getPC()));
 			execInstruction();
 		}
 	}
