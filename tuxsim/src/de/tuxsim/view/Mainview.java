@@ -161,7 +161,7 @@ public class Mainview extends JFrame {
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(UIManager.getColor("Button.disabledToolBarBorderBackground")));
 		panel_1.setBackground(UIManager.getColor("Button.disabledToolBarBorderBackground"));
-		panel_1.setBounds(524, 43, 458, 33);
+		panel_1.setBounds(524, 43, 175, 33);
 		contentPane.add(panel_1);
 		panel_1.setLayout(new GridLayout(2, 4, 1, 1));
 		
@@ -209,7 +209,7 @@ public class Mainview extends JFrame {
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new LineBorder(UIManager.getColor("Button.disabledToolBarBorderBackground")));
 		panel_2.setBackground(UIManager.getColor("Button.disabledToolBarBorderBackground"));
-		panel_2.setBounds(524, 102, 458, 33);
+		panel_2.setBounds(524, 102, 262, 33);
 		contentPane.add(panel_2);
 		panel_2.setLayout(new GridLayout(2, 6, 1, 1));
 		
@@ -287,7 +287,7 @@ public class Mainview extends JFrame {
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new LineBorder(UIManager.getColor("Button.disabledToolBarBorderBackground")));
 		panel_3.setBackground(UIManager.getColor("Button.disabledToolBarBorderBackground"));
-		panel_3.setBounds(582, 143, 402, 33);
+		panel_3.setBounds(582, 143, 262, 33);
 		contentPane.add(panel_3);
 		panel_3.setLayout(new GridLayout(2, 8, 1, 1));
 		
@@ -364,7 +364,7 @@ public class Mainview extends JFrame {
 		JPanel panel_4 = new JPanel();
 		panel_4.setBorder(new LineBorder(UIManager.getColor("Button.disabledToolBarBorderBackground")));
 		panel_4.setBackground(UIManager.getColor("Button.disabledToolBarBorderBackground"));
-		panel_4.setBounds(582, 190, 402, 33);
+		panel_4.setBounds(582, 190, 262, 33);
 		contentPane.add(panel_4);
 		panel_4.setLayout(new GridLayout(2, 8, 1, 1));
 		
@@ -430,11 +430,11 @@ public class Mainview extends JFrame {
 		
 
 		chckbxHardwarecom.setFont(new Font("Dialog", Font.BOLD, 12));
-		chckbxHardwarecom.setBounds(836, 231, 146, 23);
+		chckbxHardwarecom.setBounds(698, 231, 146, 23);
 		contentPane.add(chckbxHardwarecom);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(522, 261, 454, 300);
+		scrollPane_1.setBounds(522, 261, 322, 300);
 		contentPane.add(scrollPane_1);
 		
 		table = new JTable();

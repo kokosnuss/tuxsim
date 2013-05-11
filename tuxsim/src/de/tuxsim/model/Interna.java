@@ -34,6 +34,7 @@ public class Interna {
 		this.Register[0x81] = Short.parseShort("11111111", 2);
 		this.Register[0x85] = Short.parseShort("00011111", 2);
 		this.Register[0x86] = Short.parseShort("11111111", 2);
+		
 	}
 	/**
 	 * Init the Stack for PCL
@@ -240,6 +241,21 @@ public class Interna {
 		}
 	}
 	/**
+	 * Returns bit without verify bank
+	 * @param index
+	 * @return bit
+	 */
+	public int getBitAtNoBank(int index, int bit) {
+		short help = 1;
+		int val = this.Register[index];
+		help = (short) (help << bit);
+		if ((short) (val & help) == 0) {
+			return 0;
+		} else {
+			return 1;
+		}
+	}
+	/**
 	 * Set value at Register with verify bank
 	 * @param val value to set
 	 * @param index Register 
@@ -312,6 +328,10 @@ public class Interna {
 		// Auf Bank überprüfen und ggf. Indexwert anpassen	
 		if ((checkBank() == 1) && (index < 0x80))
 			index = index + 0x80;
+		return this.Register[index];
+	}
+	
+	public short getValueAtNoBank(int index) {
 		return this.Register[index];
 	}
 	

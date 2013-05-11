@@ -56,9 +56,9 @@ public class MainController {
 	 * update/reset the Register(Model & View) to default, 
 	 */
 	public void updateGui() {
-		gui.getTextPane("Wreg").setText(String.valueOf(interna.getRegW()));
-		gui.getTextPane("FSRreg").setText(String.valueOf(interna.getValueAt(0x4)));
-		gui.getTextPane("TMR0").setText(String.valueOf(interna.getValueAt(0x1)));
+		gui.getTextPane("Wreg").setText(Integer.toHexString(interna.getRegW()));
+		gui.getTextPane("FSRreg").setText(Integer.toHexString(interna.getValueAt(0x4)));
+		gui.getTextPane("TMR0").setText(Integer.toHexString(interna.getValueAtNoBank(0x1)));
 		gui.getTextPane("PCLreg").setText(Integer.toHexString(interna.getValueAt(0x2)));
 		
 		gui.getTextPane("RP0").setText(String.valueOf(interna.getBitAt(0x3, 5)));
@@ -68,25 +68,25 @@ public class MainController {
 		gui.getTextPane("DC").setText(String.valueOf(interna.getBitAt(0x3,1)));
 		gui.getTextPane("C").setText(String.valueOf(interna.getBitAt(0x3,0)));
 		
-		gui.getTextPane("RA4").setText(String.valueOf(interna.getBitAt(0x5,4)));
-		gui.getTextPane("RA3").setText(String.valueOf(interna.getBitAt(0x5,3)));
-		gui.getTextPane("RA2").setText(String.valueOf(interna.getBitAt(0x5,2)));
-		gui.getTextPane("RA1").setText(String.valueOf(interna.getBitAt(0x5,1)));
-		gui.getTextPane("RA0").setText(String.valueOf(interna.getBitAt(0x5,0)));
+		gui.getTextPane("RA4").setText(String.valueOf(interna.getBitAtNoBank(0x5,4)));
+		gui.getTextPane("RA3").setText(String.valueOf(interna.getBitAtNoBank(0x5,3)));
+		gui.getTextPane("RA2").setText(String.valueOf(interna.getBitAtNoBank(0x5,2)));
+		gui.getTextPane("RA1").setText(String.valueOf(interna.getBitAtNoBank(0x5,1)));
+		gui.getTextPane("RA0").setText(String.valueOf(interna.getBitAtNoBank(0x5,0)));
 		gui.getTextPane("RAt4").setText(interna.getTris(0x85, 4));
 		gui.getTextPane("RAt3").setText(interna.getTris(0x85, 3));
 		gui.getTextPane("RAt2").setText(interna.getTris(0x85, 2));
 		gui.getTextPane("RAt1").setText(interna.getTris(0x85, 1));
 		gui.getTextPane("RAt0").setText(interna.getTris(0x85, 0));
 		
-		gui.getTextPane("RB7").setText(String.valueOf(interna.getBitAt(0x6,7)));
-		gui.getTextPane("RB6").setText(String.valueOf(interna.getBitAt(0x6,6)));
-		gui.getTextPane("RB5").setText(String.valueOf(interna.getBitAt(0x6,5)));
-		gui.getTextPane("RB4").setText(String.valueOf(interna.getBitAt(0x6,4)));
-		gui.getTextPane("RB3").setText(String.valueOf(interna.getBitAt(0x6,3)));
-		gui.getTextPane("RB2").setText(String.valueOf(interna.getBitAt(0x6,2)));
-		gui.getTextPane("RB1").setText(String.valueOf(interna.getBitAt(0x6,1)));
-		gui.getTextPane("RB0").setText(String.valueOf(interna.getBitAt(0x6,0)));
+		gui.getTextPane("RB7").setText(String.valueOf(interna.getBitAtNoBank(0x6,7)));
+		gui.getTextPane("RB6").setText(String.valueOf(interna.getBitAtNoBank(0x6,6)));
+		gui.getTextPane("RB5").setText(String.valueOf(interna.getBitAtNoBank(0x6,5)));
+		gui.getTextPane("RB4").setText(String.valueOf(interna.getBitAtNoBank(0x6,4)));
+		gui.getTextPane("RB3").setText(String.valueOf(interna.getBitAtNoBank(0x6,3)));
+		gui.getTextPane("RB2").setText(String.valueOf(interna.getBitAtNoBank(0x6,2)));
+		gui.getTextPane("RB1").setText(String.valueOf(interna.getBitAtNoBank(0x6,1)));
+		gui.getTextPane("RB0").setText(String.valueOf(interna.getBitAtNoBank(0x6,0)));
 		gui.getTextPane("RBt7").setText(interna.getTris(0x86, 7));
 		gui.getTextPane("RBt6").setText(interna.getTris(0x86, 6));
 		gui.getTextPane("RBt5").setText(interna.getTris(0x86, 5));
@@ -100,7 +100,7 @@ public class MainController {
 		int rowReg=0x0;
 		for (int i=0;i<gui.getRegister().getRowCount();i++) {
 			for (int j=0;j<=7;j++) {
-				gui.getRegister().setValueAt(interna.getValueAt(rowReg+j), i, j+1);
+				gui.getRegister().setValueAt(Integer.toHexString(interna.getValueAtNoBank(rowReg+j)), i, j+1);
 			}
 			rowReg +=0x8;
 		}
@@ -213,7 +213,7 @@ public class MainController {
 		return interna;
 	}
 	/**
-	 * Intern class for StartBtnListener
+	 * Intern class for OpenBtnListener
 	 * @author tuxpad
 	 *
 	 */
