@@ -71,33 +71,15 @@ public class MainController {
 		gui.getTextPane("DC").setText(String.valueOf(interna.getBitAt(0x3,1)));
 		gui.getTextPane("C").setText(String.valueOf(interna.getBitAt(0x3,0)));
 		
-		gui.getTextPane("RA4").setText(String.valueOf(interna.getBitAtNoBank(0x5,4)));
-		gui.getTextPane("RA3").setText(String.valueOf(interna.getBitAtNoBank(0x5,3)));
-		gui.getTextPane("RA2").setText(String.valueOf(interna.getBitAtNoBank(0x5,2)));
-		gui.getTextPane("RA1").setText(String.valueOf(interna.getBitAtNoBank(0x5,1)));
-		gui.getTextPane("RA0").setText(String.valueOf(interna.getBitAtNoBank(0x5,0)));
-		gui.getTextPane("RAt4").setText(interna.getTris(0x85, 4));
-		gui.getTextPane("RAt3").setText(interna.getTris(0x85, 3));
-		gui.getTextPane("RAt2").setText(interna.getTris(0x85, 2));
-		gui.getTextPane("RAt1").setText(interna.getTris(0x85, 1));
-		gui.getTextPane("RAt0").setText(interna.getTris(0x85, 0));
+		for (int i=0;i<gui.getPortA().getColumnCount();i++) {
+			gui.getPortA().setValueAt(Integer.valueOf(interna.getBitAtNoBank(0x5, i)), 0, 7-i);
+			gui.getPortA().setValueAt(interna.getTris(0x85, i), 1, 7-i);
+		}
 		
-		gui.getTextPane("RB7").setText(String.valueOf(interna.getBitAtNoBank(0x6,7)));
-		gui.getTextPane("RB6").setText(String.valueOf(interna.getBitAtNoBank(0x6,6)));
-		gui.getTextPane("RB5").setText(String.valueOf(interna.getBitAtNoBank(0x6,5)));
-		gui.getTextPane("RB4").setText(String.valueOf(interna.getBitAtNoBank(0x6,4)));
-		gui.getTextPane("RB3").setText(String.valueOf(interna.getBitAtNoBank(0x6,3)));
-		gui.getTextPane("RB2").setText(String.valueOf(interna.getBitAtNoBank(0x6,2)));
-		gui.getTextPane("RB1").setText(String.valueOf(interna.getBitAtNoBank(0x6,1)));
-		gui.getTextPane("RB0").setText(String.valueOf(interna.getBitAtNoBank(0x6,0)));
-		gui.getTextPane("RBt7").setText(interna.getTris(0x86, 7));
-		gui.getTextPane("RBt6").setText(interna.getTris(0x86, 6));
-		gui.getTextPane("RBt5").setText(interna.getTris(0x86, 5));
-		gui.getTextPane("RBt4").setText(interna.getTris(0x86, 4));
-		gui.getTextPane("RBt3").setText(interna.getTris(0x86, 3));
-		gui.getTextPane("RBt2").setText(interna.getTris(0x86, 2));
-		gui.getTextPane("RBt1").setText(interna.getTris(0x86, 1));
-		gui.getTextPane("RBt0").setText(interna.getTris(0x86, 0));
+		for (int i=0;i<gui.getPortB().getColumnCount();i++) {
+			gui.getPortB().setValueAt(Integer.valueOf(interna.getBitAtNoBank(0x6, i)), 0, 7-i);
+			gui.getPortB().setValueAt(interna.getTris(0x86, i), 1, 7-i);
+		}
 		
 		
 		int rowReg=0x0;
@@ -132,6 +114,32 @@ public class MainController {
 		this.gui.setOpenListener(new OpenListener());
 		this.gui.setHelpListener(new HelpListener());
 		this.gui.setAboutTuxSimListener(new AboutTuxSimListener());
+		this.gui.getPortA().addMouseListener(new MouseAdapter() { //PortA
+			public void mouseClicked(MouseEvent e) {
+				int row = gui.getPortA().rowAtPoint(e.getPoint());
+				int column = gui.getPortA().columnAtPoint(e.getPoint());
+				if(row==0 && column>2 && (interna.getBitAt(0x85,7-column) ==1)) {
+					int bit = interna.getBitAtNoBank(0x5,7-column);
+					if (bit==0) interna.setBitAt(0x5, 7-column);
+					else interna.clearBitAt(0x5, 7-column);
+					updateGui();
+				}
+			}
+		});
+		this.gui.getPortB().addMouseListener(new MouseAdapter() { //PortB
+			public void mouseClicked(MouseEvent e) {
+				int row = gui.getPortB().rowAtPoint(e.getPoint());
+				int column = gui.getPortB().columnAtPoint(e.getPoint());
+				if(row==0 && (interna.getBitAt(0x86,7-column) ==1)) {
+					int bit = interna.getBitAtNoBank(0x6,7-column);
+					if (bit==0) interna.setBitAt(0x6, 7-column);
+					else interna.clearBitAt(0x6, 7-column);
+					updateGui();
+				}
+			}
+		});
+		
+		
 	
 	}
 	

@@ -76,36 +76,12 @@ public class Mainview extends JFrame {
 	private JTextPane textPaneDC = new JTextPane();
 	private JTextPane textPaneC = new JTextPane();
 	private JTextPane textPaneRA5 = new JTextPane();
-	private JTextPane textPaneRA4 = new JTextPane();
-	private JTextPane textPaneRA3 = new JTextPane();
-	private JTextPane textPaneRA2 = new JTextPane();
-	private JTextPane textPaneRA1 = new JTextPane();
-	private JTextPane textPaneRA0 = new JTextPane();
-	private JTextPane textPaneRAt4 = new JTextPane();
-	private JTextPane textPaneRAt3 = new JTextPane();
-	private JTextPane textPaneRAt2 = new JTextPane();
-	private JTextPane textPaneRAt1 = new JTextPane();
-	private JTextPane textPaneRAt0 = new JTextPane();
-	private JTextPane textPaneRB7 = new JTextPane();
-	private JTextPane textPaneRB6 = new JTextPane();
-	private JTextPane textPaneRB5 = new JTextPane();
-	private JTextPane textPaneRB4 = new JTextPane();
-	private JTextPane textPaneRB3 = new JTextPane();
-	private JTextPane textPaneRB2 = new JTextPane();
-	private JTextPane textPaneRB1 = new JTextPane();
-	private JTextPane textPaneRB0 = new JTextPane();
-	private JTextPane textPaneRBt7 = new JTextPane();
-	private JTextPane textPaneRBt6 = new JTextPane();
-	private JTextPane textPaneRBt5 = new JTextPane();
-	private JTextPane textPaneRBt4 = new JTextPane();
-	private JTextPane textPaneRBt3 = new JTextPane();
-	private JTextPane textPaneRBt2 = new JTextPane();
-	private JTextPane textPaneRBt1 = new JTextPane();
-	private JTextPane textPaneRBt0 = new JTextPane();
 	private JCheckBox chckbxHardwarecom = new JCheckBox("Hardware/COM");
 	private JTable table;
 	private JList Sourcecodelist;
 	private DefaultListModel lm;
+	private JTable PortB;
+	private final JTable PortA = new JTable();
 	
 	
 	public Mainview() {
@@ -290,161 +266,6 @@ public class Mainview extends JFrame {
 		lblTris_1.setBounds(552, 206, 33, 15);
 		contentPane.add(lblTris_1);
 		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(new LineBorder(UIManager.getColor("Button.disabledToolBarBorderBackground")));
-		panel_3.setBackground(UIManager.getColor("Button.disabledToolBarBorderBackground"));
-		panel_3.setBounds(582, 143, 262, 33);
-		contentPane.add(panel_3);
-		panel_3.setLayout(new GridLayout(2, 8, 1, 1));
-		
-		JTextPane textPane_5 = new JTextPane();
-		textPane_5.setBackground(UIManager.getColor("Button.background"));
-		textPane_5.setEditable(false);
-		panel_3.add(textPane_5);
-		
-		JTextPane textPane_14 = new JTextPane();
-		textPane_14.setBackground(UIManager.getColor("Button.background"));
-		textPane_14.setEditable(false);
-		panel_3.add(textPane_14);
-		
-		JTextPane textPane_12 = new JTextPane();
-		textPane_12.setBackground(UIManager.getColor("Button.background"));
-		textPane_12.setEditable(false);
-		panel_3.add(textPane_12);
-		textPaneRA4.setEditable(false);
-		
-		panel_3.add(textPaneRA4);
-		textPaneRA3.setEditable(false);
-		
-		panel_3.add(textPaneRA3);
-		textPaneRA2.setEditable(false);
-		
-		
-		panel_3.add(textPaneRA2);
-		textPaneRA1.setEditable(false);
-
-		panel_3.add(textPaneRA1);
-		textPaneRA0.setEditable(false);
-		
-
-		panel_3.add(textPaneRA0);
-		
-		JTextPane txtpnI = new JTextPane();
-		txtpnI.setBackground(UIManager.getColor("Button.background"));
-		txtpnI.setEditable(false);
-		panel_3.add(txtpnI);
-		
-		JTextPane txtpnI_1 = new JTextPane();
-		txtpnI_1.setBackground(UIManager.getColor("Button.background"));
-		txtpnI_1.setEditable(false);
-		panel_3.add(txtpnI_1);
-		
-		JTextPane txtpnI_2 = new JTextPane();
-		txtpnI_2.setBackground(UIManager.getColor("Button.background"));
-		txtpnI_2.setEditable(false);
-		panel_3.add(txtpnI_2);
-		
-
-		textPaneRAt4.setBackground(UIManager.getColor("Button.background"));
-		textPaneRAt4.setText("i");
-		textPaneRAt4.setEditable(false);
-		panel_3.add(textPaneRAt4);
-
-		textPaneRAt3.setBackground(UIManager.getColor("Button.background"));
-		textPaneRAt3.setText("i");
-		textPaneRAt3.setEditable(false);
-		panel_3.add(textPaneRAt3);
-		
-		
-		textPaneRAt2.setBackground(UIManager.getColor("Button.background"));
-		textPaneRAt2.setText("i");
-		textPaneRAt2.setEditable(false);
-		panel_3.add(textPaneRAt2);
-		
-
-		textPaneRAt1.setBackground(UIManager.getColor("Button.background"));
-		textPaneRAt1.setText("i");
-		textPaneRAt1.setEditable(false);
-		panel_3.add(textPaneRAt1);
-		
-		textPaneRAt0.setBackground(UIManager.getColor("Button.background"));
-		textPaneRAt0.setText("i");
-		textPaneRAt0.setEditable(false);
-		panel_3.add(textPaneRAt0);
-		
-		JPanel panel_4 = new JPanel();
-		panel_4.setBorder(new LineBorder(UIManager.getColor("Button.disabledToolBarBorderBackground")));
-		panel_4.setBackground(UIManager.getColor("Button.disabledToolBarBorderBackground"));
-		panel_4.setBounds(582, 190, 262, 33);
-		contentPane.add(panel_4);
-		panel_4.setLayout(new GridLayout(2, 8, 1, 1));
-		textPaneRB7.setEditable(false);
-		
-		panel_4.add(textPaneRB7);
-		textPaneRB6.setEditable(false);
-		panel_4.add(textPaneRB6);
-		textPaneRB5.setEditable(false);
-		panel_4.add(textPaneRB5);
-		textPaneRB4.setEditable(false);
-		panel_4.add(textPaneRB4);
-		textPaneRB3.setEditable(false);
-		panel_4.add(textPaneRB3);
-		textPaneRB2.setEditable(false);
-		panel_4.add(textPaneRB2);
-		textPaneRB1.setEditable(false);
-		panel_4.add(textPaneRB1);
-	
-		textPaneRB0.setEditable(false);
-		panel_4.add(textPaneRB0);
-		
-		textPaneRBt7.setText("i");
-		textPaneRBt7.setEditable(false);
-		textPaneRBt7.setBackground(UIManager.getColor("Button.background"));
-		panel_4.add(textPaneRBt7);
-		
-
-		
-		textPaneRBt6.setText("i");
-		textPaneRBt6.setEditable(false);
-		textPaneRBt6.setBackground(UIManager.getColor("Button.background"));
-		panel_4.add(textPaneRBt6);
-		
-		
-		textPaneRBt5.setText("i");
-		textPaneRBt5.setEditable(false);
-		textPaneRBt5.setBackground(UIManager.getColor("Button.background"));
-		panel_4.add(textPaneRBt5);
-		
-	
-		textPaneRBt4.setText("i");
-		textPaneRBt4.setEditable(false);
-		textPaneRBt4.setBackground(UIManager.getColor("Button.background"));
-		panel_4.add(textPaneRBt4);
-		
-		
-		textPaneRBt3.setText("i");
-		textPaneRBt3.setEditable(false);
-		textPaneRBt3.setBackground(UIManager.getColor("Button.background"));
-		panel_4.add(textPaneRBt3);
-		
-
-		textPaneRBt2.setText("i");
-		textPaneRBt2.setEditable(false);
-		textPaneRBt2.setBackground(UIManager.getColor("Button.background"));
-		panel_4.add(textPaneRBt2);
-		
-
-		textPaneRBt1.setText("i");
-		textPaneRBt1.setEditable(false);
-		textPaneRBt1.setBackground(UIManager.getColor("Button.background"));
-		panel_4.add(textPaneRBt1);
-		
-
-		textPaneRBt0.setText("i");
-		textPaneRBt0.setEditable(false);
-		textPaneRBt0.setBackground(UIManager.getColor("Button.background"));
-		panel_4.add(textPaneRBt0);
-		
 		
 
 		chckbxHardwarecom.setFont(new Font("Dialog", Font.BOLD, 12));
@@ -535,7 +356,52 @@ public class Mainview extends JFrame {
         
        
 				
-        }); 
+        });
+		
+		
+		PortB = new JTable();
+		PortB.setShowVerticalLines(false);
+		PortB.setBackground(UIManager.getColor("Button.background"));
+		PortB.setRowSelectionAllowed(false);
+		PortB.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+			},
+			new String[] {
+				"New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column"
+			}) {
+				public boolean isCellEditable(int row, int column) {
+					return false;
+				}
+			});
+	
+		PortB.setBounds(582, 190, 262, 31);
+		contentPane.add(PortB);
+
+		PortA.setRowSelectionAllowed(false);
+		PortA.setShowVerticalLines(false);
+		PortA.setBackground(UIManager.getColor("Button.background"));
+		
+		PortA.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null, null, null, null, null, null},
+				{null, null, null, null, null, null, null, null},
+			},
+			new String[] {
+				"New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column"
+			}) {
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		});
+		PortA.setBounds(582, 147, 262, 31);
+		
+		contentPane.add(PortA);
+		
+		
+		
+ 
 		
 		
 	}
@@ -574,10 +440,6 @@ public class Mainview extends JFrame {
 		this.btnReset.addActionListener(l);
 	}
 	
-	public void setRB0Listener(MouseListener l)
-	{
-		this.textPaneRB0.addMouseListener(l);
-	}
 	
 	public JTextPane getTextPane(String pane) {
 	
@@ -593,32 +455,6 @@ public class Mainview extends JFrame {
 		case "Z": 		return this.textPaneZ; 		
 		case "DC":		return this.textPaneDC;		
 		case "C":		return this.textPaneC; 		
-		case "RA4":		return this.textPaneRA4;	
-		case "RA3":		return this.textPaneRA3;	
-		case "RA2":		return this.textPaneRA2;	
-		case "RA1":		return this.textPaneRA1;	
-		case "RA0":		return this.textPaneRA0;	
-		case "RAt4":	return this.textPaneRAt4;	
-		case "RAt3":	return this.textPaneRAt3;	
-		case "RAt2":	return this.textPaneRAt2;	
-		case "RAt1":	return this.textPaneRAt1;	
-		case "RAt0":	return this.textPaneRAt0;	
-		case "RB7":		return this.textPaneRB7;	
-		case "RB6":		return this.textPaneRB6;	
-		case "RB5":		return this.textPaneRB5;	
-		case "RB4":		return this.textPaneRB4;	
-		case "RB3":		return this.textPaneRB3;	
-		case "RB2":		return this.textPaneRB2;	
-		case "RB1":		return this.textPaneRB1;	
-		case "RB0":		return this.textPaneRB0;	
-		case "RBt7":	return this.textPaneRBt7;	
-		case "RBt6":	return this.textPaneRBt6;	
-		case "RB5t":	return this.textPaneRBt5;	
-		case "RBt4":	return this.textPaneRBt4;	
-		case "RBt3":	return this.textPaneRBt3;	
-		case "RBt2":	return this.textPaneRBt2;	
-		case "RBt1":	return this.textPaneRBt1;	
-		case "RBt0":	return this.textPaneRBt0;	
 		}
 		return this.textPaneRA5;
 		}
@@ -638,6 +474,13 @@ public class Mainview extends JFrame {
 	public JTable getRegister() {
 		return table;
 	}
+	public JTable getPortA() {
+		return PortA;
+	}
+	public JTable getPortB() {
+		return PortB;
+	}
+	
 }
 
 
