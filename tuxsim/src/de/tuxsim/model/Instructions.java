@@ -32,6 +32,7 @@ public class Instructions {
 	 */
 	public void addwf(int instruction) {
 		int f = instruction & 127;
+		if (f==0) f= mc.getInterna().getValueAt(0x4);
 		int d = (instruction & 128) >> 7;
 		int help = mc.getInterna().getRegW() + mc.getInterna().getValueAt(f);
 		if (help > 255) {
@@ -195,6 +196,7 @@ public class Instructions {
 	 */
 	public void movwf(int instruction) {
 		int f = instruction & 127;
+		if (f==0) f= mc.getInterna().getValueAt(0x4);
 		int w = mc.getInterna().getRegW();
 		mc.getInterna().setValueAt(w, f);
 		System.out.println("move "+w+" to "+Integer.toHexString(f));
