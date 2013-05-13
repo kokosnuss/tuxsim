@@ -236,4 +236,67 @@ public class Instructions {
 		}
 		System.out.println("btfss "+Integer.toHexString(f)+","+b+" result="+mc.getInterna().getBitAt(f, b));
 	}
+	/**
+	 * 
+	 * @param f
+	 * @param d
+	 */
+	public void andwf(int f,int d) {
+		int help = mc.getInterna().getRegW() & mc.getInterna().getValueAt(f);
+		if (help == 0) {
+			mc.getInterna().setBitAt(0x3, 2); //Zero set
+		} else {
+			mc.getInterna().clearBitAt(0x3, 2); //Zero clear
+		}
+		if (d == 0) {
+			mc.getInterna().setRegW(help); // d = wReg
+		} else {
+			mc.getInterna().setValueAt(help, f); //d = fReg
+		}
+		System.out.println("andwf "+ mc.getInterna().getRegW()+" "+  mc.getInterna().getValueAt(f));
+	}
+	
+	public void clrf(int f,int d) {
+		mc.getInterna().setValueAt(0, f);
+		mc.getInterna().setBitAt(0x3, 2);
+		System.out.println("clrf "+f);
+	}
+	
+	public void incfsz(int f, int d) {
+		incf(f, d);
+		if(mc.getInterna().getValueAt(f) != 0) {
+			return;
+		}else {
+			mc.setPC(mc.getPC()+1);
+		}
+		System.out.println("incfsz "+Integer.toHexString(f)+" result="+mc.getInterna().getValueAt(f));
+	}
+	
+	public void iorwf(int f, int d) {
+		int help = mc.getInterna().getRegW() | mc.getInterna().getValueAt(f);
+		if (help == 0) {
+			mc.getInterna().setBitAt(0x3, 2); //Zero set
+		} else {
+			mc.getInterna().clearBitAt(0x3, 2); //Zero clear
+		}
+		if (d == 0) {
+			mc.getInterna().setRegW(help); // d = wReg
+		} else {
+			mc.getInterna().setValueAt(help, f); //d = fReg
+		}
+	}
+	
+	public void movf(int f,int d) {
+		int help = mc.getInterna().getValueAt(f);
+		if (help == 0) {
+			mc.getInterna().setBitAt(0x3, 2); //Zero set
+		} else {
+			mc.getInterna().clearBitAt(0x3, 2); //Zero clear
+		}
+		if (d == 0) {
+			mc.getInterna().setRegW(help); // d = wReg
+		} else {
+			mc.getInterna().setValueAt(help, f); //d = fReg
+		}
+	}
 }

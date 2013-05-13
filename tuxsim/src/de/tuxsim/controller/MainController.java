@@ -20,7 +20,7 @@ import de.tuxsim.view.Mainview;
 import de.tuxsim.view.OpenFile;
 
 
-public class MainController implements Runnable{
+public class MainController implements Runnable {
 	private Decoder decoder;
 	private Mainview gui;
 	private OpenFile of;
@@ -41,9 +41,7 @@ public class MainController implements Runnable{
 		this.interna = new Interna();
 		this.of = new OpenFile();
 		this.interpreter = new Interpreter(instructions, this);
-		//this.portsListener = new PortsListener(gui, this);
-		
-		t2 = new Thread(new StartListener());
+		initRunThread();
 	}
 
 	
@@ -59,6 +57,10 @@ public class MainController implements Runnable{
 	public void initGui() {
 		gui.setVisible(true);
 		this.updateGui();
+	}
+	
+	public void initRunThread() {
+		t2 = new Thread(new StartListener());
 	}
 	/**
 	 * update/reset the Register(Model & View) to default, 
@@ -191,15 +193,6 @@ public class MainController implements Runnable{
 		gui.getCodeList().ensureIndexIsVisible(gui.getCodeList().getSelectedIndex());
 	}
 	
-    public void pauseThread() throws InterruptedException
-    {
-        stop = true;
-    }
-
-    public void resumeThread()
-    {
-        stop = false;
-    }
 	/**
 	 * Intern class for OpenBtnListener
 	 * @author tuxpad
@@ -241,21 +234,15 @@ public class MainController implements Runnable{
 	
 	class StartListener implements ActionListener,Runnable
 	{
-
-		
-		
 		public void actionPerformed(ActionEvent e)
 		{
-			if (stop==true) {
-				resumeThread();
-				return;
-			}
-			else t2.start();
+					 
+			 t2.start();
 		}
 
 		@Override
 		public void run() {
-			while(stop==false) {
+			while(true) {
 				interpreter.execInstruction(decoder.getInstruction(getPC()));
 				updateSelectedLine();
 				try {
@@ -264,7 +251,6 @@ public class MainController implements Runnable{
 					e1.printStackTrace();
 				}
 			}
-			
 		}
 	}
 	
@@ -272,11 +258,6 @@ public class MainController implements Runnable{
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			try {
-				pauseThread();
-			} catch (InterruptedException e1) {
-				e1.printStackTrace();
-			}
 		}
 	}
 	
@@ -299,7 +280,6 @@ public class MainController implements Runnable{
 			updateSelectedLine();
 		}
 	}
-
 
 
 			

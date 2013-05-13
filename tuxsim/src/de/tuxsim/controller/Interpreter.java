@@ -32,16 +32,16 @@ public class Interpreter {
         
         
 	        if (binInstruction.matches("^000111.*")) {instructions.addwf(f,d); } //addwf
-	        if (binInstruction.matches("^000101.*")) {} //andwf
-			if (binInstruction.matches("^0000011.*")) {} //clrf
+	        if (binInstruction.matches("^000101.*")) {instructions.andwf(f, d);} //andwf
+			if (binInstruction.matches("^0000011.*")) {instructions.clrf(f, d);} //clrf
 			if (binInstruction.matches("^0000010.*")) {instructions.clrw();} //clrw
 			if (binInstruction.matches("^001001.*")) {instructions.comf(f,d);} //comf
 			if (binInstruction.matches("^000011.*")) {instructions.decf(f,d);} //decf
 			if (binInstruction.matches("^001011.*")) {instructions.decfsz(f,d);} //decfsz
 			if (binInstruction.matches("^001010.*")) {instructions.incf(f,d);} //incf
-			if (binInstruction.matches("^001111.*")) {} //incfsz
-			if (binInstruction.matches("^000100.*")) {} //iorwf
-			if (binInstruction.matches("^001000.*")) {} //movf
+			if (binInstruction.matches("^001111.*")) {instructions.incfsz(f, d);} //incfsz
+			if (binInstruction.matches("^000100.*")) {instructions.iorwf(f, d);} //iorwf
+			if (binInstruction.matches("^001000.*")) {instructions.movf(f, d);} //movf
 			if (binInstruction.matches("^0000001.*")) {instructions.movwf(f,d);} //movwf
 			if (binInstruction.matches("^0000000.*")) {} //nop
 			if (binInstruction.matches("^001101.*")) {} //rlf
