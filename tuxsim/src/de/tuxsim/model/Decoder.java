@@ -42,7 +42,7 @@ public class Decoder {
 		int lineNr = 1;
 		while ( (line = br.readLine()) != null ) {
 
-		frame.textAreaSourceCode.append(line+"\n");	
+			frame.getListModel().addElement(line);
 		
 		if (Character.isDigit(line.charAt(0))) {
 			int memoryAdress = Integer.parseInt(line.substring(0,4), 16);
@@ -77,8 +77,13 @@ public class Decoder {
 	}
 	
 	public int getLineNrToAddress(int address) {
-		return this.address_linenumber.get(address);
+		int lineNr = this.address_linenumber.get(address);
+		return lineNr -1;
 	}
 	
+	public void clearHashMaps() {
+		this.instructionMap.clear();
+		this.address_linenumber.clear();
+	}
 }
 	

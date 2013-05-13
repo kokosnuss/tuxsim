@@ -9,8 +9,7 @@ public class Instructions {
 		this.mc = mc;
 	}
 	
-	public void addlw(int instruction) {
-		int k = instruction & 255;
+	public void addlw(int k) {
 		int help = mc.getInterna().getRegW() + k;
 		if (help>255) {
 			help = help % 256;
@@ -30,10 +29,7 @@ public class Instructions {
 	 * add content of w with f; C,Z affected
 	 * @param instruction
 	 */
-	public void addwf(int instruction) {
-		int f = instruction & 127;
-		if (f==0) f= mc.getInterna().getValueAt(0x4);
-		int d = (instruction & 128) >> 7;
+	public void addwf(int f, int d) {
 		int help = mc.getInterna().getRegW() + mc.getInterna().getValueAt(f);
 		if (help > 255) {
 			help = help % 256;
@@ -57,9 +53,7 @@ public class Instructions {
 	 * Clear bit b at register reg
 	 * @param instruction
 	 */
-	public void bcf(int instruction) {
-		int f =  (instruction & 127);
-		int b = (instruction & 896) >> 7;
+	public void bcf(int f, int b) {
 		mc.getInterna().clearBitAt(f, b);
 		System.out.println("bcf "+b+" at "+Integer.toHexString(f));
 	}
@@ -67,9 +61,7 @@ public class Instructions {
 	 * Set bit b at register reg
 	 * @param instruction
 	 */
-	public void bsf(int instruction) {
-		int f =  (instruction & 127);
-		int b = (instruction & 896) >> 7;
+	public void bsf(int f, int b) {
 		mc.getInterna().setBitAt(f, b);
 		System.out.println("bsf "+b+" at "+Integer.toHexString(f));
 	}
@@ -77,17 +69,16 @@ public class Instructions {
 	 * Call Subroutine, PCL+1 is pushed to Stack
 	 * @param instruction
 	 */
-	public void call(int instruction) {
+	public void call(int k) {
 		mc.getInterna().getPcstack().push(mc.getPC()+1);
-		int address = instruction & 2047;
-		mc.setPC(address-1);
-		System.out.println("Call "+Integer.toHexString(address));
+		mc.setPC(k-1);
+		System.out.println("Call "+Integer.toHexString(k));
 	}
 	/**
 	 * Clear W-Register, Zero flag affected
 	 * @param instruction
 	 */
-	public void clrw(int instruction) {
+	public void clrw() {
 		mc.getInterna().setRegW(0);
 		mc.getInterna().setBitAt(3, 2); //Zero Bit
 		System.out.println("Clear Wreg");
@@ -96,9 +87,7 @@ public class Instructions {
 	 * content of register f are complemented
 	 * @param instruction
 	 */
-	public void comf(int instruction) {
-		int f = instruction & 127;
-		int d = (instruction & 128) >> 7;
+	public void comf(int f, int d) {
 		int help = ~(mc.getInterna().getValueAt(f));
 		help &= 255;
 		if (help ==0) {
@@ -117,9 +106,7 @@ public class Instructions {
 	 * Decf, if reg=0, zero is set, d=destination
 	 * @param instruction
 	 */
-	public void decf(int instruction) {
-		int f = instruction & 127;
-		int d = (instruction & 128) >> 7;
+	public void decf(int f, int d) {
 		int help = mc.getInterna().getValueAt(f) -1;
 		
 		if (help==0) {
@@ -138,9 +125,8 @@ public class Instructions {
 	 * @see Instructions#decf(int)
 	 * @param instruction
 	 */
-	public void decfsz(int instruction) {
-		int f = instruction & 127;
-		decf(instruction);
+	public void decfsz(int f, int d) {
+		decf( f,  d);
 		if(mc.getInterna().getValueAt(f) != 0) {
 			return;
 		}else {
@@ -152,18 +138,15 @@ public class Instructions {
 	 * Pic - Goto address
 	 * @param instruction
 	 */
-	public void iGoto(int instruction) {
-		int newAddress =  instruction & 2047;
-		mc.setPC(newAddress-1);
-		System.out.println("GOTO "+Integer.toHexString(newAddress)+"-1");
+	public void iGoto(int k) {
+		mc.setPC(k-1);
+		System.out.println("GOTO "+Integer.toHexString(k)+"-1");
 	}
 	/**
 	 * Increment content of Register f, Zero Bit Set
 	 * @param instruction
 	 */
-	public void incf(int instruction) {
- 		int f = instruction & 127;
-		int d = (instruction & 128) >> 7;
+	public void incf(int f, int d) {
 		int help = mc.getInterna().getValueAt(f) +1;
 		
 		if (help > 255) {
@@ -185,18 +168,15 @@ public class Instructions {
 	 * Move literal to W-Register
 	 * @param instruction
 	 */
-	public void movlw(int instruction) {
-		int literal = instruction & 1023;
-		mc.getInterna().setRegW(literal);
-		System.out.println("movlw "+literal);
+	public void movlw(int k) {
+		mc.getInterna().setRegW(k);
+		System.out.println("movlw "+k);
 	}
 	/**
 	 * Move content of W-Register to Register f
 	 * @param instruction
 	 */
-	public void movwf(int instruction) {
-		int f = instruction & 127;
-		if (f==0) f= mc.getInterna().getValueAt(0x4);
+	public void movwf(int f, int d) {
 		int w = mc.getInterna().getRegW();
 		mc.getInterna().setValueAt(w, f);
 		System.out.println("move "+w+" to "+Integer.toHexString(f));
@@ -205,8 +185,7 @@ public class Instructions {
 	 * Return with literal
 	 * @param instruction
 	 */
-	public void retlw(int instruction) {
-		int k = instruction &  255;
+	public void retlw(int k) {
 		mc.getInterna().setRegW(k);
 		mc.setPC(mc.getInterna().getPcstack().pop()-1);
 		System.out.println("retlw "+k+" pc="+mc.getPC());
@@ -215,9 +194,7 @@ public class Instructions {
 	 * Subtract W register from register f
 	 * @param instruction
 	 */
-	public void subwf(int instruction) {
-		int f = instruction & 127;
-		int d = (instruction & 128) >> 7;
+	public void subwf(int f, int d) {
 		int help = mc.getInterna().getValueAt(f) - mc.getInterna().getRegW();
 		if (help < 0) {
 			help = help + 256;
@@ -241,9 +218,7 @@ public class Instructions {
 	 * bit test f, skip if clear
 	 * @param instruction
 	 */
-	public void btfsc(int instruction) {
-		int f =  (instruction & 127);
-		int b = (instruction & 896) >> 7;
+	public void btfsc(int f, int b) {
 		
 		if (mc.getInterna().getBitAt(f, b) == 0) {
 			mc.setPC(mc.getPC()+1);
@@ -254,9 +229,7 @@ public class Instructions {
 	 * bit test f, skip if set
 	 * @param instruction
 	 */
-	public void btfss(int instruction) {
-		int f =  (instruction & 127);
-		int b = (instruction & 896) >> 7;
+	public void btfss(int f, int b) {
 		
 		if (mc.getInterna().getBitAt(f, b) != 0) {
 			mc.setPC(mc.getPC()+1);

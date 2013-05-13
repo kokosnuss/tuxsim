@@ -38,6 +38,7 @@ public class MainController {
 		this.interna = new Interna();
 		this.of = new OpenFile();
 		this.interpreter = new Interpreter(instructions, this);
+		//this.portsListener = new PortsListener(gui, this);
 	}
 
 	
@@ -108,6 +109,22 @@ public class MainController {
 		}
 	}
 	
+	/**reset Register, Stack, etc
+	 * if newProg==true, old Code&Hashmaps deleted
+	 * @param newProg boolean true if new Prog is loaded
+	 */
+	public void reset(boolean newProg) {
+		if (newProg==true) {
+			gui.getListModel().clear();
+			decoder.clearHashMaps();
+		}
+		setPC(0);
+		curInstruction=0;
+		interna.setRegW(0);
+		interna.initRegister();
+		interna.initStack();
+		updateGui();
+	}
 	/**
 	 * Initialize  Listener of gui - no programm
 	 */
@@ -115,15 +132,7 @@ public class MainController {
 		this.gui.setOpenListener(new OpenListener());
 		this.gui.setHelpListener(new HelpListener());
 		this.gui.setAboutTuxSimListener(new AboutTuxSimListener());
-		this.gui.getTextPane("RB0").addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
-				int bit = interna.getBitAt(0x6, 0);
-				if (bit==0) {
-					interna.setBitAt(0x6, 0);
-				}else interna.clearBitAt(0x6, 0);
-				updateGui();
-			}
-		});
+	
 	}
 	
 	/**
@@ -137,14 +146,6 @@ public class MainController {
 		
 	}
 	
-	
-	
-	
-	/**
-	 * Executes the instruction of current Adress
-	 * 
-	 */
-
 	
 	/**
 	 * @return the curInstruction
@@ -171,12 +172,20 @@ public class MainController {
 		return interna;
 	}
 	/**
+	 * 
+	 */
+	public void updateSelectedLine() {
+		gui.getCodeList().setSelectedIndex(decoder.getLineNrToAddress(getPC()));
+		gui.getCodeList().ensureIndexIsVisible(gui.getCodeList().getSelectedIndex());
+	}
+	/**
 	 * Intern class for OpenBtnListener
 	 * @author tuxpad
 	 *
 	 */
 	class OpenListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			reset(true); //Reset all, when new Programm is loaded
 			File file = of.openFile(gui.getParent());
 			if (file != null) {
 				try {
@@ -185,6 +194,7 @@ public class MainController {
 					ioe.printStackTrace();
 				}
 			addProgrammListener();
+			gui.getCodeList().setSelectedIndex(decoder.getLineNrToAddress(getPC()));
 			}
 			else return;	
 		}
@@ -227,21 +237,19 @@ public class MainController {
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			
 			interpreter.execInstruction(decoder.getInstruction(getPC()));
+			updateSelectedLine();
 		}
+
+	
 	}
 	
 	class ResetListener implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			setPC(0);
-			curInstruction=0;
-			interna.setRegW(0);
-			interna.initRegister();
-			interna.initStack();
-			updateGui();
+			reset(false);
+			updateSelectedLine();
 		}
 	}
 

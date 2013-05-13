@@ -153,8 +153,11 @@ public class Mainview extends JFrame {
 		scrollPane.setBounds(12, 86, 500, 475);
 		contentPane.add(scrollPane);
 		
-		Sourcecodelist = new JList();
+		lm = new DefaultListModel();
+		
+		Sourcecodelist = new JList(lm);
 		scrollPane.setViewportView(Sourcecodelist);
+		
 		
 		//Spezialfunktionsregister
 		JLabel lblSpezialfunktionsregister = new JLabel("Spezialfunktionsregister");
@@ -308,15 +311,20 @@ public class Mainview extends JFrame {
 		textPane_12.setBackground(UIManager.getColor("Button.background"));
 		textPane_12.setEditable(false);
 		panel_3.add(textPane_12);
+		textPaneRA4.setEditable(false);
 		
 		panel_3.add(textPaneRA4);
+		textPaneRA3.setEditable(false);
 		
 		panel_3.add(textPaneRA3);
+		textPaneRA2.setEditable(false);
 		
 		
 		panel_3.add(textPaneRA2);
+		textPaneRA1.setEditable(false);
 
 		panel_3.add(textPaneRA1);
+		textPaneRA0.setEditable(false);
 		
 
 		panel_3.add(textPaneRA0);
@@ -370,13 +378,20 @@ public class Mainview extends JFrame {
 		panel_4.setBounds(582, 190, 262, 33);
 		contentPane.add(panel_4);
 		panel_4.setLayout(new GridLayout(2, 8, 1, 1));
+		textPaneRB7.setEditable(false);
 		
 		panel_4.add(textPaneRB7);
+		textPaneRB6.setEditable(false);
 		panel_4.add(textPaneRB6);
+		textPaneRB5.setEditable(false);
 		panel_4.add(textPaneRB5);
+		textPaneRB4.setEditable(false);
 		panel_4.add(textPaneRB4);
+		textPaneRB3.setEditable(false);
 		panel_4.add(textPaneRB3);
+		textPaneRB2.setEditable(false);
 		panel_4.add(textPaneRB2);
+		textPaneRB1.setEditable(false);
 		panel_4.add(textPaneRB1);
 	
 		textPaneRB0.setEditable(false);
@@ -608,8 +623,11 @@ public class Mainview extends JFrame {
 		return this.textPaneRA5;
 		}
  
-	public JList getSourceCodeList() 
+	public DefaultListModel getListModel() 
 	{
+		return this.lm;
+	}
+	public JList getCodeList() {
 		return this.Sourcecodelist;
 	}
 	
