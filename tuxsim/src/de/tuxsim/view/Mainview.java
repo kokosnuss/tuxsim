@@ -16,6 +16,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JMenu;
 import java.awt.Component;
 import javax.swing.Box;
+import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
@@ -44,6 +45,7 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JList;
 /**
  * GUI-Class, separated from Controller & Model
  * @author tuxpad
@@ -63,7 +65,6 @@ public class Mainview extends JFrame {
 	private JButton btnStop = new JButton("Stop");
 	private JButton btnStep = new JButton("Step");
 	private JButton btnReset = new JButton("Reset");
-	public JTextArea textAreaSourceCode = new JTextArea();
 	private JTextPane textPaneWreg = new JTextPane();
 	private JTextPane textPaneFSRreg = new JTextPane();
 	private JTextPane textPaneTMR0 = new JTextPane();
@@ -103,6 +104,8 @@ public class Mainview extends JFrame {
 	private JTextPane textPaneRBt0 = new JTextPane();
 	private JCheckBox chckbxHardwarecom = new JCheckBox("Hardware/COM");
 	private JTable table;
+	private JList Sourcecodelist;
+	private DefaultListModel lm;
 	
 	
 	public Mainview() {
@@ -150,8 +153,8 @@ public class Mainview extends JFrame {
 		scrollPane.setBounds(12, 86, 500, 475);
 		contentPane.add(scrollPane);
 		
-		
-		scrollPane.setViewportView(textAreaSourceCode);
+		Sourcecodelist = new JList();
+		scrollPane.setViewportView(Sourcecodelist);
 		
 		//Spezialfunktionsregister
 		JLabel lblSpezialfunktionsregister = new JLabel("Spezialfunktionsregister");
@@ -605,9 +608,9 @@ public class Mainview extends JFrame {
 		return this.textPaneRA5;
 		}
  
-	public JTextArea getSourceCodeTextArea() 
+	public JList getSourceCodeList() 
 	{
-		return this.textAreaSourceCode;
+		return this.Sourcecodelist;
 	}
 	
 	public JCheckBox getCheckbox()
