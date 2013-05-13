@@ -20,7 +20,7 @@ import de.tuxsim.view.Mainview;
 import de.tuxsim.view.OpenFile;
 
 
-public class MainController {
+public class MainController implements Runnable{
 	private Decoder decoder;
 	private Mainview gui;
 	private OpenFile of;
@@ -28,7 +28,10 @@ public class MainController {
 	private Interna interna;
 	private Interpreter interpreter;
 	
+	Thread t2;
+	
 	private int curInstruction;
+	private boolean stop = false;
 
 	
 	public MainController() {
@@ -39,10 +42,12 @@ public class MainController {
 		this.of = new OpenFile();
 		this.interpreter = new Interpreter(instructions, this);
 		//this.portsListener = new PortsListener(gui, this);
+		
+		t2 = new Thread(new StartListener());
 	}
 
 	
-	public void temp() {
+	public void run() {
 		this.initGui();
 		this.addListener();
 		
@@ -63,25 +68,24 @@ public class MainController {
 		gui.getTextPane("FSRreg").setText(Integer.toHexString(interna.getValueAt(0x4)));
 		gui.getTextPane("TMR0").setText(Integer.toHexString(interna.getValueAtNoBank(0x1)));
 		gui.getTextPane("PCLreg").setText(Integer.toHexString(interna.getValueAt(0x2)));
-		
 		gui.getTextPane("RP0").setText(String.valueOf(interna.getBitAt(0x3, 5)));
 		gui.getTextPane("TO").setText(String.valueOf(interna.getBitAt(0x3,4)));
 		gui.getTextPane("PD").setText(String.valueOf(interna.getBitAt(0x3,3)));
 		gui.getTextPane("Z").setText(String.valueOf(interna.getBitAt(0x3,2)));
 		gui.getTextPane("DC").setText(String.valueOf(interna.getBitAt(0x3,1)));
 		gui.getTextPane("C").setText(String.valueOf(interna.getBitAt(0x3,0)));
-		
+		//PortA
 		for (int i=0;i<gui.getPortA().getColumnCount();i++) {
 			gui.getPortA().setValueAt(Integer.valueOf(interna.getBitAtNoBank(0x5, i)), 0, 7-i);
 			gui.getPortA().setValueAt(interna.getTris(0x85, i), 1, 7-i);
 		}
-		
+		//PortB
 		for (int i=0;i<gui.getPortB().getColumnCount();i++) {
 			gui.getPortB().setValueAt(Integer.valueOf(interna.getBitAtNoBank(0x6, i)), 0, 7-i);
 			gui.getPortB().setValueAt(interna.getTris(0x86, i), 1, 7-i);
 		}
 		
-		
+		//Register
 		int rowReg=0x0;
 		for (int i=0;i<gui.getRegister().getRowCount();i++) {
 			for (int j=0;j<=7;j++) {
@@ -186,6 +190,16 @@ public class MainController {
 		gui.getCodeList().setSelectedIndex(decoder.getLineNrToAddress(getPC()));
 		gui.getCodeList().ensureIndexIsVisible(gui.getCodeList().getSelectedIndex());
 	}
+	
+    public void pauseThread() throws InterruptedException
+    {
+        stop = true;
+    }
+
+    public void resumeThread()
+    {
+        stop = false;
+    }
 	/**
 	 * Intern class for OpenBtnListener
 	 * @author tuxpad
@@ -225,10 +239,31 @@ public class MainController {
 		}
 	}
 	
-	class StartListener implements ActionListener
+	class StartListener implements ActionListener,Runnable
 	{
+
+		
+		
 		public void actionPerformed(ActionEvent e)
 		{
+			if (stop==true) {
+				resumeThread();
+				return;
+			}
+			else t2.start();
+		}
+
+		@Override
+		public void run() {
+			while(stop==false) {
+				interpreter.execInstruction(decoder.getInstruction(getPC()));
+				updateSelectedLine();
+				try {
+					t2.sleep(100);
+				} catch (InterruptedException e1) {
+					e1.printStackTrace();
+				}
+			}
 			
 		}
 	}
@@ -237,7 +272,11 @@ public class MainController {
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			
+			try {
+				pauseThread();
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
 	
@@ -260,6 +299,7 @@ public class MainController {
 			updateSelectedLine();
 		}
 	}
+
 
 
 			

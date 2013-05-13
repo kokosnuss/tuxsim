@@ -4,6 +4,7 @@
 package de.tuxsim.controller;
 
 
+import de.tuxsim.controller.MainController.StartListener;
 import de.tuxsim.view.Mainview;
 
 /**
@@ -18,12 +19,14 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		
+		Thread t1 = new Thread(new MainController());
+		t1.start();
 		
-		MainController maincontroller = new MainController();
-		maincontroller.temp();
+
 	
 
 	}
+
 
 }
 /**Dev-Class to test file read **/
