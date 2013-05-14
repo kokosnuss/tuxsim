@@ -76,12 +76,14 @@ public class Mainview extends JFrame {
 	private JTextPane textPaneDC = new JTextPane();
 	private JTextPane textPaneC = new JTextPane();
 	private JTextPane textPaneRA5 = new JTextPane();
+	private JTextPane textPaneRBIF = new JTextPane();
 	private JCheckBox chckbxHardwarecom = new JCheckBox("Hardware/COM");
 	private JTable table;
 	private JList Sourcecodelist;
 	private DefaultListModel lm;
 	private JTable PortB;
 	private final JTable PortA = new JTable();
+	private JTable intcon;
 	
 	
 	public Mainview() {
@@ -400,89 +402,40 @@ public class Mainview extends JFrame {
 		
 		contentPane.add(PortA);
 		
-		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(new LineBorder(UIManager.getColor("Button.disabledToolBarBorderBackground")));
-		panel_3.setBackground(UIManager.getColor("Button.disabledToolBarBorderBackground"));
-		panel_3.setBounds(522, 42, 285, 42);
-		contentPane.add(panel_3);
-		panel_3.setLayout(new GridLayout(0, 8, 1, 1));
-
-		
-		JLabel lblGie = new JLabel("GIE");
-		lblGie.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_3.add(lblGie);
-		
-		JLabel lblEEIE = new JLabel("EEIE\r\n");
-		lblEEIE.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_3.add(lblEEIE);
-		
-		JLabel lblTie = new JLabel("T0IE");
-		lblTie.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_3.add(lblTie);
-		
-		JLabel lblInte = new JLabel("INTE");
-		lblInte.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_3.add(lblInte);
-		
-		JLabel lblRbie = new JLabel("RBIE");
-		lblRbie.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_3.add(lblRbie);
-		
-		JLabel lblTif = new JLabel("T0IF");
-		lblTif.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_3.add(lblTif);
-		
-		JLabel lblIntf = new JLabel("INTF");
-		lblIntf.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_3.add(lblIntf);
-		
-		JLabel lblRbif = new JLabel("RBIF");
-		lblRbif.setHorizontalAlignment(SwingConstants.CENTER);
-		panel_3.add(lblRbif);
-		
-		JTextPane textPaneGIE = new JTextPane();
-		textPaneGIE.setEditable(false);
-		textPaneGIE.setBackground(UIManager.getColor("Button.background"));
-		panel_3.add(textPaneGIE);
-		
-		JTextPane textPaneEEIE = new JTextPane();
-		textPaneEEIE.setEditable(false);
-		textPaneEEIE.setBackground(UIManager.getColor("Button.background"));
-		panel_3.add(textPaneEEIE);
-		
-		JTextPane textPaneT0IE = new JTextPane();
-		textPaneT0IE.setEditable(false);
-		textPaneT0IE.setBackground(UIManager.getColor("Button.background"));
-		panel_3.add(textPaneT0IE);
-		
-		JTextPane textPaneINTE = new JTextPane();
-		textPaneINTE.setEditable(false);
-		textPaneINTE.setBackground(UIManager.getColor("Button.background"));
-		panel_3.add(textPaneINTE);
-		
-		JTextPane textPaneRBIE = new JTextPane();
-		textPaneRBIE.setEditable(false);
-		textPaneRBIE.setBackground(UIManager.getColor("Button.background"));
-		panel_3.add(textPaneRBIE);
-		
-		JTextPane textPaneT0IF = new JTextPane();
-		textPaneT0IF.setEditable(false);
-		textPaneT0IF.setBackground(UIManager.getColor("Button.background"));
-		panel_3.add(textPaneT0IF);
-		
-		JTextPane textPaneINTF = new JTextPane();
-		textPaneINTF.setEditable(false);
-		textPaneINTF.setBackground(UIManager.getColor("Button.background"));
-		panel_3.add(textPaneINTF);
-		
-		JTextPane textPaneRBIF = new JTextPane();
-		textPaneRBIF.setEditable(false);
-		textPaneRBIF.setBackground(UIManager.getColor("Button.background"));
-		panel_3.add(textPaneRBIF);
-		
 		JLabel lblIntcon = new JLabel("INTCON");
-		lblIntcon.setBounds(522, 23, 46, 14);
+		lblIntcon.setBounds(522, 23, 63, 14);
 		contentPane.add(lblIntcon);
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBounds(524, 40, 272, 38);
+		contentPane.add(scrollPane_2);
+		scrollPane_2.setBackground(UIManager.getColor("Button.disabledToolBarBorderBackground"));
+		
+		intcon = new JTable();
+		intcon.setBackground(UIManager.getColor("Button.background"));
+		scrollPane_2.setViewportView(intcon);
+		intcon.setRowSelectionAllowed(false);
+		intcon.getTableHeader().setBackground(UIManager.getColor("Button.disabledToolBarBorderBackground"));
+		intcon.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null, null, null, null, null, null},
+			},
+			new String[] {
+				"GIE", "EEIE", "T0IE", "INTE", "RBIE", "T0IF", "INTF", "RBIF"
+			}) {
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		});
+		intcon.getColumnModel().getColumn(0).setResizable(false);
+		intcon.getColumnModel().getColumn(1).setResizable(false);
+		intcon.getColumnModel().getColumn(2).setResizable(false);
+		intcon.getColumnModel().getColumn(3).setResizable(false);
+		intcon.getColumnModel().getColumn(4).setResizable(false);
+		intcon.getColumnModel().getColumn(5).setResizable(false);
+		intcon.getColumnModel().getColumn(6).setResizable(false);
+		intcon.getColumnModel().getColumn(7).setResizable(false);
+		
 		
 	}
 	
@@ -534,7 +487,7 @@ public class Mainview extends JFrame {
 		case "PD": 		return this.textPanePD; 	
 		case "Z": 		return this.textPaneZ; 		
 		case "DC":		return this.textPaneDC;		
-		case "C":		return this.textPaneC; 		
+		case "C":		return this.textPaneC; 	
 		}
 		return this.textPaneRA5;
 		}
@@ -559,6 +512,9 @@ public class Mainview extends JFrame {
 	}
 	public JTable getPortB() {
 		return PortB;
+	}
+	public JTable getIntcon() {
+		return intcon;
 	}
 }
 

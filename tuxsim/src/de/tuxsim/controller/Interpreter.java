@@ -44,11 +44,11 @@ public class Interpreter {
 			if (binInstruction.matches("^001000.*")) {instructions.movf(f, d);} //movf
 			if (binInstruction.matches("^0000001.*")) {instructions.movwf(f,d);} //movwf
 			if (binInstruction.matches("^0000000.*")) {} //nop
-			if (binInstruction.matches("^001101.*")) {} //rlf
-			if (binInstruction.matches("^001100.*")) {} //rrf
+			if (binInstruction.matches("^001101.*")) {instructions.rlf(f, d);} //rlf
+			if (binInstruction.matches("^001100.*")) {instructions.rrf(f, d);} //rrf
 			if (binInstruction.matches("^000010.*")) {instructions.subwf(f,d);} //subwf
-			if (binInstruction.matches("^001110.*")) {} //swapf
-			if (binInstruction.matches("^000110.*")) {} //xorwf
+			if (binInstruction.matches("^001110.*")) {instructions.swapf(f, d);} //swapf
+			if (binInstruction.matches("^000110.*")) {instructions.xorwf(f, d);} //xorwf
         }
         //BIT ORIENTED OPs
         else if (binInstruction.matches("^01.*")) {
@@ -64,14 +64,14 @@ public class Interpreter {
         //LITERAL AND CONTROL OPs
         	int k = curInstruction & 255;
 			if (binInstruction.matches("^11111.*")) {instructions.addlw(k);} //addlw
-			if (binInstruction.matches("^111001.*")) {} //andlw
-			if (binInstruction.matches("^111000.*")) {} //iorlw
+			if (binInstruction.matches("^111001.*")) {instructions.andlw(k);} //andlw
+			if (binInstruction.matches("^111000.*")) {instructions.iorlw(k);} //iorlw
 			if (binInstruction.matches("^1100.*")) {instructions.movlw(k);} //movlw
-			if (binInstruction.matches("^00000000001001.*")) {} //retfie
+			if (binInstruction.matches("^00000000001001.*")) {instructions.retfie();} //retfie
 			if (binInstruction.matches("^1101.*")) {instructions.retlw(k);} //retlw
-			if (binInstruction.matches("^00000000001000.*")) {} //return
-			if (binInstruction.matches("^11110.*")) {} //sublw
-			if (binInstruction.matches("^111010.*")) {} //xorlw
+			if (binInstruction.matches("^00000000001000.*")) {instructions.Return();} //return
+			if (binInstruction.matches("^11110.*")) {instructions.sublw(k);} //sublw
+			if (binInstruction.matches("^111010.*")) instructions.xorlw(k);{} //xorlw
 			k = curInstruction & 2047;
 			if (binInstruction.matches("^100.*")) {instructions.call(k);} //call
 			if (binInstruction.matches("^101.*")) {instructions.iGoto(k); } //GOTO

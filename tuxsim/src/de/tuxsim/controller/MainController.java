@@ -9,6 +9,7 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 
+import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
@@ -41,14 +42,13 @@ public class MainController implements Runnable {
 		this.interna = new Interna();
 		this.of = new OpenFile();
 		this.interpreter = new Interpreter(instructions, this);
-		initRunThread();
+		
 	}
 
 	
 	public void run() {
 		this.initGui();
 		this.addListener();
-		
 	}
 
 	/**
@@ -60,6 +60,7 @@ public class MainController implements Runnable {
 	}
 	
 	public void initRunThread() {
+		stop = false;
 		t2 = new Thread(new StartListener());
 	}
 	/**
@@ -85,6 +86,10 @@ public class MainController implements Runnable {
 		for (int i=0;i<gui.getPortB().getColumnCount();i++) {
 			gui.getPortB().setValueAt(Integer.valueOf(interna.getBitAtNoBank(0x6, i)), 0, 7-i);
 			gui.getPortB().setValueAt(interna.getTris(0x86, i), 1, 7-i);
+		}
+		//INTCON
+		for (int i=0;i<gui.getIntcon().getColumnCount();i++) {
+			gui.getIntcon().setValueAt(Integer.valueOf(interna.getBitAt(0x0B, i)), 0, 7-i);
 		}
 		
 		//Register
@@ -144,7 +149,15 @@ public class MainController implements Runnable {
 				}
 			}
 		});
-		
+		this.gui.getIntcon().addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				int column = gui.getIntcon().columnAtPoint(e.getPoint());
+				int bit = interna.getBitAtNoBank(0x0B,7-column);
+				if (bit==0) interna.setBitAt(0x0B, 7-column);
+				else interna.clearBitAt(0x0B, 7-column);
+				updateGui();
+			}
+		});
 		
 	
 	}
@@ -189,8 +202,10 @@ public class MainController implements Runnable {
 	 * 
 	 */
 	public void updateSelectedLine() {
-		gui.getCodeList().setSelectedIndex(decoder.getLineNrToAddress(getPC()));
+		int index = decoder.getLineNrToAddress(getPC());
+		gui.getCodeList().setSelectedIndex(index);
 		gui.getCodeList().ensureIndexIsVisible(gui.getCodeList().getSelectedIndex());
+		
 	}
 	
 	/**
@@ -236,17 +251,23 @@ public class MainController implements Runnable {
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-					 
+			initRunThread();	 
 			 t2.start();
 		}
 
 		@Override
 		public void run() {
-			while(true) {
+			while(!stop) {
 				interpreter.execInstruction(decoder.getInstruction(getPC()));
-				updateSelectedLine();
+				SwingUtilities.invokeLater(new Runnable() {
+					
+					@Override
+					public void run() {
+						updateSelectedLine();
+					}
+				});
 				try {
-					t2.sleep(100);
+					t2.sleep(500);
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
@@ -258,6 +279,7 @@ public class MainController implements Runnable {
 	{
 		public void actionPerformed(ActionEvent e)
 		{
+			stop=true;
 		}
 	}
 	
