@@ -1,22 +1,21 @@
 package de.tuxsim.controller;
 
-import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 
 import javax.swing.SwingUtilities;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DefaultHighlighter;
-import javax.swing.text.Highlighter;
 
 import de.tuxsim.model.Decoder;
 import de.tuxsim.model.Instructions;
 import de.tuxsim.model.Interna;
+import de.tuxsim.view.About;
 import de.tuxsim.view.Mainview;
 import de.tuxsim.view.OpenFile;
 
@@ -166,7 +165,7 @@ public class MainController implements Runnable {
 	 * Initialize Listener when programm is loaded
 	 */
 	public void addProgrammListener() {
-		this.gui.setStartListener(new StartListener());
+		this.gui.setStartListener(new StartListener(), new ButtonKeyAdapter());
 		this.gui.setStopListener(new StopListener());
 		this.gui.setStepListener(new StepListener());
 		this.gui.setResetListener(new ResetListener());
@@ -235,7 +234,11 @@ public class MainController implements Runnable {
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			
+			try {
+				Desktop.getDesktop().open(new File("Datenblatt.pdf"));
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
 	
@@ -243,7 +246,8 @@ public class MainController implements Runnable {
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			
+			About a = new About();
+			a.setVisible(true);
 		}
 	}
 	
@@ -301,6 +305,18 @@ public class MainController implements Runnable {
 			reset(false);
 			updateSelectedLine();
 		}
+	}
+	
+	class ButtonKeyAdapter extends KeyAdapter 
+	{
+		   public void keyPressed(KeyEvent ke) { 
+			   
+			   if (ke.getKeyCode() == 120) { //Start
+				   initRunThread();
+				   t2.start();
+			   }
+			   
+		   }
 	}
 
 
