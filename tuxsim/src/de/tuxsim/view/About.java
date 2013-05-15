@@ -6,6 +6,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.JTextPane;
+import javax.swing.JFormattedTextField;
 
 public class About extends JFrame {
 
@@ -19,11 +20,12 @@ public class About extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JTextPane txtpnTuxsimV = new JTextPane();
-		txtpnTuxsimV.setText("TuxSim v1.0\n\nA lightweight Java-Simulator for the PIC16F84 Processor.\n\n© 2013 by Karolin Edigkaufer, Lukas Essig");
-		txtpnTuxsimV.setBackground(UIManager.getColor("Button.background"));
-		txtpnTuxsimV.setEditable(false);
-		txtpnTuxsimV.setBounds(12, 12, 370, 143);
-		contentPane.add(txtpnTuxsimV);
+		JTextPane txtPnTuxSim = new JTextPane();
+		txtPnTuxSim.setText("TuxSim v1.0\n\nA lightweight Java-Simulator for the PIC16F84 Processor.\n\n\n\n© 2013 by Karolin Edigkaufer, Lukas Essig");
+		
+		txtPnTuxSim.setBackground(UIManager.getColor("Button.background"));
+		txtPnTuxSim.setEditable(false);
+		txtPnTuxSim.setBounds(12, 12, 370, 143);
+		contentPane.add(txtPnTuxSim);
 	}
 }

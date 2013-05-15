@@ -26,6 +26,8 @@ import javax.swing.JButton;
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.AbstractDocument.Content;
@@ -97,7 +99,7 @@ public class Mainview extends JFrame {
 
 		setResizable(false);
 		setTitle("TuxSim");
-		setIconImage(Toolkit.getDefaultToolkit().getImage("/home/tuxpad/git/tuxsim/tuxsim/tux.jpg"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("tux.jpg"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 600);
 		contentPane = new JPanel();
