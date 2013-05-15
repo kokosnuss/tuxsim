@@ -28,7 +28,7 @@ public class MainController implements Runnable {
 	private Interna interna;
 	private Interpreter interpreter;
 	
-	Thread t2;
+	private Thread t2;
 	
 	private int curInstruction;
 	private boolean stop = false;
@@ -165,7 +165,7 @@ public class MainController implements Runnable {
 	 * Initialize Listener when programm is loaded
 	 */
 	public void addProgrammListener() {
-		this.gui.setStartListener(new StartListener(), new ButtonKeyAdapter());
+		this.gui.setStartListener(new StartListener());
 		this.gui.setStopListener(new StopListener());
 		this.gui.setStepListener(new StepListener());
 		this.gui.setResetListener(new ResetListener());
@@ -224,6 +224,7 @@ public class MainController implements Runnable {
 				}
 			addProgrammListener();
 			gui.getCodeList().setSelectedIndex(decoder.getLineNrToAddress(getPC()));
+			gui.setVisible(true); //Make sure buttons are focusable
 			}
 			else return;	
 		}
@@ -307,17 +308,6 @@ public class MainController implements Runnable {
 		}
 	}
 	
-	class ButtonKeyAdapter extends KeyAdapter 
-	{
-		   public void keyPressed(KeyEvent ke) { 
-			   
-			   if (ke.getKeyCode() == 120) { //Start
-				   initRunThread();
-				   t2.start();
-			   }
-			   
-		   }
-	}
 
 
 			

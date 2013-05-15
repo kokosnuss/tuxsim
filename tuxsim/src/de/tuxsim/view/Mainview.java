@@ -4,7 +4,9 @@ package de.tuxsim.view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Image;
 import java.awt.Scrollbar;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,6 +19,7 @@ import javax.swing.JMenu;
 import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
@@ -25,6 +28,8 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.AbstractDocument.Content;
+
 import java.awt.GridLayout;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
@@ -92,6 +97,7 @@ public class Mainview extends JFrame {
 
 		setResizable(false);
 		setTitle("TuxSim");
+		setIconImage(Toolkit.getDefaultToolkit().getImage("/home/tuxpad/git/tuxsim/tuxsim/tux.jpg"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 600);
 		contentPane = new JPanel();
@@ -116,6 +122,7 @@ public class Mainview extends JFrame {
 		//Start,Stop,Step, Reset Buttons
 		btnStart.setBounds(0, 5, 70, 25);
 		btnStart.setHorizontalAlignment(SwingConstants.LEFT);
+		btnStart.setFocusable(true);
 		panel.add(btnStart);
 		btnStop.setBounds(82, 5, 67, 25);
 		panel.add(btnStop);
@@ -455,10 +462,9 @@ public class Mainview extends JFrame {
 		this.mntmAboutTuxsim.addActionListener(l);
 	}
 	
-	public void setStartListener(ActionListener l,KeyAdapter k) 
+	public void setStartListener(ActionListener l) 
 	{
 		this.btnStart.addActionListener(l);
-		this.btnStart.addKeyListener(k);
 	}
 	
 	public void setStopListener(ActionListener l)
@@ -519,6 +525,7 @@ public class Mainview extends JFrame {
 	public JTable getIntcon() {
 		return intcon;
 	}
+
 }
 
 
