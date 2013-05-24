@@ -32,6 +32,7 @@ public class MainController implements Runnable {
 	
 	private int curInstruction;
 	private boolean stop = false;
+	public boolean isInterrupted = false;
 
 	
 	public MainController() {
@@ -178,9 +179,10 @@ public class MainController implements Runnable {
 	}
 	
 	public void checkInterrupt() {
-		if (interna.getInterrupt()) {
+		if (interna.getInterrupt() && !isInterrupted) {
+			isInterrupted = true;
 			this.getInterna().getPcstack().push(this.getPC()+1);
-			this.setPC(0x4);
+			this.setPC(0x3);
 		}
 	}
 	
