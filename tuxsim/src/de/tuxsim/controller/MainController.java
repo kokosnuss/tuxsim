@@ -128,11 +128,8 @@ public class MainController implements Runnable {
 			public void mouseClicked(MouseEvent e) {
 				int row = gui.getPortA().rowAtPoint(e.getPoint());
 				int column = gui.getPortA().columnAtPoint(e.getPoint());
-				if(row==0 && column>2 && (interna.getBitAt(0x85,7-column) ==1)) {
-					int bit = interna.getBitAtNoBank(0x5,7-column);
-					if (bit==0) interna.setBitAt(0x5, 7-column);
-					else interna.clearBitAt(0x5, 7-column);
-					updateGui();
+				if(row==0 && column>2 && (interna.getBitAt(0x85,7-column) ==1)) { //tris aktiviert?
+					portAClicked(column);
 				}
 			}
 		});
@@ -140,11 +137,8 @@ public class MainController implements Runnable {
 			public void mouseClicked(MouseEvent e) {
 				int row = gui.getPortB().rowAtPoint(e.getPoint());
 				int column = gui.getPortB().columnAtPoint(e.getPoint());
-				if(row==0 && (interna.getBitAt(0x86,7-column) ==1)) {
-					int bit = interna.getBitAtNoBank(0x6,7-column);
-					if (bit==0) interna.setBitAt(0x6, 7-column);
-					else interna.clearBitAt(0x6, 7-column);
-					updateGui();
+				if(row==0 && (interna.getBitAt(0x86,7-column) ==1)) { //tris aktiviert?
+					portBClicked(column);
 				}
 			}
 		});
@@ -172,6 +166,69 @@ public class MainController implements Runnable {
 		
 	}
 	
+
+	/**
+	 * 
+	 */
+	public void updateSelectedLine() {
+		int index = decoder.getLineNrToAddress(getPC());
+		gui.getCodeList().setSelectedIndex(index);
+		gui.getCodeList().ensureIndexIsVisible(gui.getCodeList().getSelectedIndex());
+		
+	}
+	
+	public void checkInterrupt() {
+		if (interna.getInterrupt()) {
+			this.getInterna().getPcstack().push(this.getPC()+1);
+			this.setPC(0x4);
+		}
+	}
+	
+	private void portBClicked(int column) {
+		int bit = interna.getBitAtNoBank(0x6,7-column); //toggle bits
+		if (bit==0) interna.setBitAt(0x6, 7-column);
+		else interna.clearBitAt(0x6, 7-column);
+		
+		boolean oldB = (bit != 0);
+		boolean newB = (interna.getBitAtNoBank(0x6, 4) != 0);
+		if (interna.getBitAt(0xB, 7)==1) { 									//GIE Enabled
+			if (interna.getBitAt(0xB, 3)==1 && column <=3) {				//rb port changed
+				 interna.setBitAt(0xB, 0);
+			} else if (interna.getBitAt(0xB, 4)==1 && column==7) {			//rb0 interrupt
+				if (interna.getBitAt(0x81, 6) ==1) {						//check interrupt-edge
+					if (newB && !oldB) {
+						interna.setBitAt(0xB, 1);
+					}
+				} else {
+					if (!newB && oldB) {
+						interna.setBitAt(0xB, 1);
+					}
+				}
+			}
+		}
+		updateGui();
+	}
+
+	private void portAClicked(int column) {
+		int bit = interna.getBitAtNoBank(0x5,7-column);					//toggle bits
+		if (bit==0)  interna.setBitAt(0x5, 7-column);
+		else interna.clearBitAt(0x5, 7-column);
+		boolean oldV = (bit != 0);
+		boolean newV = (interna.getBitAtNoBank(0x5, 4) != 0);
+		if (column==3 && interna.getBitAt(0x81, 5)==1) {				//TMR0 Clock Source Select Bit
+			if (interna.getBitAt(0x81, 4) == 1) {						//inc high-to-low
+				if (!newV && oldV) {
+						interna.incTMR0();
+				}
+			} else {													//inc low-to-high
+				if (newV && !oldV) {
+						interna.incTMR0();
+				}
+			}
+		}
+		updateGui();
+	}
+
 	
 	/**
 	 * @return the curInstruction
@@ -197,16 +254,6 @@ public class MainController implements Runnable {
 	public Interna getInterna() {
 		return interna;
 	}
-	/**
-	 * 
-	 */
-	public void updateSelectedLine() {
-		int index = decoder.getLineNrToAddress(getPC());
-		gui.getCodeList().setSelectedIndex(index);
-		gui.getCodeList().ensureIndexIsVisible(gui.getCodeList().getSelectedIndex());
-		
-	}
-	
 	/**
 	 * Intern class for OpenBtnListener
 	 * @author tuxpad
@@ -272,7 +319,7 @@ public class MainController implements Runnable {
 					}
 				});
 				try {
-					t2.sleep(500);
+					t2.sleep(100);
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}

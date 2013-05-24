@@ -21,6 +21,7 @@ public class Interpreter {
 	 * @param curInstruction Opcode from LST-File
 	 */
 	public void execInstruction(int curInstruction) {
+		mc.checkInterrupt();
         String binInstruction = Integer.toBinaryString(curInstruction);
         while (binInstruction.length() < 14) binInstruction = "0" + binInstruction; //führende Nullen hinzufügen
         

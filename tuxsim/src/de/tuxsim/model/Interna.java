@@ -335,6 +335,10 @@ public class Interna {
 		return this.Register[index];
 	}
 	
+	public void setValueAtNoBank(int index, int val) {
+		this.Register[index] = (short) val;
+	}
+	
 	/**
 	 * Check which Bank is selected
 	 * @return int 0|1
@@ -381,6 +385,36 @@ public class Interna {
 		if (tris==1) return "i";
 		else return "o";
 	}
+	
+	public void incTMR0() {
+		int newVal = getValueAtNoBank(0x1) + 1;
+		if (newVal > 255) { //Überlauf Tmr0?
+			newVal = newVal % 256;
+		}
+		if (newVal == 0) { //tmr0 overflow interrupt bit
+			setBitAt(0xB, 2);
+		}
+		setValueAtNoBank(0x1,newVal);
+	}
+	
+	public boolean getInterrupt() {
+		boolean result = false;
+		if(this.getBitAt(0xB, 7) == 1) { //Global Interrupt
+			if (this.getBitAt(0xB, 5)==1 && this.getBitAt(0xB, 2)==1 ) {
+				result=true;
+				System.err.println("TMR0 Interrupt!");
+			}
+			if (this.getBitAt(0xB, 4)==1 && this.getBitAt(0xB, 1)==1) {
+				result=true;
+				System.err.println("RB0 Interrupt");
+			}
+			if (this.getBitAt(0xB, 3)==1 && this.getBitAt(0xB, 0)==1) {
+				result=true;
+				System.err.println("RB Port Changed Interrupt!");
+			}
+		}
+		return result;
+}
 
 	
 	
