@@ -21,7 +21,6 @@ public class Interpreter {
 	 * @param curInstruction Opcode from LST-File
 	 */
 	public void execInstruction(int curInstruction) {
-		 mc.checkInterrupt();
 		
         String binInstruction = Integer.toBinaryString(curInstruction);
         while (binInstruction.length() < 14) binInstruction = "0" + binInstruction; //führende Nullen hinzufügen
@@ -51,6 +50,9 @@ public class Interpreter {
 			if (binInstruction.matches("^000010.*")) {instructions.subwf(f,d);} //subwf
 			if (binInstruction.matches("^001110.*")) {instructions.swapf(f, d);} //swapf
 			if (binInstruction.matches("^000110.*")) {instructions.xorwf(f, d);} //xorwf
+			
+			if (binInstruction.matches("^00000000001001.*")) {instructions.retfie();} //retfie
+			if (binInstruction.matches("^00000000001000.*")) {instructions.Return();} //return
         }
         //BIT ORIENTED OPs
         else if (binInstruction.matches("^01.*")) {
@@ -69,9 +71,9 @@ public class Interpreter {
 			if (binInstruction.matches("^111001.*")) {instructions.andlw(k);} //andlw
 			if (binInstruction.matches("^111000.*")) {instructions.iorlw(k);} //iorlw
 			if (binInstruction.matches("^1100.*")) {instructions.movlw(k);} //movlw
-			if (binInstruction.matches("^00000000001001.*")) {instructions.retfie();} //retfie
+	
 			if (binInstruction.matches("^1101.*")) {instructions.retlw(k);} //retlw
-			if (binInstruction.matches("^00000000001000.*")) {instructions.Return();} //return
+		
 			if (binInstruction.matches("^11110.*")) {instructions.sublw(k);} //sublw
 			if (binInstruction.matches("^111010.*")) instructions.xorlw(k);{} //xorlw
 			k = curInstruction & 2047;

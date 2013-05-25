@@ -315,8 +315,11 @@ public class Instructions {
 	}
 	
 	public void retfie() {
+		
 		mc.setPC(mc.getInterna().getPcstack().pop()-1);
+		int pc = mc.getPC();
 		mc.getInterna().setBitAt(0xB, 7);
+		mc.isInterrupted = false;
 	}
 	
 	public void Return() {

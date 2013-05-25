@@ -181,7 +181,7 @@ public class MainController implements Runnable {
 	public void checkInterrupt() {
 		if (interna.getInterrupt() && !isInterrupted) {
 			isInterrupted = true;
-			this.getInterna().getPcstack().push(this.getPC()+1);
+			this.getInterna().getPcstack().push(this.getPC());
 			this.setPC(0x3);
 		}
 	}
@@ -312,6 +312,7 @@ public class MainController implements Runnable {
 		@Override
 		public void run() {
 			while(!stop) {
+				checkInterrupt();
 				interpreter.execInstruction(decoder.getInstruction(getPC()));
 				SwingUtilities.invokeLater(new Runnable() {
 					
@@ -341,6 +342,7 @@ public class MainController implements Runnable {
 	{
 		public void actionPerformed(ActionEvent e)
 		{
+			checkInterrupt();
 			interpreter.execInstruction(decoder.getInstruction(getPC()));
 			updateSelectedLine();
 		}
