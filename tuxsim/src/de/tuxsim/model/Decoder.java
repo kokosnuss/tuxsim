@@ -26,6 +26,9 @@ public class Decoder {
 	 * Hashmap which contains adrees + instructions of LST-File
 	 */
 	HashMap<Integer, Integer> instructionMap = new HashMap<Integer, Integer>();
+	/**
+	 * Hashmap which links the PC-Adress to the LineNumber in SourceCode
+	 */
 	HashMap<Integer,Integer> address_linenumber = new HashMap<Integer,Integer>();
 	
 	/**
@@ -59,19 +62,12 @@ public class Decoder {
 		
 	}
 	
-	/**
-	 * Returns the instruction to the given adress of the Hashmap
-	 * @param address
-	 * @return instruction
-	 */
+	
 	public int getInstruction(int address) {
 			int instruction = this.instructionMap.get(address);
 			return instruction;
 			}
-	/**
-	 * Returns instructionMap
-	 * @return the instructionMap
-	 */
+	
 	public HashMap<Integer, Integer> getInstructionMap() {
 		return this.instructionMap;
 	}
@@ -80,7 +76,9 @@ public class Decoder {
 		int lineNr = this.address_linenumber.get(address);
 		return lineNr -1;
 	}
-	
+	/**
+	 * Clears Hashmaps, called if new Programm loaded
+	 */
 	public void clearHashMaps() {
 		this.instructionMap.clear();
 		this.address_linenumber.clear();

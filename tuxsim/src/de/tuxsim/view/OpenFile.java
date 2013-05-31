@@ -4,7 +4,11 @@ import javax.swing.JFileChooser;
 
 import java.awt.Container;
 import java.io.File; 
-
+/**
+ * Open File Dialog
+ * @author tuxpad
+ *
+ */
 public class OpenFile 
 {
 	

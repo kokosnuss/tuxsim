@@ -1,7 +1,12 @@
 package de.tuxsim.model;
 
 import de.tuxsim.controller.MainController;
-
+/**
+ * Class represents the Instruction Set Summary of the PIC16F84
+ * For explanations to each instruction see datasheet
+ * @author tuxpad
+ *
+ */
 public class Instructions {
 	private MainController mc;
 	

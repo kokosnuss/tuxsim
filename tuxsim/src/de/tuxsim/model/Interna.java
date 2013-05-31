@@ -4,7 +4,7 @@ import java.util.Stack;
 
 
 /**
- * This class represents the PIC interna with the registers, memory ...
+ * This class represents the PIC interna with the registers, W-Register, Stack
  * @author tuxpad
  *
  */
@@ -176,6 +176,12 @@ public class Interna {
 		}
 		return;
 	}
+	/**
+	 * Returns the Bit of the Register
+	 * @param index RegisterAdress
+	 * @param bit Bit to get
+	 * @return int
+	 */
 	public int getBitAt(int index, int bit) {
 		short help = 1;
 		help = (short) (help << bit);
@@ -352,40 +358,34 @@ public class Interna {
 			return 1; 
 		}
 	}
-	/**
-	 * @return the register
-	 */
 	public short[] getRegister() {
 		return Register;
 	}
-	/**
-	 * Returns content von Register W
-	 * @return Register W
-	 */
 	public int getRegW() {
 		return this.regW;
 	}
-	/**
-	 * Set Wreg to literal
-	 * @param literal to set
-	 */
 	public void setRegW(int literal) {
 		this.regW = literal;
 	}
-	/**
-	 * Returns the PCLStack
-	 * @return PCLStack
-	 */
 	public Stack<Integer> getPcstack() {
 		return pcstack;
 	}
 	
+	/**
+	 * Returns the String representation of the Tris
+	 * @param index Tris
+	 * @param bit Bit
+	 * @return o|i
+	 */
 	public String getTris(int index, int bit) {
 		int tris = getBitAt(index, bit);
 		if (tris==1) return "i";
 		else return "o";
 	}
 	
+	/**
+	 * Increment TMR0, Check overflow 
+	 */
 	public void incTMR0() {
 		int newVal = getValueAtNoBank(0x1) + 1;
 		if (newVal > 255) { //Überlauf Tmr0?
@@ -397,6 +397,10 @@ public class Interna {
 		setValueAtNoBank(0x1,newVal);
 	}
 	
+	/**
+	 * Checks if Interrupt occured
+	 * @return true|false
+	 */
 	public boolean getInterrupt() {
 		boolean result = false;
 		if(this.getBitAt(0xB, 7) == 1) { //Global Interrupt

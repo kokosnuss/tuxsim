@@ -8,6 +8,11 @@ import javax.swing.UIManager;
 import javax.swing.JTextPane;
 import javax.swing.JFormattedTextField;
 
+/**
+ * About Frame of GUI
+ * @author tuxpad
+ *
+ */
 public class About extends JFrame {
 
 	public About() {

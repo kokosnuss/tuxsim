@@ -19,7 +19,11 @@ import de.tuxsim.view.About;
 import de.tuxsim.view.Mainview;
 import de.tuxsim.view.OpenFile;
 
-
+/**
+ * Represents the CPU of the PIC, all Actions are performed or called here
+ * @author tuxpad
+ *
+ */
 public class MainController implements Runnable {
 	private Decoder decoder;
 	private Mainview gui;
@@ -45,26 +49,31 @@ public class MainController implements Runnable {
 		
 	}
 
-	
+	/**
+	 * Run Method for Init Thread
+	 */
 	public void run() {
 		this.initGui();
 		this.addListener();
 	}
 
 	/**
-	 * Enable Gui & Reset View 
+	 * Enable Gui 
 	 */
 	public void initGui() {
 		gui.setVisible(true);
 		this.updateGui();
 	}
 	
+	/**
+	 * Init the Run Thread for Running the Programm automatically
+	 */
 	public void initRunThread() {
 		stop = false;
 		t2 = new Thread(new StartListener());
 	}
 	/**
-	 * update/reset the Register(Model & View) to default, 
+	 * Updates the GUI-Elements  
 	 */
 	public void updateGui() {
 		gui.getTextPane("Wreg").setText(Integer.toHexString(interna.getRegW()));
@@ -119,7 +128,7 @@ public class MainController implements Runnable {
 		updateGui();
 	}
 	/**
-	 * Initialize  Listener of gui - no programm
+	 * Initialize  Listener of gui - no programm is loaded
 	 */
 	public void addListener() {
 		this.gui.setOpenListener(new OpenListener());
@@ -169,7 +178,7 @@ public class MainController implements Runnable {
 	
 
 	/**
-	 * 
+	 * Highlight the line in Source Code which is executed
 	 */
 	public void updateSelectedLine() {
 		int index = decoder.getLineNrToAddress(getPC());
@@ -177,15 +186,21 @@ public class MainController implements Runnable {
 		gui.getCodeList().ensureIndexIsVisible(gui.getCodeList().getSelectedIndex());
 		
 	}
-	
+	/**
+	 * Check if Interrupt occurs, if yes, push PC to Stack & go to 0x4
+	 */
 	public void checkInterrupt() {
 		if (interna.getInterrupt() && !isInterrupted) {
 			isInterrupted = true;
 			this.getInterna().getPcstack().push(this.getPC());
-			this.setPC(0x3);
+			this.setPC(0x4-1);
 		}
 	}
-	
+	/**
+	 * A Bit of Port B is Clicked
+	 * Checks Interrupt Bits and impulse edge
+	 * @param column Bit of Port B
+	 */
 	private void portBClicked(int column) {
 		int bit = interna.getBitAtNoBank(0x6,7-column); //toggle bits
 		if (bit==0) interna.setBitAt(0x6, 7-column);
@@ -210,7 +225,11 @@ public class MainController implements Runnable {
 		}
 		updateGui();
 	}
-
+	/**
+	 * Bit of Port A is Clicked
+	 * Checks TMR0 Source Select Bit & impulse edge
+	 * @param column Bit of Port A
+	 */
 	private void portAClicked(int column) {
 		int bit = interna.getBitAtNoBank(0x5,7-column);					//toggle bits
 		if (bit==0)  interna.setBitAt(0x5, 7-column);
@@ -232,16 +251,13 @@ public class MainController implements Runnable {
 	}
 
 	
-	/**
+	/**Returns the current Instruction Code
 	 * @return the curInstruction
 	 */
 	public int getCurInstruction() {
 		return curInstruction;
 	}
 
-	/**
-	 * @return the curAdress
-	 */
 	public int getPC() {
 		return interna.getValueAt(0x2);
 	}
@@ -258,6 +274,7 @@ public class MainController implements Runnable {
 	}
 	/**
 	 * Intern class for OpenBtnListener
+	 * Opens new File and parses it
 	 * @author tuxpad
 	 *
 	 */
@@ -279,7 +296,6 @@ public class MainController implements Runnable {
 		}
 		
 	}
-	
 	class HelpListener implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e)
@@ -300,7 +316,11 @@ public class MainController implements Runnable {
 			a.setVisible(true);
 		}
 	}
-	
+	/**
+	 * Starts running through programm until Stop is clicked 
+	 * @author tuxpad
+	 *
+	 */
 	class StartListener implements ActionListener,Runnable
 	{
 		public void actionPerformed(ActionEvent e)
@@ -329,7 +349,11 @@ public class MainController implements Runnable {
 			}
 		}
 	}
-	
+	/**
+	 * Stops the running programm
+	 * @author tuxpad
+	 *
+	 */
 	class StopListener implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e)
@@ -337,7 +361,11 @@ public class MainController implements Runnable {
 			stop=true;
 		}
 	}
-	
+	/**
+	 * Execute the next Instruction
+	 * @author tuxpad
+	 *
+	 */
 	class StepListener implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e)
@@ -349,7 +377,12 @@ public class MainController implements Runnable {
 
 	
 	}
-	
+	/**
+	 * Reset the Programm 
+	 * PC = 0; Register = default
+	 * @author tuxpad
+	 *
+	 */
 	class ResetListener implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e)
