@@ -2,58 +2,34 @@
 
 package de.tuxsim.view;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import java.awt.Image;
-import java.awt.Scrollbar;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import java.awt.Window.Type;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.SwingConstants;
 import javax.swing.JMenu;
 import java.awt.Component;
-import javax.swing.Box;
 import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JRadioButton;
 import javax.swing.JButton;
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
 import javax.swing.JTable;
-import javax.swing.UIManager.LookAndFeelInfo;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.AbstractDocument.Content;
-
 import java.awt.GridLayout;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.UIManager;
-import java.awt.Panel;
-import javax.swing.JSpinner;
-import javax.swing.JToggleButton;
 import javax.swing.JCheckBox;
 import java.awt.Font;
-import javax.swing.JTextArea;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
-import java.awt.ScrollPane;
 import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseListener;
-import java.io.File;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.ItemListener;
+
 import javax.swing.JList;
 /**
  * GUI-Class, separated from Controller & Model
@@ -336,6 +312,7 @@ public class Mainview extends JFrame {
 			boolean[] columnEditables = new boolean[] {
 				false, false, false, false, false, false, false, false, false
 			};
+			@Override
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
@@ -385,6 +362,7 @@ public class Mainview extends JFrame {
 			new String[] {
 				"New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column"
 			}) {
+				@Override
 				public boolean isCellEditable(int row, int column) {
 					return false;
 				}
@@ -405,6 +383,7 @@ public class Mainview extends JFrame {
 			new String[] {
 				"New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column"
 			}) {
+			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
@@ -434,6 +413,7 @@ public class Mainview extends JFrame {
 			new String[] {
 				"GIE", "EEIE", "T0IE", "INTE", "RBIE", "T0IF", "INTF", "RBIF"
 			}) {
+			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
@@ -484,6 +464,9 @@ public class Mainview extends JFrame {
 		this.btnReset.addActionListener(l);
 	}
 	
+	public void setComListener(ItemListener l) {
+		this.chckbxHardwarecom.addItemListener(l);
+	}
 	
 	public JTextPane getTextPane(String pane) {
 	

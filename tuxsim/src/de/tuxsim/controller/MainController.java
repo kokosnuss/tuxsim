@@ -3,8 +3,8 @@ package de.tuxsim.controller;
 import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -31,7 +31,6 @@ public class MainController implements Runnable {
 	private Instructions instructions;
 	private Interna interna;
 	private Interpreter interpreter;
-	private COMPort comport;
 	
 	private Thread t2;
 	
@@ -47,13 +46,13 @@ public class MainController implements Runnable {
 		this.interna = new Interna();
 		this.of = new OpenFile();
 		this.interpreter = new Interpreter(instructions, this);
-		this.comport = new COMPort();
 		
 	}
 
 	/**
 	 * Run Method for Init Thread
 	 */
+	@Override
 	public void run() {
 		this.initGui();
 		this.addListener();
@@ -137,6 +136,7 @@ public class MainController implements Runnable {
 		this.gui.setHelpListener(new HelpListener());
 		this.gui.setAboutTuxSimListener(new AboutTuxSimListener());
 		this.gui.getPortA().addMouseListener(new MouseAdapter() { //PortA
+			@Override
 			public void mouseClicked(MouseEvent e) {
 				int row = gui.getPortA().rowAtPoint(e.getPoint());
 				int column = gui.getPortA().columnAtPoint(e.getPoint());
@@ -146,6 +146,7 @@ public class MainController implements Runnable {
 			}
 		});
 		this.gui.getPortB().addMouseListener(new MouseAdapter() { //PortB
+			@Override
 			public void mouseClicked(MouseEvent e) {
 				int row = gui.getPortB().rowAtPoint(e.getPoint());
 				int column = gui.getPortB().columnAtPoint(e.getPoint());
@@ -155,6 +156,7 @@ public class MainController implements Runnable {
 			}
 		});
 		this.gui.getIntcon().addMouseListener(new MouseAdapter() {
+			@Override
 			public void mouseClicked(MouseEvent e) {
 				int column = gui.getIntcon().columnAtPoint(e.getPoint());
 				int bit = interna.getBitAtNoBank(0x0B,7-column);
@@ -175,6 +177,13 @@ public class MainController implements Runnable {
 		this.gui.setStopListener(new StopListener());
 		this.gui.setStepListener(new StepListener());
 		this.gui.setResetListener(new ResetListener());
+		this.gui.setComListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				if (e.getStateChange() == ItemEvent.SELECTED) {
+				} else {
+				}
+			}
+		});
 		
 	}
 	
@@ -281,6 +290,7 @@ public class MainController implements Runnable {
 	 *
 	 */
 	class OpenListener implements ActionListener {
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			reset(true); //Reset all, when new Programm is loaded
 			File file = of.openFile(gui.getParent());
@@ -300,6 +310,7 @@ public class MainController implements Runnable {
 	}
 	class HelpListener implements ActionListener
 	{
+		@Override
 		public void actionPerformed(ActionEvent e)
 		{
 			try {
@@ -312,6 +323,7 @@ public class MainController implements Runnable {
 	
 	class AboutTuxSimListener implements ActionListener
 	{
+		@Override
 		public void actionPerformed(ActionEvent e)
 		{
 			About a = new About();
@@ -325,6 +337,7 @@ public class MainController implements Runnable {
 	 */
 	class StartListener implements ActionListener,Runnable
 	{
+		@Override
 		public void actionPerformed(ActionEvent e)
 		{
 			initRunThread();	 
@@ -344,7 +357,7 @@ public class MainController implements Runnable {
 					}
 				});
 				try {
-					t2.sleep(100);
+					Thread.sleep(100);
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}
@@ -358,6 +371,7 @@ public class MainController implements Runnable {
 	 */
 	class StopListener implements ActionListener
 	{
+		@Override
 		public void actionPerformed(ActionEvent e)
 		{
 			stop=true;
@@ -370,6 +384,7 @@ public class MainController implements Runnable {
 	 */
 	class StepListener implements ActionListener
 	{
+		@Override
 		public void actionPerformed(ActionEvent e)
 		{
 			checkInterrupt();
@@ -387,6 +402,7 @@ public class MainController implements Runnable {
 	 */
 	class ResetListener implements ActionListener
 	{
+		@Override
 		public void actionPerformed(ActionEvent e)
 		{
 			reset(false);

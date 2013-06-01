@@ -2,10 +2,6 @@
 
 package de.tuxsim.controller;
 
-
-import de.tuxsim.controller.MainController.StartListener;
-import de.tuxsim.view.Mainview;
-
 /**
  * Main class starts the init Thread
  * @author tuxpad

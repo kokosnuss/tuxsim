@@ -3,10 +3,9 @@ package de.tuxsim.view;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.JTextPane;
-import javax.swing.JFormattedTextField;
+import javax.swing.WindowConstants;
 
 /**
  * About Frame of GUI
@@ -18,7 +17,7 @@ public class About extends JFrame {
 	public About() {
 		setResizable(false);
 		setTitle("About");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 400, 300);
 		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
