@@ -31,6 +31,7 @@ public class MainController implements Runnable {
 	private Instructions instructions;
 	private Interna interna;
 	private Interpreter interpreter;
+	private COMPort comport;
 	
 	private Thread t2;
 	
@@ -46,6 +47,7 @@ public class MainController implements Runnable {
 		this.interna = new Interna();
 		this.of = new OpenFile();
 		this.interpreter = new Interpreter(instructions, this);
+		this.comport = new COMPort();
 		
 	}
 
