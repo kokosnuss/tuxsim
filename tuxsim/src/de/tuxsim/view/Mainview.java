@@ -36,7 +36,6 @@ import javax.swing.JScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
-
 import javax.swing.JList;
 /**
  * GUI-Class, separated from Controller & Model
@@ -51,7 +50,7 @@ public class Mainview extends JFrame {
 	private JMenu mnFile = new JMenu("File");
 	private JMenuItem mntmOpen = new JMenuItem("Open");
 	private JMenu mnAbout = new JMenu("About");
-	private JMenuItem mntmHelp = new JMenuItem("Help");
+	private JMenuItem mntmHelp = new JMenuItem("Help(F1)");
 	private JMenuItem mntmAboutTuxsim = new JMenuItem("About TuxSim");
 	private JButton btnStart = new JButton("Start(F9)");
 	private JButton btnStop = new JButton("Stop(F10)");
@@ -444,6 +443,16 @@ public class Mainview extends JFrame {
 	public void setHelpListener(ActionListener l)
 	{
 		this.mntmHelp.addActionListener(l);
+		Action doHelp = new AbstractAction() {
+		    @Override
+			public void actionPerformed(ActionEvent e) {
+		    	mntmHelp.doClick();
+		    }
+		};
+		mntmHelp.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("F1"),
+		                            "doHelp");
+		mntmHelp.getActionMap().put("doHelp",
+		                             doHelp);
 	}
 	
 	public void setAboutTuxSimListener(ActionListener l)
@@ -455,11 +464,12 @@ public class Mainview extends JFrame {
 	{
 		this.btnStart.addActionListener(l);
 		Action doStart = new AbstractAction() {
-		    public void actionPerformed(ActionEvent e) {
+		    @Override
+			public void actionPerformed(ActionEvent e) {
 		        btnStart.doClick();
 		    }
 		};
-		btnStart.getInputMap(btnStart.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("F9"),
+		btnStart.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("F9"),
 		                            "doStart");
 		btnStart.getActionMap().put("doStart",
 		                             doStart);
@@ -469,11 +479,12 @@ public class Mainview extends JFrame {
 	{
 		this.btnStop.addActionListener(l);
 		Action doStop = new AbstractAction() {
-		    public void actionPerformed(ActionEvent e) {
+		    @Override
+			public void actionPerformed(ActionEvent e) {
 		    	btnStop.doClick();
 		    }
 		};
-		this.btnStop.getInputMap(btnStop.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("F10"),
+		this.btnStop.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("F10"),
 		                            "doStop");
 		this.btnStop.getActionMap().put("doStop",
 		                             doStop);
@@ -483,11 +494,12 @@ public class Mainview extends JFrame {
 	{
 		this.btnStep.addActionListener(l);
 		Action doStep = new AbstractAction() {
-		    public void actionPerformed(ActionEvent e) {
+		    @Override
+			public void actionPerformed(ActionEvent e) {
 		    	btnStep.doClick();
 		    }
 		};
-		btnStep.getInputMap(btnStep.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("F11"),
+		btnStep.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("F11"),
 		                            "doStep");
 		btnStep.getActionMap().put("doStep",
 		                             doStep);
@@ -497,11 +509,12 @@ public class Mainview extends JFrame {
 	{
 		this.btnReset.addActionListener(l);
 		Action doReset = new AbstractAction() {
-		    public void actionPerformed(ActionEvent e) {
+		    @Override
+			public void actionPerformed(ActionEvent e) {
 		    	btnReset.doClick();
 		    }
 		};
-		btnReset.getInputMap(btnReset.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("F12"),
+		btnReset.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("F12"),
 		                            "doReset");
 		btnReset.getActionMap().put("doReset",
 		                             doReset);
@@ -525,9 +538,18 @@ public class Mainview extends JFrame {
 		case "Z": 		return this.textPaneZ; 		
 		case "DC":		return this.textPaneDC;		
 		case "C":		return this.textPaneC; 	
+		default: 		return null;
 		}
-		return this.textPaneRA5;
 		}
+	public JButton getControllButtons(String button) {
+		switch (button) {
+		case "start" : return this.btnStart;
+		case "stop"  : return this.btnStop;
+		case "step"  : return this.btnStep;
+		case "reset" : return this.btnReset;
+		default: return null;
+		}
+	}
  
 	public DefaultListModel getListModel() 
 	{

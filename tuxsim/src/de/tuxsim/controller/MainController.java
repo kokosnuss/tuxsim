@@ -35,6 +35,9 @@ public class MainController implements Runnable {
 	private Thread t2;
 	
 	private int curInstruction;
+	/**
+	 * Boolean which is Stop-Condition for Start Thread
+	 */
 	private boolean stop = false;
 	public boolean isInterrupted = false;
 
@@ -178,6 +181,7 @@ public class MainController implements Runnable {
 		this.gui.setStepListener(new StepListener());
 		this.gui.setResetListener(new ResetListener());
 		this.gui.setComListener(new ItemListener() {
+			@Override
 			public void itemStateChanged(ItemEvent e) {
 				if (e.getStateChange() == ItemEvent.SELECTED) {
 				} else {
@@ -340,8 +344,13 @@ public class MainController implements Runnable {
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-			initRunThread();	 
+			
+			//if (t2 == null || !running) {
+			 initRunThread();
+			 gui.getControllButtons("start").setEnabled(false);
+			 gui.getControllButtons("step").setEnabled(false);
 			 t2.start();
+			//} else return; 
 		}
 
 		@Override
@@ -375,6 +384,8 @@ public class MainController implements Runnable {
 		public void actionPerformed(ActionEvent e)
 		{
 			stop=true;
+			 gui.getControllButtons("start").setEnabled(true);
+			 gui.getControllButtons("step").setEnabled(true);
 		}
 	}
 	/**
