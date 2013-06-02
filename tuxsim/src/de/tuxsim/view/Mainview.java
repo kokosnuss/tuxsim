@@ -53,10 +53,10 @@ public class Mainview extends JFrame {
 	private JMenu mnAbout = new JMenu("About");
 	private JMenuItem mntmHelp = new JMenuItem("Help");
 	private JMenuItem mntmAboutTuxsim = new JMenuItem("About TuxSim");
-	private JButton btnStart = new JButton("Start/F9");
-	private JButton btnStop = new JButton("Stop/F10");
-	private JButton btnStep = new JButton("Step/F11");
-	private JButton btnReset = new JButton("Reset/F12");
+	private JButton btnStart = new JButton("Start (F9)");
+	private JButton btnStop = new JButton("Stop (F10)");
+	private JButton btnStep = new JButton("Step (F11)");
+	private JButton btnReset = new JButton("Reset (F12)");
 	private JTextPane textPaneWreg = new JTextPane();
 	private JTextPane textPaneFSRreg = new JTextPane();
 	private JTextPane textPaneTMR0 = new JTextPane();
@@ -82,7 +82,7 @@ public class Mainview extends JFrame {
 
 		setResizable(false);
 		setTitle("TuxSim");
-		setIconImage(Toolkit.getDefaultToolkit().getImage("./tux.jpg"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("./tuxpic.png"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 600);
 		contentPane = new JPanel();
@@ -105,16 +105,15 @@ public class Mainview extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		//Start,Stop,Step, Reset Buttons
-		btnStart.setBounds(0, 5, 80, 25);
+		btnStart.setBounds(0, 5, 100, 25);
 		btnStart.setHorizontalAlignment(SwingConstants.LEFT);
 		btnStart.setFocusable(true);
-		btnStart.setFont(new Font("Dialog", 1, 10));
 		panel.add(btnStart);
-		btnStop.setBounds(85, 5, 80, 25);
+		btnStop.setBounds(110, 5, 100, 25);
 		panel.add(btnStop);
-		btnStep.setBounds(165, 5, 80, 25);
+		btnStep.setBounds(220, 5, 100, 25);
 		panel.add(btnStep);
-		btnReset.setBounds(240, 5, 80, 25);
+		btnReset.setBounds(330, 5, 100, 25);
 		panel.add(btnReset);
 		
 		//Source Code
@@ -262,6 +261,7 @@ public class Mainview extends JFrame {
 		JLabel lblTris_1 = new JLabel("Tris");
 		lblTris_1.setBounds(552, 222, 33, 15);
 		contentPane.add(lblTris_1);
+		chckbxHardwarecom.setEnabled(false);
 		
 		
 
