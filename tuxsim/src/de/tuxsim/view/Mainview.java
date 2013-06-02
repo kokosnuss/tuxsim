@@ -12,11 +12,16 @@ import javax.swing.JMenuItem;
 import javax.swing.SwingConstants;
 import javax.swing.JMenu;
 import java.awt.Component;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.GridLayout;
@@ -27,6 +32,8 @@ import javax.swing.UIManager;
 import javax.swing.JCheckBox;
 import java.awt.Font;
 import javax.swing.JScrollPane;
+
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 
@@ -46,10 +53,10 @@ public class Mainview extends JFrame {
 	private JMenu mnAbout = new JMenu("About");
 	private JMenuItem mntmHelp = new JMenuItem("Help");
 	private JMenuItem mntmAboutTuxsim = new JMenuItem("About TuxSim");
-	private JButton btnStart = new JButton("Start");
-	private JButton btnStop = new JButton("Stop");
-	private JButton btnStep = new JButton("Step");
-	private JButton btnReset = new JButton("Reset");
+	private JButton btnStart = new JButton("Start/F9");
+	private JButton btnStop = new JButton("Stop/F10");
+	private JButton btnStep = new JButton("Step/F11");
+	private JButton btnReset = new JButton("Reset/F12");
 	private JTextPane textPaneWreg = new JTextPane();
 	private JTextPane textPaneFSRreg = new JTextPane();
 	private JTextPane textPaneTMR0 = new JTextPane();
@@ -98,15 +105,16 @@ public class Mainview extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		//Start,Stop,Step, Reset Buttons
-		btnStart.setBounds(0, 5, 70, 25);
+		btnStart.setBounds(0, 5, 80, 25);
 		btnStart.setHorizontalAlignment(SwingConstants.LEFT);
 		btnStart.setFocusable(true);
+		btnStart.setFont(new Font("Dialog", 1, 10));
 		panel.add(btnStart);
-		btnStop.setBounds(82, 5, 67, 25);
+		btnStop.setBounds(85, 5, 80, 25);
 		panel.add(btnStop);
-		btnStep.setBounds(161, 5, 67, 25);
+		btnStep.setBounds(165, 5, 80, 25);
 		panel.add(btnStep);
-		btnReset.setBounds(240, 5, 75, 25);
+		btnReset.setBounds(240, 5, 80, 25);
 		panel.add(btnReset);
 		
 		//Source Code
@@ -447,21 +455,57 @@ public class Mainview extends JFrame {
 	public void setStartListener(ActionListener l) 
 	{
 		this.btnStart.addActionListener(l);
+		Action doStart = new AbstractAction() {
+		    public void actionPerformed(ActionEvent e) {
+		        btnStart.doClick();
+		    }
+		};
+		btnStart.getInputMap(btnStart.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("F9"),
+		                            "doStart");
+		btnStart.getActionMap().put("doStart",
+		                             doStart);
 	}
 	
 	public void setStopListener(ActionListener l)
 	{
 		this.btnStop.addActionListener(l);
+		Action doStop = new AbstractAction() {
+		    public void actionPerformed(ActionEvent e) {
+		    	btnStop.doClick();
+		    }
+		};
+		this.btnStop.getInputMap(btnStop.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("F10"),
+		                            "doStop");
+		this.btnStop.getActionMap().put("doStop",
+		                             doStop);
 	}
 	
 	public void setStepListener(ActionListener l)
 	{
 		this.btnStep.addActionListener(l);
+		Action doStep = new AbstractAction() {
+		    public void actionPerformed(ActionEvent e) {
+		    	btnStep.doClick();
+		    }
+		};
+		btnStep.getInputMap(btnStep.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("F11"),
+		                            "doStep");
+		btnStep.getActionMap().put("doStep",
+		                             doStep);
 	}
 	
 	public void setResetListener(ActionListener l)
 	{
 		this.btnReset.addActionListener(l);
+		Action doReset = new AbstractAction() {
+		    public void actionPerformed(ActionEvent e) {
+		    	btnReset.doClick();
+		    }
+		};
+		btnReset.getInputMap(btnReset.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("F12"),
+		                            "doReset");
+		btnReset.getActionMap().put("doReset",
+		                             doReset);
 	}
 	
 	public void setComListener(ItemListener l) {
