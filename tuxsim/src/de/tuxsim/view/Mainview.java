@@ -75,7 +75,7 @@ public class Mainview extends JFrame {
 
 		setResizable(false);
 		setTitle("TuxSim");
-		setIconImage(Toolkit.getDefaultToolkit().getImage("tux.jpg"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("./tux.jpg"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1000, 600);
 		contentPane = new JPanel();
