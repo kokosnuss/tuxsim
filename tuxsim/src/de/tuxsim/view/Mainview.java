@@ -53,10 +53,10 @@ public class Mainview extends JFrame {
 	private JMenu mnAbout = new JMenu("About");
 	private JMenuItem mntmHelp = new JMenuItem("Help");
 	private JMenuItem mntmAboutTuxsim = new JMenuItem("About TuxSim");
-	private JButton btnStart = new JButton("Start (F9)");
-	private JButton btnStop = new JButton("Stop (F10)");
-	private JButton btnStep = new JButton("Step (F11)");
-	private JButton btnReset = new JButton("Reset (F12)");
+	private JButton btnStart = new JButton("Start(F9)");
+	private JButton btnStop = new JButton("Stop(F10)");
+	private JButton btnStep = new JButton("Step(F11)");
+	private JButton btnReset = new JButton("Reset(F12)");
 	private JTextPane textPaneWreg = new JTextPane();
 	private JTextPane textPaneFSRreg = new JTextPane();
 	private JTextPane textPaneTMR0 = new JTextPane();
@@ -105,11 +105,10 @@ public class Mainview extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		//Start,Stop,Step, Reset Buttons
-		btnStart.setBounds(130, 5, 110, 25);
-		btnStart.setHorizontalAlignment(SwingConstants.LEFT);
+		btnStart.setBounds(0, 5, 110, 25);
 		btnStart.setFocusable(true);
 		panel.add(btnStart);
-		btnStop.setBounds(0, 5, 110, 25);
+		btnStop.setBounds(130, 5, 110, 25);
 		panel.add(btnStop);
 		btnStep.setBounds(260, 5, 110, 25);
 		panel.add(btnStep);
