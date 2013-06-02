@@ -105,15 +105,15 @@ public class Mainview extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		//Start,Stop,Step, Reset Buttons
-		btnStart.setBounds(0, 5, 100, 25);
+		btnStart.setBounds(130, 5, 110, 25);
 		btnStart.setHorizontalAlignment(SwingConstants.LEFT);
 		btnStart.setFocusable(true);
 		panel.add(btnStart);
-		btnStop.setBounds(110, 5, 100, 25);
+		btnStop.setBounds(0, 5, 110, 25);
 		panel.add(btnStop);
-		btnStep.setBounds(220, 5, 100, 25);
+		btnStep.setBounds(260, 5, 110, 25);
 		panel.add(btnStep);
-		btnReset.setBounds(330, 5, 100, 25);
+		btnReset.setBounds(390, 5, 110, 25);
 		panel.add(btnReset);
 		
 		//Source Code
