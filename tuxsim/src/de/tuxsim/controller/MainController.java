@@ -314,7 +314,7 @@ public class MainController implements Runnable {
 		public void actionPerformed(ActionEvent e)
 		{
 			try {
-				Desktop.getDesktop().open(new File("Datenblatt.pdf"));
+				Desktop.getDesktop().open(new File("doku/TuxSim_Doku.pdf"));
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}

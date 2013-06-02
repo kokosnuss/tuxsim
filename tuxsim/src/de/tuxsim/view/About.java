@@ -25,7 +25,10 @@ public class About extends JFrame {
 		contentPane.setLayout(null);
 		
 		JTextPane txtPnTuxSim = new JTextPane();
-		txtPnTuxSim.setText("TuxSim v1.0\n\nA lightweight Java-Simulator for the PIC16F84 Processor.\n\n\n\n© 2013 by Karolin Edigkaufer, Lukas Essig");
+		txtPnTuxSim.setText("TuxSim v1.0\n\n" +
+				"A lightweight Java-Simulator for the PIC16F84 Processor.\n\n " +
+				
+				"\n\n© 2013 by Karolin Edigkaufer, Lukas Essig");
 		
 		txtPnTuxSim.setBackground(UIManager.getColor("Button.background"));
 		txtPnTuxSim.setEditable(false);
