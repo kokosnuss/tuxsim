@@ -206,9 +206,10 @@ public class MainController implements Runnable {
 	 */
 	public void checkInterrupt() {
 		if (interna.getInterrupt() && !isInterrupted) {
-			isInterrupted = true;
+//			isInterrupted = true;
 			this.getInterna().getPcstack().push(this.getPC());
 			this.setPC(0x4-1);
+			interna.clearBitAt(0xb, 7);
 		}
 	}
 	/**
