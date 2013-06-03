@@ -366,7 +366,7 @@ public class MainController implements Runnable {
 					}
 				});
 				try {
-					Thread.sleep(100);
+					Thread.sleep(gui.getSliderValue());
 				} catch (InterruptedException e1) {
 					e1.printStackTrace();
 				}

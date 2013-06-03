@@ -37,6 +37,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
 import javax.swing.JList;
+import javax.swing.JSlider;
 /**
  * GUI-Class, separated from Controller & Model
  * @author tuxpad
@@ -75,6 +76,7 @@ public class Mainview extends JFrame {
 	private JTable PortB;
 	private final JTable PortA = new JTable();
 	private JTable intcon;
+	JSlider sleepSlider = new JSlider();
 	
 	
 	public Mainview() {
@@ -264,7 +266,7 @@ public class Mainview extends JFrame {
 		
 
 		chckbxHardwarecom.setFont(new Font("Dialog", Font.BOLD, 12));
-		chckbxHardwarecom.setBounds(842, 42, 146, 23);
+		chckbxHardwarecom.setBounds(848, 538, 146, 23);
 		contentPane.add(chckbxHardwarecom);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
@@ -424,6 +426,20 @@ public class Mainview extends JFrame {
 				return false;
 			}
 		});
+		
+		sleepSlider.setMinimum(20);
+		sleepSlider.setMaximum(500);
+		sleepSlider.setValue(100);
+		sleepSlider.setBounds(809, 53, 167, 16);
+		contentPane.add(sleepSlider);
+		
+		JLabel lblSchnell = new JLabel("Schnell");
+		lblSchnell.setBounds(814, 33, 70, 15);
+		contentPane.add(lblSchnell);
+		
+		JLabel lblLangsam = new JLabel("Langsam");
+		lblLangsam.setBounds(914, 33, 70, 15);
+		contentPane.add(lblLangsam);
 		intcon.getColumnModel().getColumn(0).setResizable(false);
 		intcon.getColumnModel().getColumn(1).setResizable(false);
 		intcon.getColumnModel().getColumn(2).setResizable(false);
@@ -574,6 +590,9 @@ public class Mainview extends JFrame {
 	}
 	public JTable getIntcon() {
 		return intcon;
+	}
+	public int getSliderValue() {
+		return this.sleepSlider.getValue();
 	}
 
 }
